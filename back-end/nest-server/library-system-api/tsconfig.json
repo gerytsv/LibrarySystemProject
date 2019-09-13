@@ -1,15 +1,21 @@
 {
   "compilerOptions": {
+    "target": "es2015",
     "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es2017",
-    "sourceMap": true,
+    "noEmitOnError": true,
+    "lib": ["es2018", "dom"],
     "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true
-  },
-  "exclude": ["node_modules", "dist"]
+    "esModuleInterop": true,
+    "strictNullChecks": false,
+    "noImplicitAny": true,
+
+    "strict": true,
+    "strictPropertyInitialization": false,
+
+    "inlineSourceMap": true,
+    "inlineSources": true,
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
 }
