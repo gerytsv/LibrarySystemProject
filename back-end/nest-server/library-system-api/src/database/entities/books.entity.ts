@@ -2,16 +2,16 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('books')
 export class Book {
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn('increment')
     public id: string;
 
-    @Column()
+    @Column({default: ''})
     public title: string;
 
-    @Column()
+    @Column({default: ''})
     public author: string;
 
-    @Column()
+    @Column({default: ''})
     public year: string;
 
     @Column({type: 'boolean', default: false})
