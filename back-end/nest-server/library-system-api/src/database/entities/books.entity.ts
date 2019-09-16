@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('books')
-export class Todo {
+export class Book {
     @PrimaryGeneratedColumn('uuid')
     public id: string;
 
