@@ -1,5 +1,9 @@
 import { CreateBookDTO } from './models/create-book.dto';
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from '../database/entities/books.entity';
 import { Repository } from 'typeorm';
