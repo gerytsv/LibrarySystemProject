@@ -15,7 +15,7 @@ export class BooksService {
   public async allBooks(withDeleted: boolean = false): Promise<BookDTO[]> {
     return (await withDeleted)
       ? this.booksRepository.find({ isDeleted: true })
-      : this.booksRepository.find({ isDeletes: false });
+      : this.booksRepository.find({ isDeleted: false });
   }
 
   public async createBook(book: CreateBookDTO): Promise<BookDTO> {
