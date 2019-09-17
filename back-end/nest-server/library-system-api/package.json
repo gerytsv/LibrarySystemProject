@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@hapi/joi": "^16.0.0",
     "@nestjs/common": "^6.6.3",
     "@nestjs/core": "^6.6.3",
     "@nestjs/platform-express": "6.6.3",
@@ -30,9 +31,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^2.6.2",
     "rxjs": "^6.5.3",
-    "typeorm": "^0.2.19",
-    "@types/dotenv": "^6.1.1",
-    "@types/hapi__joi": "^15.0.4"
+    "typeorm": "^0.2.19"
   },
   "devDependencies": {
     "@nestjs/testing": "6.6.3",
@@ -41,6 +40,8 @@
     "@types/node": "11.13.4",
     "@types/supertest": "2.0.7",
     "@types/uuid": "^3.4.5",
+    "@types/dotenv": "^6.1.1",
+    "@types/hapi__joi": "^15.0.4",
     "jest": "24.7.1",
     "prettier": "1.17.0",
     "supertest": "4.0.2",
