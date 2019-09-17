@@ -14,9 +14,9 @@ export class Book {
     @Column({default: ''})
     public year: string;
 
-    @Column({type: 'boolean', default: false})
-    public freeToBorrow: boolean;
+  @Column({ type: 'boolean', default: false })
+  public freeToBorrow: boolean;
 
-    @Column({type: 'boolean', default: false})
-    public isDeleted: boolean;
+  @Column({ type: 'boolean', default: false })
+  public isDeleted: boolean;
 }
