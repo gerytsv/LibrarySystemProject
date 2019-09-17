@@ -9,7 +9,7 @@ export class BooksController {
 
     @Get()
     @HttpCode(HttpStatus.OK)
-    public async allTodos(@Query('title') title: string): Promise<BookDTO[]> {
+    public async allBooks(@Query('title') title: string): Promise<BookDTO[]> {
         const books: BookDTO[] = await this.booksService.allBooks();
 
         if (title) {
