@@ -1,9 +1,9 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BookDTO } from '../models/book.dto';
+import { BookDTO } from './models/book.dto';
 import { Book } from '../database/entities/books.entity';
-import { CreateBookDTO } from '../models/create-book.dto';
+import { CreateBookDTO } from './models/create-book.dto';
 
 @Injectable()
 export class BooksService {
