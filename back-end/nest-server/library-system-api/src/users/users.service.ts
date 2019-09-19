@@ -21,7 +21,7 @@ export class UsersService {
     public async createUser(body: CreateUserDTO): Promise<ShowUserDTO> {
 
         const username = body.username;
-        const hashedPassword = bcrypt.hash(body.password, 10);
+        const hashedPassword = await bcrypt.hash(body.password, 10);
 
         // tslint:disable-next-line: object-literal-shorthand
         const user = {username: username , password: hashedPassword, roles: await this.rolesRepository.find({where: {name: 'Basic'}})};
