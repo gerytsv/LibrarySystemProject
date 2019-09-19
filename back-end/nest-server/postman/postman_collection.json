@@ -6,21 +6,21 @@
   },
   "item": [
     {
-      "name": "1. GET /books - Success",
+      "name": "1. GET /api/books - Success",
       "request": {
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:3000/books",
+          "raw": "localhost:3000/api/books",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["books"]
+          "path": ["api/books"]
         }
       },
       "response": []
     },
     {
-      "name": "2. POST /books - Success",
+      "name": "2. POST /api/books - Success",
       "request": {
         "method": "POST",
         "header": [
@@ -36,16 +36,16 @@
           "raw": " {\r\n    \"title\": \"The secret garden\",\r\n    \"author\": \"Frances Hodgson Burnett\",\r\n    \"year\": \"1911\"\r\n}"
         },
         "url": {
-          "raw": "localhost:3000/books",
+          "raw": "localhost:3000/api/books",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["books"]
+          "path": ["api/books"]
         }
       },
       "response": []
     },
     {
-      "name": "2. POST /books - Invalid Todo Name",
+      "name": "2. POST /api/books - Invalid Todo Name",
       "request": {
         "method": "POST",
         "header": [
@@ -61,16 +61,16 @@
           "raw": "{\r\n    \"author\": \"Frances Hodgson Burnett\",\r\n    \"year\": \"1911\"\r\n}"
         },
         "url": {
-          "raw": "localhost:3000/books",
+          "raw": "localhost:3000/api/books",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["books"]
+          "path": ["api/books"]
         }
       },
       "response": []
     },
     {
-      "name": "2. POST /books - Invalid Book Author",
+      "name": "2. POST /api/books - Invalid Book Author",
       "request": {
         "method": "POST",
         "header": [
@@ -86,16 +86,16 @@
           "raw": " {\r\n    \"title\": \"The secret garden\",\r\n    \"year\": \"1911\"\r\n}"
         },
         "url": {
-          "raw": "localhost:3000/books",
+          "raw": "localhost:3000/api/books",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["books"]
+          "path": ["api/books"]
         }
       },
       "response": []
     },
     {
-      "name": "3. PUT /books/:id - Success",
+      "name": "3. PUT /books/api/:id - Success",
       "request": {
         "method": "PUT",
         "header": [
@@ -111,16 +111,16 @@
           "raw": "{\r\n    \"title\": \"The secret garden\",\r\n    \"year\": \"1911\"\r\n}"
         },
         "url": {
-          "raw": "localhost:3000/books/1",
+          "raw": "localhost:3000/api/books/1",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["books", "1"]
+          "path": ["api/books", "1"]
         }
       },
       "response": []
     },
     {
-      "name": "3. PUT /books/:id - Not Found",
+      "name": "3. PUT /books/api/:id - Not Found",
       "request": {
         "method": "PUT",
         "header": [
@@ -136,16 +136,16 @@
           "raw": "{\r\n    \"isDeleted\": true\r\n}"
         },
         "url": {
-          "raw": "localhost:3000/books/-1",
+          "raw": "localhost:3000/api/books/-1",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["books", "-1"]
+          "path": ["api/books", "-1"]
         }
       },
       "response": []
     },
     {
-      "name": "4. DELETE /books/:id - Success",
+      "name": "4. DELETE /api/books/:id - Success",
       "request": {
         "method": "DELETE",
         "header": [
@@ -157,16 +157,16 @@
           }
         ],
         "url": {
-          "raw": "localhost:3000/books/1",
+          "raw": "localhost:3000/api/books/1",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["books", "1"]
+          "path": ["api/books", "1"]
         }
       },
       "response": []
     },
     {
-      "name": "4. DELETE /books/:id - Not Found",
+      "name": "4. DELETE /api/books/:id - Not Found",
       "request": {
         "method": "DELETE",
         "header": [
@@ -178,21 +178,21 @@
           }
         ],
         "url": {
-          "raw": "localhost:3000/books/-1",
+          "raw": "localhost:3000/api/books/-1",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["books", "-1"]
+          "path": ["api/books", "-1"]
         }
       },
       "response": []
     },
     {
-      "name": "5. GET / - Success",
+      "name": "5. GET /api/ - Success",
       "request": {
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:3000/",
+          "raw": "localhost:3000/api/",
           "host": ["localhost"],
           "port": "3000",
           "path": [""]
@@ -201,15 +201,15 @@
       "response": []
     },
     {
-      "name": "6. GET /books?title=... - Success",
+      "name": "6. GET /api/books?title=... - Success",
       "request": {
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "localhost:3000/books?title=The secret garden",
+          "raw": "localhost:3000/api/books?title=The secret garden",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["books"],
+          "path": ["api/books"],
           "query": [
             {
               "key": "title",
@@ -221,7 +221,42 @@
       "response": []
     },
     {
-      "name": "7. POST /users - Success",
+      "name": "7. GET /api/users - Success",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:3000/api/users",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api/users"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "7. GET /api/users/:id - User Does Not Exist",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "localhost:3000/api/users/-1",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api/users", "-1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "8. POST /api/users - Success",
       "request": {
         "method": "POST",
         "header": [
@@ -237,35 +272,10 @@
           "raw": "{\n\t\"username\": \"Unicorn\",\n\t\"password\": \"123\"\n}"
         },
         "url": {
-          "raw": "localhost:3000/users",
+          "raw": "localhost:3000/api/users",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["users"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "7. POST /users - User Does Not Exist",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": " {\n\t\"username\": \"UnicornsDontExist\",\n\t\"password\": \"test\"\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/users",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["users"]
+          "path": ["api/users"]
         }
       },
       "response": []
