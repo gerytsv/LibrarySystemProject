@@ -12,51 +12,57 @@ import bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
-    public constructor(
-        @InjectRepository(User) private readonly userRepository: Repository<User>,
-        @InjectRepository(Role) private readonly rolesRepository: Repository<Role>,
-    ) {
-    }
+  public constructor(
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(Role) private readonly rolesRepository: Repository<Role>,
+  ) {}
 
-    public async createUser(body: CreateUserDTO): Promise<ShowUserDTO> {
+  public async createUser(body: CreateUserDTO): Promise<ShowUserDTO> {
+    const username = body.username;
+    const hashedPassword = await bcrypt.hash(body.password, 10);
 
-        const username = body.username;
-        const hashedPassword = bcrypt.hash(body.password, 10);
+    // tslint:disable-next-line: object-literal-shorthand
+    const user = {
+      username,
+      password: hashedPassword,
+      roles: await this.rolesRepository.find({ where: { name: 'Basic' } }),
+    };
 
-        // tslint:disable-next-line: object-literal-shorthand
-        const user = {username: username , password: hashedPassword, roles: await this.rolesRepository.find({where: {name: 'Basic'}})};
+    const userEntity = this.userRepository.create(user);
+    const savedUser = await this.userRepository.save(userEntity);
+    return {
+      id: savedUser.id,
+      username: savedUser.username,
+      roles: savedUser.roles,
+    };
+  }
 
-        const userEntity = this.userRepository.create(user);
-        const savedUser = await this.userRepository.save(userEntity);
-        return {
-            id: savedUser.id,
-            username: savedUser.username,
-            roles: savedUser.roles
-        };
-    }
+  public async updateUserRoles(
+    body: UpdateUserRoleDTO,
+    id: string,
+  ): Promise<ShowUserDTO> {
+    // tslint:disable-next-line: prefer-const
+    let validRoles: Role[] = [];
+    let roleToPush: Role;
 
-    public async updateUserRoles(body: UpdateUserRoleDTO, id: string): Promise<ShowUserDTO> {
-        // tslint:disable-next-line: prefer-const
-        let validRoles: Role[] = [];
-        let roleToPush: Role;
+    body.roles.forEach(async (role: string) => {
+      roleToPush = await this.rolesRepository.findOne({
+        where: { name: role },
+      });
+      if (roleToPush !== null) {
+        validRoles.push(roleToPush);
+      }
+    });
+    // tslint:disable-next-line: object-literal-shorthand
+    const user = await this.userRepository.findOne({ where: { id: id } });
+    user.roles = validRoles;
+    const createdUser = this.userRepository.create(user);
+    const savedUser = await this.userRepository.save(createdUser);
 
-        body.roles.forEach(async (role: string) => {
-            roleToPush = await this.rolesRepository.findOne({where: {name: role}});
-            if (roleToPush !== null) {
-                validRoles.push(roleToPush);
-            }
-        });
-        // tslint:disable-next-line: object-literal-shorthand
-        const user = await this.userRepository.findOne({where: {id: id}});
-        user.roles =  validRoles;
-        const createdUser = this.userRepository.create(user);
-        const savedUser = await this.userRepository.save(createdUser);
-
-        return {
-            id: savedUser.id,
-            username: savedUser.username,
-            roles: savedUser.roles
-        };
-
-    }
+    return {
+      id: savedUser.id,
+      username: savedUser.username,
+      roles: savedUser.roles,
+    };
+  }
 }
