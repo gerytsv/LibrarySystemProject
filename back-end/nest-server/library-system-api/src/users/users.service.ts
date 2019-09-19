@@ -30,6 +30,7 @@ export class UsersService {
       roles: [
         await this.rolesRepository.findOne({ where: { name: UserRole.Basic } }),
       ],
+      reviews: await Promise.resolve([])
     };
 
     const userEntity = this.userRepository.create(user);
