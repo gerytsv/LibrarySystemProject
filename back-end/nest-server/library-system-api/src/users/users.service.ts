@@ -7,8 +7,7 @@ import { Role } from '../database/entities/roles.entity';
 import { UserRole } from './enums/user-roles.enum';
 import { UpdateUserRoleDTO } from './models/update-user-role.dto';
 import { ShowUserDTO } from './models/show-user.dto';
-import { string } from '@hapi/joi';
-import * as bcrypt from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
@@ -25,11 +24,12 @@ export class UsersService {
     const username = body.username;
     const hashedPassword = await bcrypt.hash(body.password, 10);
 
-    // tslint:disable-next-line: object-literal-shorthand
     const user = {
       username,
       password: hashedPassword,
-      roles: await this.rolesRepository.find({ where: { name: 'Basic' } }),
+      roles: [
+        await this.rolesRepository.findOne({ where: { name: UserRole.Basic } }),
+      ],
     };
 
     const userEntity = this.userRepository.create(user);
@@ -37,7 +37,7 @@ export class UsersService {
     return {
       id: savedUser.id,
       username: savedUser.username,
-      roles: savedUser.roles,
+      roles: savedUser.roles.map(role => role.name),
     };
   }
 
@@ -66,7 +66,7 @@ export class UsersService {
     return {
       id: savedUser.id,
       username: savedUser.username,
-      roles: savedUser.roles,
+      roles: savedUser.roles.map(role => role.name),
     };
   }
 }
