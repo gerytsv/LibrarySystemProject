@@ -8,7 +8,7 @@ import { UserRole } from './enums/user-roles.enum';
 import { UpdateUserRoleDTO } from './models/update-user-role.dto';
 import { ShowUserDTO } from './models/show-user.dto';
 import { string } from '@hapi/joi';
-import bcrypt from 'bcryptjs';
+// import bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
@@ -19,12 +19,12 @@ export class UsersService {
 
   public async createUser(body: CreateUserDTO): Promise<ShowUserDTO> {
     const username = body.username;
-    const hashedPassword = await bcrypt.hash(body.password, 10);
+    // const hashedPassword = await bcrypt.hash(body.password, 10);
 
     // tslint:disable-next-line: object-literal-shorthand
     const user = {
       username,
-      password: hashedPassword,
+      password: '1223',
       roles: await this.rolesRepository.find({ where: { name: 'Basic' } }),
     };
 
