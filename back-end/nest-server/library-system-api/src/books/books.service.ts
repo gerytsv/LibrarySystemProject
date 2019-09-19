@@ -27,17 +27,14 @@ export class BooksService {
     return await this.booksRepository.save(book);
   }
 
-  public async borrowBook(
-    id: string,
-    updatedBook: BorrowBookDTO,
-  ): Promise<BookDTO> {
+  public async borrowBook(id: string, update: BorrowBookDTO): Promise<BookDTO> {
     const oldBook: Book = await this.findBookById(id);
-    const bookToUpdate: Book = { ...oldBook, ...updatedBook };
+    const updatedBook: Book = { ...oldBook, ...update };
 
     console.log('Borrowed book:');
-    console.log(bookToUpdate);
+    console.log(updatedBook);
 
-    return this.booksRepository.save(bookToUpdate);
+    return this.booksRepository.save(updatedBook);
   }
 
   public async findBookById(bookId: string): Promise<BookDTO> {
