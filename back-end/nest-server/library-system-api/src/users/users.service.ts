@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../database/entities/users.entity';
 import { Repository } from 'typeorm';
-import * as passwordHash from 'password-hash';
 import { CreateUserDTO } from './models/create-user.dto';
 import { Role } from '../database/entities/roles.entity';
 import { UserRole } from './enums/user-roles.enum';
 import { UpdateUserRoleDTO } from './models/update-user-role.dto';
 import { ShowUserDTO } from './models/show-user.dto';
 import { string } from '@hapi/joi';
+import bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
@@ -21,7 +21,7 @@ export class UsersService {
     public async createUser(body: CreateUserDTO): Promise<ShowUserDTO> {
 
         const username = body.username;
-        const hashedPassword = passwordHash.generate(body.password);
+        const hashedPassword = bcrypt.hash(body.password, 10);
 
         // tslint:disable-next-line: object-literal-shorthand
         const user = {username: username , password: hashedPassword, roles: await this.rolesRepository.find({where: {name: 'Basic'}})};
