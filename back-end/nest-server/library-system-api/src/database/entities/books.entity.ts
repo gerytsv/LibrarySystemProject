@@ -3,7 +3,7 @@ import { Review } from './reviews.entity';
 
 @Entity('books')
 export class Book {
-    @PrimaryGeneratedColumn('increment')
+    @PrimaryGeneratedColumn('uuid')
     public id: string;
 
     @Column({default: ''})

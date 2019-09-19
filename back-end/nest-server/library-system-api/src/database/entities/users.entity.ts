@@ -4,7 +4,7 @@ import { Review } from './reviews.entity';
 
 @Entity('users')
 export class User {
-    @PrimaryGeneratedColumn('increment')
+    @PrimaryGeneratedColumn('uuid')
     public id: string;
 
     @Column({type : 'nvarchar', length: 30, unique: true})
