@@ -35,5 +35,5 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # .config files
-library-system-api/ormconfig.json
-library-system-api/.env
+ormconfig.json
+.env
