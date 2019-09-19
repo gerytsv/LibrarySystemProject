@@ -22,6 +22,7 @@ const main = async () => {
   firstAdmin.username = 'John',
   firstAdmin.password = 'test';
   firstAdmin.roles = await Promise.resolve([adminRole, basicRole]);
+  firstAdmin.reviews = await Promise.resolve([]);
 
   userRepo.create(firstAdmin);
   await userRepo.save(firstAdmin);
