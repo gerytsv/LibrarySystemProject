@@ -1,3 +1,5 @@
+import { Review } from '../../database/entities/reviews.entity';
+
 export class BookDTO {
   public id: string;
 
@@ -10,4 +12,6 @@ export class BookDTO {
   public freeToBorrow: boolean;
 
   public isDeleted: boolean;
+
+  public reviews: Review[];
 }

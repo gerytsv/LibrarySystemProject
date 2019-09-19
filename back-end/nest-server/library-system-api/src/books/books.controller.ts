@@ -1,3 +1,5 @@
+import { BorrowBookDTO } from './models/borrow-book.dto';
+import { ResponseMessageDTO } from './models/response-message.dto';
 import {
   Controller,
   Get,
@@ -6,6 +8,8 @@ import {
   Query,
   Post,
   Body,
+  Put,
+  Param,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { BookDTO } from './models/book.dto';
@@ -32,8 +36,17 @@ export class BooksController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   public addNewBook(@Body() body: CreateBookDTO): { msg: string } {
-    console.log(body);
     this.booksService.createBook(body);
     return { msg: 'Book Added!' };
+  }
+
+  @Put('/:id')
+  @HttpCode(HttpStatus.OK)
+  public async borrowBook(
+    @Param('id') bookId: string,
+    @Body() body: BorrowBookDTO,
+  ): Promise<ResponseMessageDTO> {
+    await this.booksService.borrowBook(bookId, body);
+    return { msg: 'Book borrowed!' };
   }
 }
