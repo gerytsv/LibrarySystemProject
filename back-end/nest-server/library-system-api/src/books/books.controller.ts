@@ -14,6 +14,7 @@ import {
 import { BooksService } from './books.service';
 import { BookDTO } from './models/book.dto';
 import { CreateBookDTO } from './models/create-book.dto';
+import { ShowBookDTO } from './models/show-book.dto';
 
 @Controller('api/books')
 export class BooksController {
@@ -21,13 +22,13 @@ export class BooksController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  public async allBooks(): Promise<BookDTO[]> {
+  public async allBooks(): Promise<ShowBookDTO[]> {
     return await this.booksService.allBooks();
   }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  public async bookById(@Param('id') bookId: string): Promise<BookDTO> {
+  public async bookById(@Param('id') bookId: string): Promise<ShowBookDTO> {
     if (bookId) {
       return await this.booksService.findBookById(bookId);
     }

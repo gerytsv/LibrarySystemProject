@@ -9,25 +9,40 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BookDTO } from './models/book.dto';
 import { CreateBookDTO } from './models/create-book.dto';
+import { ShowBookDTO } from './models/show-book.dto';
 
 @Injectable()
 export class BooksService {
   public constructor(
     @InjectRepository(Book)
-    private readonly booksRepository: Repository<BookDTO>,
+    private readonly booksRepository: Repository<Book>,
   ) {}
 
-  public async allBooks(): Promise<BookDTO[]> {
-    return await this.booksRepository.find({ where: { isDeleted: false } });
+  public async allBooks(): Promise<ShowBookDTO[]> {
+    const books: Book[] = await this.booksRepository.find({
+      where: { isDeleted: false },
+    });
+    const returnObject: ShowBookDTO[] = books.map(book => ({
+      id: book.id,
+      title: book.title,
+      author: book.author,
+      year: book.year,
+      freeToBorrow: book.freeToBorrow,
+    }));
+    return returnObject;
   }
 
-  public async createBook(book: CreateBookDTO): Promise<BookDTO> {
+  public async createBook(book: CreateBookDTO): Promise<ShowBookDTO> {
+    // const createdBook = this.booksRepository.create(book);
     return await this.booksRepository.save(book);
   }
 
-  public async borrowBook(id: string, update: BorrowBookDTO): Promise<BookDTO> {
-    const oldBook: Book = await this.findBookById(id);
-    const updatedBook: Book = { ...oldBook, ...update };
+  public async borrowBook(
+    id: string,
+    update: BorrowBookDTO,
+  ): Promise<ShowBookDTO> {
+    const oldBook: ShowBookDTO = await this.findBookById(id);
+    const updatedBook: ShowBookDTO = { ...oldBook, ...update };
 
     console.log('Borrowed book:');
     console.log(updatedBook);
@@ -35,12 +50,21 @@ export class BooksService {
     return this.booksRepository.save(updatedBook);
   }
 
-  public async findBookById(bookId: string): Promise<BookDTO> {
+  public async findBookById(bookId: string): Promise<ShowBookDTO> {
     const foundBook: Book = await this.booksRepository.findOne({ id: bookId });
+    console.log(foundBook);
     if (foundBook === undefined || foundBook.isDeleted) {
       throw new NotFoundException(`No book with id ${bookId} found.`);
     }
-    return foundBook;
+    const bookToReturn: ShowBookDTO = {
+      id: foundBook.id,
+      title: foundBook.title,
+      author: foundBook.author,
+      year: foundBook.year,
+      freeToBorrow: foundBook.freeToBorrow,
+    };
+    console.log(bookToReturn);
+    return bookToReturn;
   }
 
   /*
