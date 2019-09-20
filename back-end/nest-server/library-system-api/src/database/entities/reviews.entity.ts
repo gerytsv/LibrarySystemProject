@@ -10,6 +10,12 @@ export class Review {
     @Column('nvarchar', { default: '' } )
     public content: string;
 
+    @Column('int', { default: 0 })
+    public likes: number;
+
+    @Column('int', { default: 0 })
+    public flags: number;
+
     @ManyToOne(type => User, user => user.reviews)
     public user: Promise<User>;
 
