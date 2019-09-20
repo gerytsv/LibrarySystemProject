@@ -21,18 +21,17 @@ export class BooksController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  public async allBooks(@Query('title') title: string): Promise<BookDTO[]> {
-    const books: BookDTO[] = await this.booksService.allBooks();
-
-    if (title) {
-      return books.filter(todo =>
-        todo.title.toLowerCase().includes(title.toLowerCase()),
-      );
-    }
-
-    return books;
+  public async allBooks(): Promise<BookDTO[]> {
+    return await this.booksService.allBooks();
   }
 
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  public async bookById(@Param('id') bookId: string): Promise<BookDTO> {
+    if (bookId) {
+      return await this.booksService.findBookById(bookId);
+    }
+  }
   @Post()
   @HttpCode(HttpStatus.CREATED)
   public addNewBook(@Body() body: CreateBookDTO): { msg: string } {
@@ -40,7 +39,7 @@ export class BooksController {
     return { msg: 'Book Added!' };
   }
 
-  @Put('/:id')
+  @Put(':id')
   @HttpCode(HttpStatus.OK)
   public async borrowBook(
     @Param('id') bookId: string,
@@ -49,4 +48,16 @@ export class BooksController {
     await this.booksService.borrowBook(bookId, body);
     return { msg: 'Book borrowed!' };
   }
+
+  /*
+    @Delete(':id')
+  async delete(@Param('id') id: string): Promise<{message: string}> {
+
+    await this.bookService.delete(id);
+
+    return {
+      message: `Book deleted!`,
+    };
+  }
+  */
 }
