@@ -20,6 +20,20 @@
       "response": []
     },
     {
+      "name": "1. GET /api/books/:id - Success",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:3000/api/books/1",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api/books", "1"]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "2. POST /api/books - Success",
       "request": {
         "method": "POST",
