@@ -15,6 +15,7 @@ import { BooksService } from './books.service';
 import { BookDTO } from './models/book.dto';
 import { CreateBookDTO } from './models/create-book.dto';
 import { ShowBookDTO } from './models/show-book.dto';
+import { Book } from '../database/entities/books.entity';
 
 @Controller('api/books')
 export class BooksController {
@@ -29,10 +30,19 @@ export class BooksController {
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   public async bookById(@Param('id') bookId: string): Promise<ShowBookDTO> {
+    let book: ShowBookDTO;
     if (bookId) {
-      return await this.booksService.findBookById(bookId);
+      book = await this.booksService.findBookById(bookId);
     }
+    return {
+      id: book.id,
+      title: book.title,
+      author: book.author,
+      year: book.year,
+      freeToBorrow: book.freeToBorrow,
+    };
   }
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
   public addNewBook(@Body() body: CreateBookDTO): { msg: string } {
@@ -42,12 +52,12 @@ export class BooksController {
 
   @Put(':id')
   @HttpCode(HttpStatus.OK)
-  public async borrowBook(
+  public async updateBookBorrowing(
     @Param('id') bookId: string,
     @Body() body: BorrowBookDTO,
   ): Promise<ResponseMessageDTO> {
     await this.booksService.borrowBook(bookId, body);
-    return { msg: 'Book borrowed!' };
+    return { msg: 'Book \'isBorrowed\' state changed.' };
   }
 
   /*

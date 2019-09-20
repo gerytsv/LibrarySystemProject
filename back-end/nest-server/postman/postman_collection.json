@@ -58,31 +58,7 @@
       },
       "response": []
     },
-    {
-      "name": "2. POST /api/books - Invalid Todo Name",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"author\": \"Frances Hodgson Burnett\",\r\n    \"year\": \"1911\"\r\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/api/books",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/books"]
-        }
-      },
-      "response": []
-    },
+
     {
       "name": "2. POST /api/books - Invalid Book Author",
       "request": {
@@ -109,7 +85,7 @@
       "response": []
     },
     {
-      "name": "3. PUT /books/api/:id - Success",
+      "name": "3. PUT /books/api/:id - Borrow - Success",
       "request": {
         "method": "PUT",
         "header": [
@@ -123,6 +99,31 @@
         "body": {
           "mode": "raw",
           "raw": "{\r\n    \"freeToBorrow\": false\r\n}"
+        },
+        "url": {
+          "raw": "localhost:3000/api/books/1",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api/books", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "3. PUT /books/api/:id - Un-borrow - Success",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"freeToBorrow\": true\r\n}"
         },
         "url": {
           "raw": "localhost:3000/api/books/1",
