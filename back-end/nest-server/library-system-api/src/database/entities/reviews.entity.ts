@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
 import { User } from './users.entity';
 import { Book } from './books.entity';
 
@@ -15,6 +15,9 @@ export class Review {
 
     @Column('int', { default: 0 })
     public flags: number;
+
+    @Column({ type: 'boolean', default: false })
+    public isDeleted: boolean;
 
     @ManyToOne(type => User, user => user.reviews)
     public user: Promise<User>;

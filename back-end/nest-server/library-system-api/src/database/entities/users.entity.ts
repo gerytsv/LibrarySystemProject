@@ -27,4 +27,7 @@ export class User {
 
     @OneToMany(type => Book, book => book.borrowedBy)
     public borrowedBooks: Promise<Book[]>;
+
+    @Column({ type: 'boolean', default: false })
+    public isDeleted: boolean;
 }
