@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { Role } from './roles.entity';
 import { Review } from './reviews.entity';
+import { Book } from './books.entity';
 
 @Entity('users')
 export class User {
@@ -20,4 +21,6 @@ export class User {
     @OneToMany(type => Review, review => review.user)
     public reviews: Review[];
 
+    @OneToMany(type => Book, book => book.borrowedBy)
+    public borrowedBooks: Promise<Book[]>;
 }
