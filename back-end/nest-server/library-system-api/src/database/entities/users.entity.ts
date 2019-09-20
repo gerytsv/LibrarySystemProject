@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMan
 import { Role } from './roles.entity';
 import { Review } from './reviews.entity';
 import { Book } from './books.entity';
+import { Rating } from './ratings.entity';
 
 @Entity('users')
 export class User {
@@ -13,6 +14,9 @@ export class User {
 
     @Column({type: 'nvarchar'})
     public password: string;
+
+    @OneToMany(type => Rating, ratings => ratings.ratingsByUser)
+    public ratings: Review[];
 
     @ManyToMany(type => Role, { eager: true })
     @JoinTable()
