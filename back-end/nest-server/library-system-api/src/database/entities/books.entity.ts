@@ -19,6 +19,9 @@ export class Book {
   @Column({ type: 'boolean', default: true })
   public freeToBorrow: boolean;
 
+  @Column('int', {default: 0})
+  public rating: number;
+
   @Column({ type: 'boolean', default: false })
   public isDeleted: boolean;
 
