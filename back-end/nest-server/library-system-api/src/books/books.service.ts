@@ -32,44 +32,48 @@ export class BooksService {
     return booksToReturn;
   }
 
-  public async createBook(book: Partial<Book>): Promise<Book> {
-    // const createdBook = this.booksRepository.create(book);
-    return await this.booksRepository.save(book);
+  public async createBook(book: Partial<Book>): Promise<ShowBookDTO> {
+    const createdBook = await this.booksRepository.save(book);
+    return {
+      id: createdBook.id,
+      title: createdBook.title,
+      author: createdBook.author,
+      year: createdBook.year,
+      freeToBorrow: createdBook.freeToBorrow,
+    };
   }
 
-  public async borrowBook(id: string, update: BorrowBookDTO): Promise<BookDTO> {
-    const oldBook: Book = await this.findBookById(id);
-    const updatedBook: Book = { ...oldBook, ...update };
+  public async borrowBook(
+    id: string,
+    update: BorrowBookDTO,
+  ): Promise<ShowBookDTO> {
+    const oldBook: ShowBookDTO = await this.findBookById(id);
+    const updatedBook: ShowBookDTO = { ...oldBook, ...update };
 
     console.log('Updated borrowing of book:');
     console.log(updatedBook);
 
-    const bookToReturn: Book = await this.booksRepository.save(updatedBook);
-    // return {
-    //   id: bookToReturn.id,
-    //   title: bookToReturn.title,
-    //   author: bookToReturn.author,
-    //   year: bookToReturn.year,
-    //   freeToBorrow: bookToReturn.freeToBorrow,
-    // };
+    const bookToReturn: ShowBookDTO = await this.booksRepository.save(
+      updatedBook,
+    );
     return bookToReturn;
   }
 
-  public async findBookById(bookId: string): Promise<Book> {
+  public async findBookById(bookId: string): Promise<ShowBookDTO> {
     const foundBook: Book = await this.booksRepository.findOne({ id: bookId });
+    console.log('Found book:');
     console.log(foundBook);
     if (foundBook === undefined || foundBook.isDeleted) {
       throw new NotFoundException(`No book with id ${bookId} found.`);
     }
-    return foundBook;
-    // const bookToReturn: ShowBookDTO = {
-    //   id: foundBook.id,
-    //   title: foundBook.title,
-    //   author: foundBook.author,
-    //   year: foundBook.year,
-    //   freeToBorrow: foundBook.freeToBorrow,
-    // };
-    // return bookToReturn;
+    const bookToReturn: ShowBookDTO = {
+      id: foundBook.id,
+      title: foundBook.title,
+      author: foundBook.author,
+      year: foundBook.year,
+      freeToBorrow: foundBook.freeToBorrow,
+    };
+    return bookToReturn;
   }
 
   /*

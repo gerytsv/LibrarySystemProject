@@ -30,23 +30,17 @@ export class BooksController {
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   public async bookById(@Param('id') bookId: string): Promise<ShowBookDTO> {
-    let book: ShowBookDTO;
     if (bookId) {
-      book = await this.booksService.findBookById(bookId);
+      return await this.booksService.findBookById(bookId);
     }
-    return {
-      id: book.id,
-      title: book.title,
-      author: book.author,
-      year: book.year,
-      freeToBorrow: book.freeToBorrow,
-    };
   }
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  public addNewBook(@Body() body: CreateBookDTO): { msg: string } {
-    this.booksService.createBook(body);
+  public async addNewBook(
+    @Body() body: CreateBookDTO,
+  ): Promise<ResponseMessageDTO> {
+    await this.booksService.createBook(body);
     return { msg: 'Book Added!' };
   }
 
@@ -55,9 +49,8 @@ export class BooksController {
   public async updateBookBorrowing(
     @Param('id') bookId: string,
     @Body() body: BorrowBookDTO,
-  ): Promise<ResponseMessageDTO> {
-    await this.booksService.borrowBook(bookId, body);
-    return { msg: 'Book \'isBorrowed\' state changed.' };
+  ): Promise<ShowBookDTO> {
+    return await this.booksService.borrowBook(bookId, body);
   }
 
   /*
