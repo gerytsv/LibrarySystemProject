@@ -15,6 +15,7 @@ import { BooksService } from './books.service';
 import { BookDTO } from './models/book.dto';
 import { CreateBookDTO } from './models/create-book.dto';
 import { ShowBookDTO } from './models/show-book.dto';
+import { Book } from '../database/entities/books.entity';
 
 @Controller('api/books')
 export class BooksController {
@@ -33,21 +34,23 @@ export class BooksController {
       return await this.booksService.findBookById(bookId);
     }
   }
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  public addNewBook(@Body() body: CreateBookDTO): { msg: string } {
-    this.booksService.createBook(body);
+  public async addNewBook(
+    @Body() body: CreateBookDTO,
+  ): Promise<ResponseMessageDTO> {
+    await this.booksService.createBook(body);
     return { msg: 'Book Added!' };
   }
 
   @Put(':id')
   @HttpCode(HttpStatus.OK)
-  public async borrowBook(
+  public async updateBookBorrowing(
     @Param('id') bookId: string,
     @Body() body: BorrowBookDTO,
-  ): Promise<ResponseMessageDTO> {
-    await this.booksService.borrowBook(bookId, body);
-    return { msg: 'Book borrowed!' };
+  ): Promise<ShowBookDTO> {
+    return await this.booksService.borrowBook(bookId, body);
   }
 
   /*
