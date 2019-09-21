@@ -20,15 +20,16 @@ export class Book {
   @Column({ type: 'boolean', default: true })
   public freeToBorrow: boolean;
 
-  @OneToMany(type => Rating, review => review.ratingsOfBook)
-  public rating: number;
-
   @Column({ type: 'boolean', default: false })
   public isDeleted: boolean;
+
+  @OneToMany(type => Rating, review => review.book)
+  public rating: number;
 
   @OneToMany(type => Review, review => review.book)
   public reviews: Review[];
 
   @ManyToOne(type => User, user => user.borrowedBooks)
   public borrowedBy: Promise<User>;
+
 }

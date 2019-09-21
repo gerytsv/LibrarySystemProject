@@ -22,7 +22,9 @@ const main = async () => {
   firstAdmin.username = 'John',
   firstAdmin.password = 'test';
   firstAdmin.roles = await Promise.resolve([adminRole, basicRole]);
-  firstAdmin.reviews = await Promise.resolve([]);
+  firstAdmin.reviews =  Promise.resolve([]);
+  firstAdmin.borrowedBooks = Promise.resolve([]);
+  firstAdmin.returnedBooks = Promise.resolve([]);
 
   userRepo.create(firstAdmin);
   await userRepo.save(firstAdmin);

@@ -14,8 +14,8 @@ export class Rating {
     public isDeleted: boolean;
 
     @ManyToOne(type => User, user => user.ratings)
-    public ratingsByUser: Promise<User>;
+    public user: Promise<User>;
 
     @ManyToOne(type => Book, book => book.rating)
-    public ratingsOfBook: Promise<Book>;
+    public book: Promise<Book>;
 }
