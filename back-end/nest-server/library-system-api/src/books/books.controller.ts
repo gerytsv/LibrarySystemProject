@@ -10,6 +10,7 @@ import {
   Body,
   Put,
   Param,
+  Delete,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { BookDTO } from './models/book.dto';
@@ -53,15 +54,8 @@ export class BooksController {
     return await this.booksService.borrowBook(bookId, body);
   }
 
-  /*
-    @Delete(':id')
-  async delete(@Param('id') id: string): Promise<{message: string}> {
-
-    await this.bookService.delete(id);
-
-    return {
-      message: `Book deleted!`,
-    };
+  @Delete(':id')
+  public async delete(@Param('id') id: string): Promise<BookDTO> {
+    return await this.booksService.delete(id);
   }
-  */
 }

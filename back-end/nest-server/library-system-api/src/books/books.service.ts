@@ -76,17 +76,25 @@ export class BooksService {
     return bookToReturn;
   }
 
-  /*
-
-  async delete(id: string): Promise<void> {
-    const foundBook = await this.bookRepository.findOne({ id });
+  public async delete(bookId: string): Promise<BookDTO> {
+    const foundBook = await this.booksRepository.findOne({ id: bookId });
     if (!foundBook) {
-      throw new BadRequestException(`There is no book with id ${id}!`);
+      throw new BadRequestException(`There is no book with id ${bookId}!`);
     }
 
     foundBook.isDeleted = true;
-    await this.bookRepository.save(bookHero);
-  }
 
-  */
+    await this.booksRepository.save(foundBook);
+
+    const bookToReturn: BookDTO = {
+      id: foundBook.id,
+      title: foundBook.title,
+      author: foundBook.author,
+      year: foundBook.year,
+      freeToBorrow: foundBook.freeToBorrow,
+      isDeleted: foundBook.isDeleted,
+      reviews: foundBook.reviews,
+    };
+    return bookToReturn;
+  }
 }
