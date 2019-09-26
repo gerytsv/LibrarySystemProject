@@ -7,6 +7,7 @@ import { Book } from '../database/entities/books.entity';
 import { ShowReviewDTO } from './models/show-review..dto';
 import { UpdatedReviewDTO } from './models/updated-review.dto';
 import { ResponseMessegeDTO } from './models/messege.dto';
+import { LikeReviewDTO } from './models/like-review.dto';
 
 @Injectable()
 export class ReviewsService {
@@ -132,6 +133,26 @@ export class ReviewsService {
         return {
             messege: 'Review Deleted'
         };
+    }
+
+    public async voteReview(reviewId: string , likes: number ): Promise<ResponseMessegeDTO|BadRequestException> {
+        const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false}});
+        if (!review) {
+            throw new BadRequestException('Review not found');
+        }
+        ( likes > 0 ) ? review.likes++ : review.likes--;
+        this.reviewsRepository.save(review);
+        return (likes > 0 ) ? { messege: 'Review liked'} : {messege: 'Review unliked'};
+    }
+
+    public async flagReview(reviewId: string , flags: number ): Promise<ResponseMessegeDTO|BadRequestException> {
+        const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false}});
+        if (!review) {
+            throw new BadRequestException('Review not found');
+        }
+        ( flags > 0 ) ? review.flags++ : review.flags--;
+        this.reviewsRepository.save(review);
+        return (flags > 0 ) ? { messege: 'Review flaged'} : {messege: 'Review unflaged'};
     }
 
     private async isBookRead(user: User, book: Book) {

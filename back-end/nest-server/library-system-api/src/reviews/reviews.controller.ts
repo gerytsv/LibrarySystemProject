@@ -1,11 +1,11 @@
 import { Controller, Get, Param, Body, Post, BadRequestException, Put, Delete, } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
-import { Review } from '../database/entities/reviews.entity';
-import { Params } from 'express-serve-static-core';
 import { CreateReviewDTO } from './models/create-review.dto';
 import { ShowReviewDTO } from './models/show-review..dto';
 import { UpdatedReviewDTO } from './models/updated-review.dto';
 import { ResponseMessegeDTO } from './models/messege.dto';
+import { LikeReviewDTO } from './models/like-review.dto';
+import { FlagReviewDTO } from './models/flag-review.dto';
 
 @Controller('api')
 export class ReviewsController {
@@ -35,6 +35,16 @@ export class ReviewsController {
     @Delete('/users/:userId/reviews/:reviewId')
     public async deleteReview(@Param('userId') userID: string, @Param('reviewId') reviewId: string): Promise<ResponseMessegeDTO|BadRequestException> {
         return await this.reviewsService.removeReview(userID, reviewId);
+    }
+
+    @Put('/reviews/:reviewId/like')
+    public async likeReview(@Param('reviewId') reviewId: string, @Body() body: LikeReviewDTO): Promise<ResponseMessegeDTO|BadRequestException> {
+        return await this.reviewsService.voteReview(reviewId, body.likes);
+    }
+
+    @Put('/reviews/:reviewId/flag')
+    public async flagReview(@Param('reviewId') reviewId: string, @Body() body: FlagReviewDTO): Promise<ResponseMessegeDTO|BadRequestException> {
+        return await this.reviewsService.flagReview(reviewId, body.flags);
     }
 
 }
