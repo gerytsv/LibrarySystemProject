@@ -27,7 +27,7 @@ export class Book {
   public rating: number;
 
   @OneToMany(type => Review, review => review.book)
-  public reviews: Review[];
+  public reviews: Promise<Review[]>;
 
   @ManyToOne(type => User, user => user.borrowedBooks)
   public borrowedBy: Promise<User>;
