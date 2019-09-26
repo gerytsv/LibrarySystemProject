@@ -1,317 +1,598 @@
 {
-  "info": {
-    "_postman_id": "c6778f06-6e56-41c9-b8cb-f839c8107cf8",
-    "name": "Library Project",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "1. GET /api/books - Success",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "localhost:3000/api/books",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/books"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "1. GET /api/books/:id - Success",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "localhost:3000/api/books/1",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/books", "1"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "2. POST /api/books - Success",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": " {\r\n    \"title\": \"The secret garden\",\r\n    \"author\": \"Frances Hodgson Burnett\",\r\n    \"year\": \"1911\"\r\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/api/books",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/books"]
-        }
-      },
-      "response": []
-    },
-
-    {
-      "name": "2. POST /api/books - Invalid Book Author",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": " {\r\n    \"title\": \"The secret garden\",\r\n    \"year\": \"1911\"\r\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/api/books",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/books"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "3. PUT /books/api/:id - Borrow - Success",
-      "request": {
-        "method": "PUT",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"freeToBorrow\": false\r\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/api/books/1",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/books", "1"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "3. PUT /books/api/:id - Un-borrow - Success",
-      "request": {
-        "method": "PUT",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"freeToBorrow\": true\r\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/api/books/1",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/books", "1"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "3. PUT /books/api/:id - Not Found",
-      "request": {
-        "method": "PUT",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"isDeleted\": true\r\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/api/books/-1",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/books", "-1"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "4. DELETE /api/books/:id - Success",
-      "request": {
-        "method": "DELETE",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "url": {
-          "raw": "localhost:3000/api/books/1",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/books", "1"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "4. DELETE /api/books/:id - Not Found",
-      "request": {
-        "method": "DELETE",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "type": "text",
-            "value": "application/json"
-          }
-        ],
-        "url": {
-          "raw": "localhost:3000/api/books/-1",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/books", "-1"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "5. GET /api/ - Success",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "localhost:3000/api/",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": [""]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "6. GET /api/books?title=... - Success",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "localhost:3000/api/books?title=The secret garden",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/books"],
-          "query": [
-            {
-              "key": "title",
-              "value": "The secret garden"
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "7. GET /api/users - Success",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "localhost:3000/api/users",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/users"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "7. GET /api/users/:id - User Does Not Exist",
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "url": {
-          "raw": "localhost:3000/api/users/-1",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/users", "-1"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "8. POST /api/users - Success",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n\t\"username\": \"Unicorn\",\n\t\"password\": \"123\"\n}"
-        },
-        "url": {
-          "raw": "localhost:3000/api/users",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/users"]
-        }
-      },
-      "response": []
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "id": "94fbd8ca-1dde-4023-929f-c70203a9b309",
-        "type": "text/javascript",
-        "exec": [""]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "id": "4b125ae0-c0bf-47a0-8588-2cb8a28db778",
-        "type": "text/javascript",
-        "exec": [""]
-      }
-    }
-  ]
+	"info": {
+		"_postman_id": "6146f9ab-234a-473a-800e-cd397af742e0",
+		"name": "Library Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "GET /api/users/userId/reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/users/63d7c167-58b0-45e1-9801-f3af644d5301/reviews",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"63d7c167-58b0-45e1-9801-f3af644d5301",
+								"reviews"
+							]
+						},
+						"description": "Get user reviews "
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/books/bookId/reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/books/1/reviews",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"books",
+								"1",
+								"reviews"
+							]
+						},
+						"description": "get all reviews of a book"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /api/users/userId/reviews/reviewId",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\" : \"Updated/v2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/users/63d7c167-58b0-45e1-9801-f3af644d5301/reviews/cd9cfae6-2d4e-44a4-98be-a4d6529768fc",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"63d7c167-58b0-45e1-9801-f3af644d5301",
+								"reviews",
+								"cd9cfae6-2d4e-44a4-98be-a4d6529768fc"
+							]
+						},
+						"description": "Update review content"
+					},
+					"response": []
+				},
+				{
+					"name": "POST /api/users/userId/books/bookId/reviews",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\" : \"LAGABUMPA\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/users/63d7c167-58b0-45e1-9801-f3af644d5301/books/1/reviews",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"63d7c167-58b0-45e1-9801-f3af644d5301",
+								"books",
+								"1",
+								"reviews"
+							]
+						},
+						"description": "create review"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /api/users/userId/reviews/reviewId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/users/63d7c167-58b0-45e1-9801-f3af644d5301/reviews/cd9cfae6-2d4e-44a4-98be-a4d6529768fc",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"63d7c167-58b0-45e1-9801-f3af644d5301",
+								"reviews",
+								"cd9cfae6-2d4e-44a4-98be-a4d6529768fc"
+							]
+						},
+						"description": "delete a review"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT  /api/reviews/reviewId/like",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"likes\" : 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/reviews/cd9cfae6-2d4e-44a4-98be-a4d6529768fc/like",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"reviews",
+								"cd9cfae6-2d4e-44a4-98be-a4d6529768fc",
+								"like"
+							]
+						},
+						"description": "Likes a review"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT  /api/reviews/reviewId/flag",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"flags\" : 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/reviews/cd9cfae6-2d4e-44a4-98be-a4d6529768fc/flag",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"reviews",
+								"cd9cfae6-2d4e-44a4-98be-a4d6529768fc",
+								"flag"
+							]
+						},
+						"description": "Flags a review"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "1. GET /api/books - Success",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/books",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. POST /api/books - Success",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"title\": \"The secret garden\",\r\n    \"author\": \"Frances Hodgson Burnett\",\r\n    \"year\": \"1911\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/books",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. POST /api/books - Invalid Todo Name",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"author\": \"Frances Hodgson Burnett\",\r\n    \"year\": \"1911\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/books",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. POST /api/books - Invalid Book Author",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"title\": \"The secret garden\",\r\n    \"year\": \"1911\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/books",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. PUT /books/api/:id - Success",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"The secret garden\",\r\n    \"year\": \"1911\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/books/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. PUT /books/api/:id - Not Found",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"isDeleted\": true\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/books/-1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"books",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. DELETE /api/books/:id - Success",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/books/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. DELETE /api/books/:id - Not Found",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/books/-1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"books",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. GET /api/ - Success",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. GET /api/books?title=... - Success",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/books?title=The secret garden",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"books"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "The secret garden"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. GET /api/users - Success",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. GET /api/users/:id - User Does Not Exist",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/users/-1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. POST /api/users - Success",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"Unicorn\",\n\t\"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "94fbd8ca-1dde-4023-929f-c70203a9b309",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4b125ae0-c0bf-47a0-8588-2cb8a28db778",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
 }
