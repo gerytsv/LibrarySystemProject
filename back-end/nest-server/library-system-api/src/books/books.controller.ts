@@ -1,3 +1,4 @@
+import { TransformInterceptor } from './../transformer/interceptors/transform.interceptor';
 import { BorrowBookDTO } from './models/borrow-book.dto';
 import { ResponseMessageDTO } from './models/response-message.dto';
 import {
@@ -11,24 +12,28 @@ import {
   Put,
   Param,
   Delete,
+  UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { BookDTO } from './models/book.dto';
 import { CreateBookDTO } from './models/create-book.dto';
 import { ShowBookDTO } from './models/show-book.dto';
-import { Book } from '../database/entities/books.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api/books')
 export class BooksController {
   public constructor(private readonly booksService: BooksService) {}
 
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
   public async allBooks(): Promise<ShowBookDTO[]> {
     return await this.booksService.allBooks();
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
   public async bookById(@Param('id') bookId: string): Promise<ShowBookDTO> {
     if (bookId) {
@@ -37,15 +42,17 @@ export class BooksController {
   }
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(new TransformInterceptor(BookDTO))
   @HttpCode(HttpStatus.CREATED)
-  public async addNewBook(
-    @Body() body: CreateBookDTO,
-  ): Promise<ResponseMessageDTO> {
-    await this.booksService.createBook(body);
-    return { msg: 'Book Added!' };
+  public async addNewBook(@Body() body: CreateBookDTO) {
+    // : Promise<ResponseMessageDTO>
+    return await this.booksService.createBook(body);
+    // Return { msg: 'Book Added!' };
   }
 
-  @Put(':id')
+  @Put(':id') // Should be patch
+  @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
   public async updateBookBorrowing(
     @Param('id') bookId: string,
@@ -55,6 +62,7 @@ export class BooksController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
   public async delete(@Param('id') id: string): Promise<BookDTO> {
     return await this.booksService.delete(id);
   }

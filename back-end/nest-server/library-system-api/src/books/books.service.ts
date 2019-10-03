@@ -32,15 +32,17 @@ export class BooksService {
     return booksToReturn;
   }
 
-  public async createBook(book: Partial<Book>): Promise<ShowBookDTO> {
+  public async createBook(book: Partial<Book>) {
+    // : Promise<ShowBookDTO>
     const createdBook = await this.booksRepository.save(book);
-    return {
-      id: createdBook.id,
-      title: createdBook.title,
-      author: createdBook.author,
-      year: createdBook.year,
-      freeToBorrow: createdBook.freeToBorrow,
-    };
+    return createdBook;
+    // return {
+    //   id: createdBook.id,
+    //   title: createdBook.title,
+    //   author: createdBook.author,
+    //   year: createdBook.year,
+    //   freeToBorrow: createdBook.freeToBorrow,
+    // };
   }
 
   public async borrowBook(
@@ -93,7 +95,7 @@ export class BooksService {
       year: foundBook.year,
       freeToBorrow: foundBook.freeToBorrow,
       isDeleted: foundBook.isDeleted,
-      reviews: foundBook.reviews,
+      reviews: await foundBook.reviews,
     };
     return bookToReturn;
   }
