@@ -570,6 +570,36 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "9. POST /session/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"username\": \"Unicorn\",\r\n    \"password\": \"123\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/session/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"session",
+						"login"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
