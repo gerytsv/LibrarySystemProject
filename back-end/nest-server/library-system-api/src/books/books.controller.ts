@@ -27,15 +27,17 @@ export class BooksController {
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
-  public async allBooks(): Promise<ShowBookDTO[]> {
+  public async allBooks() {
     return await this.booksService.allBooks();
   }
 
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
-  public async bookById(@Param('id') bookId: string): Promise<ShowBookDTO> {
+  public async bookById(@Param('id') bookId: string) {
     if (bookId) {
       return await this.booksService.findBookById(bookId);
     }
@@ -53,17 +55,19 @@ export class BooksController {
 
   @Put(':id') // Should be patch
   @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
   public async updateBookBorrowing(
     @Param('id') bookId: string,
     @Body() body: BorrowBookDTO,
-  ): Promise<ShowBookDTO> {
+  ) {
     return await this.booksService.borrowBook(bookId, body);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  public async delete(@Param('id') id: string): Promise<BookDTO> {
+  @UseInterceptors(new TransformInterceptor(ShowBookDTO))
+  public async delete(@Param('id') id: string) {
     return await this.booksService.delete(id);
   }
 }

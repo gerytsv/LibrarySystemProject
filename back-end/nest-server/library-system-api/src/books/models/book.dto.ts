@@ -1,5 +1,6 @@
 import { Review } from '../../database/entities/reviews.entity';
 import { Publish } from '../../transformer/decorators/publish';
+import { User } from '../../database/entities/users.entity';
 
 export class BookDTO {
   public id: string;
@@ -15,6 +16,8 @@ export class BookDTO {
 
   @Publish()
   public freeToBorrow: boolean;
+
+  public borrowedBy: User;
 
   public isDeleted: boolean;
 

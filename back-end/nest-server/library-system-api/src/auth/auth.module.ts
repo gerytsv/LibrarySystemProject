@@ -6,7 +6,7 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 import { Role } from '../database/entities/roles.entity';
 import { User } from '../database/entities/users.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
