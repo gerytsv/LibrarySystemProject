@@ -8,6 +8,8 @@ import { UserRole } from './enums/user-roles.enum';
 import { UpdateUserRoleDTO } from './models/update-user-role.dto';
 import { ShowUserDTO } from './models/show-user.dto';
 import bcrypt from 'bcryptjs';
+import { UserLoginDTO } from './models/login-user.dto';
+import { JwtPayload } from '../common/types/jwt-payload';
 
 @Injectable()
 export class UsersService {
@@ -15,6 +17,25 @@ export class UsersService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Role) private readonly rolesRepository: Repository<Role>,
   ) {}
+
+  public async signIn(user: UserLoginDTO): Promise<User> {
+    const foundUser: User = await this.userRepository.findOne({
+      where: {
+        username: user.username,
+      },
+    });
+    console.log('This is the result of the bcrypt compare operation: ');
+    console.log(bcrypt.compare(foundUser.password, user.password));
+
+    if (bcrypt.compare(foundUser.password, user.password)) {
+      return foundUser;
+    }
+  }
+
+  public async validate(payload: JwtPayload): Promise<User> {
+    const users: User[] = await this.userRepository.find({});
+    return users.find(u => u.username === payload.username);
+  }
 
   public async allUsers(): Promise<User[]> {
     return await this.userRepository.find({});
@@ -32,7 +53,7 @@ export class UsersService {
       ],
       reviews: Promise.resolve([]),
       borrowedBooks: Promise.resolve([]),
-      returnedBooks: Promise.resolve([])
+      returnedBooks: Promise.resolve([]),
     };
 
     const userEntity = this.userRepository.create(user);
