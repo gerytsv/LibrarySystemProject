@@ -18,7 +18,7 @@ export class ReviewsService {
     ) {}
 
     public async getAllBookReviews(bookId: string): Promise<ShowReviewDTO[]> {
-        const book = await this.booksRepository.findOne({where: {id: bookId}});
+        const book = await this.booksRepository.findOne({where: {id: bookId, isDeleted: false}});
         if (!book) {
             throw new BadRequestException('Book is not found');
         }
@@ -40,7 +40,7 @@ export class ReviewsService {
     }
 
     public async getAllUserReviews(userId: string): Promise<ShowReviewDTO[]> {
-        const user = await this.usersRepository.findOne({where: {id: userId}});
+        const user = await this.usersRepository.findOne({where: {id: userId, isDeleted: false}});
         if (!user) {
             throw new BadRequestException('User is not found');
         }
