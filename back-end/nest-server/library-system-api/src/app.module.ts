@@ -8,6 +8,7 @@ import { BooksModule } from './books/books.module';
 import { UsersModule } from './users/users.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { PassportModule } from '@nestjs/passport';
+import { RatingsModule } from './ratings/ratings.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PassportModule } from '@nestjs/passport';
     BooksModule,
     UsersModule,
     ReviewsModule,
+    RatingsModule,
     AuthModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
