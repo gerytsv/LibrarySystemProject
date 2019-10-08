@@ -33,15 +33,14 @@ export class UsersService {
   }
 
   public async validate(payload: JwtPayload): Promise<User> {
-    const users: User[] = await this.userRepository.find({});
-    return users.find(u => u.username === payload.username);
+    return await this.userRepository.findOne({username: payload.username});
   }
 
   public async allUsers(): Promise<User[]> {
     return await this.userRepository.find({});
   }
 
-  public async createUser(body: CreateUserDTO): Promise<ShowUserDTO> {
+  public async createUser(body: CreateUserDTO) {
     const username = body.username;
     const hashedPassword = await bcrypt.hash(body.password, 10);
 
@@ -68,7 +67,7 @@ export class UsersService {
   public async updateUserRoles(
     body: UpdateUserRoleDTO,
     id: string,
-  ): Promise<ShowUserDTO> {
+  ) {
     // tslint:disable-next-line: prefer-const
     let validRoles: Role[] = [];
     let roleToPush: Role;
