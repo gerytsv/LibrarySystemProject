@@ -14,7 +14,7 @@ export class AuthService {
 
   public async signIn(user: UserLoginDTO): Promise<string> {
     const userFound = await this.usersService.signIn(user);
-    if (userFound) {
+    if (userFound && !userFound.isDeleted) {
       // Returning the token
       return await this.jwtService.signAsync({
         username: userFound.username,
