@@ -1,11 +1,13 @@
-import { Controller, Get, Param, Body, Post, BadRequestException, Put, Delete, } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, BadRequestException, Put, Delete, UseInterceptors, UseGuards, Request, Patch } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDTO } from './models/create-review.dto';
 import { ShowReviewDTO } from './models/show-review..dto';
 import { UpdatedReviewDTO } from './models/updated-review.dto';
 import { ResponseMessegeDTO } from './models/messege.dto';
-import { LikeReviewDTO } from './models/like-review.dto';
-import { FlagReviewDTO } from './models/flag-review.dto';
+import { UpdateReviewDTO } from './models/votes-review.dto';
+import { TransformInterceptor } from '../transformer/interceptors/transform.interceptor';
+import { AuthGuard } from '@nestjs/passport';
+import { actionsToMethods } from '../common/enums/update-actions';
 
 @Controller('api')
 export class ReviewsController {
@@ -13,38 +15,45 @@ export class ReviewsController {
     public constructor(private readonly reviewsService: ReviewsService) {}
 
     @Get('/books/:bookId/reviews')
-    public async readAllBookReviews(@Param('bookId') bookId: string): Promise<ShowReviewDTO[]> {
+    @UseInterceptors(new TransformInterceptor(ShowReviewDTO))
+    @UseGuards(AuthGuard())
+    public async readAllBookReviews(@Param('bookId') bookId: string) {
         return await this.reviewsService.getAllBookReviews(bookId);
     }
 
     @Get('/users/:userId/reviews')
-    public async readAllUserReviews(@Param('userId') userId: string): Promise<ShowReviewDTO[]> {
+    @UseInterceptors(new TransformInterceptor(ShowReviewDTO))
+    @UseGuards(AuthGuard())
+    public async readAllUserReviews(@Param('userId') userId: string) {
         return await this.reviewsService.getAllUserReviews(userId);
     }
 
-    @Post('/users/:userId/books/:bookId/reviews')
-    public async createBookReview(@Param('userId') userId: string, @Param('bookId') bookId: string , @Body()body: CreateReviewDTO): Promise<ShowReviewDTO|BadRequestException> {
-        return await this.reviewsService.createReview(userId, bookId, body.content);
+    @Post('/books/:bookId/reviews')
+    @UseInterceptors(new TransformInterceptor(ShowReviewDTO))
+    @UseGuards(AuthGuard())
+    public async createBookReview(@Request() request: any, @Param('bookId') bookId: string , @Body() body: CreateReviewDTO) {
+        return await this.reviewsService.create(request.user.id, bookId, body.content);
     }
 
-    @Put('/users/:userId/reviews/:reviewId')
-    public async editReview(@Param('userId') userID: string, @Param('reviewId') reviewId: string, @Body() body: UpdatedReviewDTO): Promise<ResponseMessegeDTO|BadRequestException> {
-        return await this.reviewsService.editReviewContent(userID, reviewId, body.content);
+    @Put('/books/reviews/:reviewId')
+    @UseInterceptors(new TransformInterceptor(ShowReviewDTO))
+    @UseGuards(AuthGuard())
+    public async editBookReview(@Request() request: any, @Param('reviewId') reviewId: string , @Body() body: CreateReviewDTO) {
+        return await this.reviewsService.editContent(request.user.id, reviewId, body.content);
     }
 
-    @Delete('/users/:userId/reviews/:reviewId')
-    public async deleteReview(@Param('userId') userID: string, @Param('reviewId') reviewId: string): Promise<ResponseMessegeDTO|BadRequestException> {
-        return await this.reviewsService.removeReview(userID, reviewId);
+    @Delete('/books/reviews/:reviewId')
+    @UseGuards(AuthGuard())
+    public async deleteReview(@Request() request: any, @Param('reviewId') reviewId: string) {
+        console.log(request.user.id);
+        return await this.reviewsService.remove(request.user.id, reviewId);
     }
 
-    @Put('/reviews/:reviewId/like')
-    public async likeReview(@Param('reviewId') reviewId: string, @Body() body: LikeReviewDTO): Promise<ResponseMessegeDTO|BadRequestException> {
-        return await this.reviewsService.voteReview(reviewId, body.likes);
-    }
-
-    @Put('/reviews/:reviewId/flag')
-    public async flagReview(@Param('reviewId') reviewId: string, @Body() body: FlagReviewDTO): Promise<ResponseMessegeDTO|BadRequestException> {
-        return await this.reviewsService.flagReview(reviewId, body.flags);
+    // Body{ action: "like" / "flag" }
+    @Patch('books/reviews/:reviewId/:int')
+    @UseGuards(AuthGuard())
+    public async updateReviewVotes(@Param('reviewId') reviewId: string, @Param('int') int: string, @Body() body: UpdateReviewDTO) {
+        return await (this.reviewsService as any)[actionsToMethods[body.action]](reviewId, +int);
     }
 
 }

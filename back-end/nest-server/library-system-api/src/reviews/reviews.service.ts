@@ -1,13 +1,10 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { Review } from '../database/entities/reviews.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, getManager } from 'typeorm';
 import { User } from '../database/entities/users.entity';
 import { Book } from '../database/entities/books.entity';
-import { ShowReviewDTO } from './models/show-review..dto';
-import { UpdatedReviewDTO } from './models/updated-review.dto';
 import { ResponseMessegeDTO } from './models/messege.dto';
-import { LikeReviewDTO } from './models/like-review.dto';
 
 @Injectable()
 export class ReviewsService {
@@ -17,85 +14,58 @@ export class ReviewsService {
         @InjectRepository(Book) private readonly booksRepository: Repository<Book>
     ) {}
 
-    public async getAllBookReviews(bookId: string): Promise<ShowReviewDTO[]> {
-        const book = await this.booksRepository.findOne({where: {id: bookId, isDeleted: false}});
+    public async getAllBookReviews(bookId: string) {
+        const book = await getManager().
+        createQueryBuilder(Book, 'book')
+        .leftJoinAndSelect('book.reviews', 'review', 'review.isDeleted = :isDeleted', { isDeleted: false })
+        .leftJoinAndSelect('review.user', 'user')
+        .where('book.id = :id', { id: bookId })
+        .getOne();
         if (!book) {
-            throw new BadRequestException('Book is not found');
+            throw new BadRequestException('Book not found');
         }
-        const reviews = await book.reviews;
-        const reviewsToShow = reviews.map(async review => {
-            const reviewer = await review.user;
-            const reviewedBook = await review.book;
-            return {
-                id: review.id ,
-                user: reviewer.id,
-                book: reviewedBook.id,
-                content: review.content,
-                likes: review.likes,
-                flags: review.flags,
-                createdOn: review.createdOn
-            };
-        });
-        return Promise.all(reviewsToShow);
+        return await book.reviews;
     }
 
-    public async getAllUserReviews(userId: string): Promise<ShowReviewDTO[]> {
-        const user = await this.usersRepository.findOne({where: {id: userId, isDeleted: false}});
+    public async getAllUserReviews(userId: string) {
+        const user = await getManager().
+        createQueryBuilder(User, 'user')
+        .leftJoinAndSelect('user.reviews', 'review', 'review.isDeleted = :isDeleted', { isDeleted: false })
+        .leftJoinAndSelect('review.book', 'book')
+        .where('user.id = :id', { id: userId })
+        .getOne();
         if (!user) {
-            throw new BadRequestException('User is not found');
+            throw new BadRequestException('User not found');
         }
-        const reviews = await user.reviews;
-        const reviewsToShow = reviews.map(async review => {
-            const reviewer = await review.user;
-            const reviewedBook = await review.book;
-            return {
-                id: review.id ,
-                user: reviewer.id,
-                book: reviewedBook.id,
-                content: review.content,
-                likes: review.likes,
-                flags: review.flags,
-                createdOn: review.createdOn
-            };
-        });
-        return Promise.all(reviewsToShow);
+        return user.reviews;
     }
 
-    public async createReview(userID: string, bookID: string , content: string): Promise<ShowReviewDTO|BadRequestException> {
+    public async create(userID: string, bookID: string , content: string) {
         const user  = await this.usersRepository.findOne({where: { id: userID, isDeleted: false}});
         if (!user) {
-            return new BadRequestException('User is not found');
+            return new BadRequestException('User not found');
         }
         const book =  await this.booksRepository.findOne({where: {id: bookID, isDeleted: false}});
         if (!book) {
-            return new BadRequestException('Book is not found');
+            return new BadRequestException('Book not found');
         }
         if (!await this.isBookRead(user, book)) {
-            return new BadRequestException('Book has not been read by the user');
+            return new BadRequestException('The book has not been read by the user');
         }
         const review = {
             content ,
         };
+        const oldReview = await this.reviewsRepository.findOne({ where: {user , book}});
         const reviewEntity = this.reviewsRepository.create(review);
         reviewEntity.user = Promise.resolve(user);
         reviewEntity.book = Promise.resolve(book);
-
-        const savedReview = await this.reviewsRepository.save(reviewEntity);
-        const reviewer = await savedReview.user;
-        const reviewedBook = await savedReview.book;
-
-        return {
-            id: savedReview.id,
-            user: reviewer.id,
-            book: reviewedBook.id,
-            content: savedReview.content,
-            likes: savedReview.likes,
-            flags: savedReview.flags,
-            createdOn: savedReview.createdOn
-        };
+        if (oldReview) {
+            reviewEntity.id = oldReview.id;
+        }
+        return await this.reviewsRepository.save(reviewEntity);
     }
 
-    public async editReviewContent(userId: string , reviewId: string, newContent: string): Promise<ResponseMessegeDTO|BadRequestException> {
+    public async editContent(userId: string , reviewId: string, newContent: string) {
         const review = await this.reviewsRepository.findOne({where: {id: reviewId, isDeleted: false}});
         if (!review) {
             return new BadRequestException('No such review');
@@ -106,36 +76,30 @@ export class ReviewsService {
         }
 
         review.content = newContent;
-        const updatedReview = await this.reviewsRepository.save(review);
 
-        return {
-            messege: 'Review Updated'
-        };
+        return await this.reviewsRepository.save(review);
+
     }
 
-    public async removeReview(userId: string, reviewId: string): Promise<ResponseMessegeDTO|BadRequestException> {
-        const user = await this.usersRepository.findOne({where: { id: userId, isDeleted: false }});
-        const userReviews = await user.reviews;
-        const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false}});
-        if (!user) {
-            throw new BadRequestException('User is not found');
+    public async remove(userId: string, reviewId: string) {
+        const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false},
+        relations: ['user']});
+        if ( !review ) {
+            throw new BadRequestException('Review doesnt exist');
         }
-        if (!review) {
-            throw new BadRequestException('Review is not found');
+        const user = await review.user;
+        if ( !user || user.id !== userId  ) {
+            throw new BadRequestException('This user can\'t delete the review');
         }
-        if (!userReviews.some( item => item.id === reviewId)) {
-            throw new BadRequestException('The review doesnt belong to this user');
-        }
-
+        console.log(review);
         review.isDeleted = true;
         this.reviewsRepository.save(review);
-
         return {
             messege: 'Review Deleted'
         };
     }
 
-    public async voteReview(reviewId: string , likes: number ): Promise<ResponseMessegeDTO|BadRequestException> {
+    public async like(reviewId: string , likes: number) {
         const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false}});
         if (!review) {
             throw new BadRequestException('Review not found');
@@ -145,7 +109,7 @@ export class ReviewsService {
         return (likes > 0 ) ? { messege: 'Review liked'} : {messege: 'Review unliked'};
     }
 
-    public async flagReview(reviewId: string , flags: number ): Promise<ResponseMessegeDTO|BadRequestException> {
+    public async flag(reviewId: string , flags: number) {
         const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false}});
         if (!review) {
             throw new BadRequestException('Review not found');
@@ -156,7 +120,7 @@ export class ReviewsService {
     }
 
     private async isBookRead(user: User, book: Book) {
-        const books = await user.borrowedBooks;
+        const books = await user.returnedBooks;
         return books.some(item => item.id === book.id);
     }
 }
