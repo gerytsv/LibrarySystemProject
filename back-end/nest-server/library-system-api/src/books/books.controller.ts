@@ -40,13 +40,11 @@ export class BooksController {
       return books.filter(book =>
         book.title.toLowerCase().includes(title.toLowerCase()),
       );
-    }
-    if (author) {
+    } else if (author) {
       return books.filter(book =>
         book.author.toLowerCase().includes(author.toLowerCase()),
       );
-    }
-    return books;
+    } else { return books; }
   }
 
   @Get(':id')
@@ -67,7 +65,7 @@ export class BooksController {
     return await this.booksService.createBook(body);
   }
 
-  @Put(':id') // Should be patch
+  @Put(':id') // Should be patch maybe
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)

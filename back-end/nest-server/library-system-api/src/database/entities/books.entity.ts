@@ -31,7 +31,7 @@ export class Book {
   public isDeleted: boolean;
 
   @OneToMany(type => Rating, review => review.book)
-  public rating: number;
+  public rating: Promise<Rating>;
 
   @OneToMany(type => Review, review => review.book)
   public reviews: Promise<Review[]>;
