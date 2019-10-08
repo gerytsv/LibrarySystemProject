@@ -591,24 +591,6 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "5. GET /api/ - Success",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3000/",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "2. POST /session/login",
 			"request": {
 				"method": "POST",
