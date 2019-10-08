@@ -14,6 +14,8 @@ import {
   Delete,
   UseInterceptors,
   UseGuards,
+  Patch,
+  Request,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { BookDTO } from './models/book.dto';
@@ -27,15 +29,31 @@ export class BooksController {
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
-  public async allBooks(): Promise<ShowBookDTO[]> {
-    return await this.booksService.allBooks();
+  public async allBooks(
+    @Query('title') title: string,
+    @Query('author') author: string,
+  ) {
+    const books: BookDTO[] = await this.booksService.allBooks();
+    if (title) {
+      return books.filter(book =>
+        book.title.toLowerCase().includes(title.toLowerCase()),
+      );
+    }
+    if (author) {
+      return books.filter(book =>
+        book.author.toLowerCase().includes(author.toLowerCase()),
+      );
+    }
+    return books;
   }
 
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
-  public async bookById(@Param('id') bookId: string): Promise<ShowBookDTO> {
+  public async bookById(@Param('id') bookId: string) {
     if (bookId) {
       return await this.booksService.findBookById(bookId);
     }
@@ -46,24 +64,24 @@ export class BooksController {
   @UseInterceptors(new TransformInterceptor(BookDTO))
   @HttpCode(HttpStatus.CREATED)
   public async addNewBook(@Body() body: CreateBookDTO) {
-    // : Promise<ResponseMessageDTO>
     return await this.booksService.createBook(body);
-    // Return { msg: 'Book Added!' };
   }
 
   @Put(':id') // Should be patch
   @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
   public async updateBookBorrowing(
+    @Request() request: any,
     @Param('id') bookId: string,
-    @Body() body: BorrowBookDTO,
-  ): Promise<ShowBookDTO> {
-    return await this.booksService.borrowBook(bookId, body);
+  ) {
+    return await this.booksService.borrowBook(request.user, bookId);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  public async delete(@Param('id') id: string): Promise<BookDTO> {
+  @UseInterceptors(new TransformInterceptor(ShowBookDTO))
+  public async delete(@Param('id') id: string) {
     return await this.booksService.delete(id);
   }
 }

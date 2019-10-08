@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinTable } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToOne,
+  JoinTable,
+} from 'typeorm';
 import { Review } from './reviews.entity';
 import { User } from './users.entity';
 import { Rating } from './ratings.entity';
@@ -31,5 +38,4 @@ export class Book {
 
   @ManyToOne(type => User, user => user.borrowedBooks)
   public borrowedBy: Promise<User>;
-
 }

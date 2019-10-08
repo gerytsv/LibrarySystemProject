@@ -24,14 +24,12 @@ export class UsersService {
         username: user.username,
       },
     });
-    console.log('This is the result of the bcrypt compare operation: ');
-    console.log(bcrypt.compare(foundUser.password, user.password));
 
     if (bcrypt.compare(foundUser.password, user.password)) {
       return foundUser;
     }
   }
-
+  // For sign-in
   public async validate(payload: JwtPayload): Promise<User> {
     return await this.userRepository.findOne({username: payload.username});
   }
