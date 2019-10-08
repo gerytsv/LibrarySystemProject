@@ -17,9 +17,7 @@ export class BookDTO {
   @Publish()
   public freeToBorrow: boolean;
 
-  public borrowedBy: User;
+  public borrowedBy: Promise<User>;
 
   public isDeleted: boolean;
-
-  public reviews: Review[];
 }

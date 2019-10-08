@@ -7,14 +7,15 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ShowBookDTO } from './models/show-book.dto';
-import { BookDTO } from './models/book.dto';
+import { User } from '../database/entities/users.entity';
 
 @Injectable()
 export class BooksService {
   public constructor(
     @InjectRepository(Book)
     private readonly booksRepository: Repository<Book>,
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
   ) {}
 
   public async allBooks() {
@@ -22,45 +23,28 @@ export class BooksService {
       where: { isDeleted: false },
     });
     return books;
-    // const booksToReturn: ShowBookDTO[] = books.map(book => ({
-    //   id: book.id,
-    //   title: book.title,
-    //   author: book.author,
-    //   year: book.year,
-    //   freeToBorrow: book.freeToBorrow,
-    // }));
-    // return booksToReturn;
   }
 
   public async createBook(book: Partial<Book>) {
-    // : Promise<ShowBookDTO>
     const createdBook = await this.booksRepository.save(book);
     return createdBook;
-    // return {
-    //   id: createdBook.id,
-    //   title: createdBook.title,
-    //   author: createdBook.author,
-    //   year: createdBook.year,
-    //   freeToBorrow: createdBook.freeToBorrow,
-    // };
   }
 
-  public async borrowBook(id: string, update: BorrowBookDTO) {
-    const book: Book = await this.findBookById(id);
-    // const update: BorrowBookDTO = {freeToBorrow: true, borrowedBy: Request.};
-    // if (book.freeToBorrow) {
-    //   update.freeToBorrow = false;
-    // } else { update.freeToBorrow = true; }
-    const updatedBook: Book = { ...book, ...update };
+  public async borrowBook(user: User, bookId: string) {
+    const foundBook = await this.findBookById(bookId);
+    if (foundBook.freeToBorrow) {
+      foundBook.freeToBorrow = false;
+      foundBook.borrowedBy = Promise.resolve(user);
+    } else {
+      foundBook.freeToBorrow = true;
+      foundBook.borrowedBy = null;
 
-    console.log('Updated borrowing of book:');
-    console.log(updatedBook);
-
-    return await this.booksRepository.save(updatedBook);
-    // const bookToReturn: ShowBookDTO = await this.booksRepository.save(
-    //   updatedBook,
-    // );
-    // return bookToReturn;
+      const returnedBooksOfUser = await user.returnedBooks;
+      returnedBooksOfUser.push(foundBook);
+      user.returnedBooks = Promise.resolve(returnedBooksOfUser);
+      this.usersRepository.save(user);
+    }
+    return await this.booksRepository.save(foundBook);
   }
 
   public async findBookById(bookId: string) {
@@ -70,14 +54,6 @@ export class BooksService {
       throw new NotFoundException(`No book with id ${bookId} found.`);
     }
     return foundBook;
-    // const bookToReturn: ShowBookDTO = {
-    //   id: foundBook.id,
-    //   title: foundBook.title,
-    //   author: foundBook.author,
-    //   year: foundBook.year,
-    //   freeToBorrow: foundBook.freeToBorrow,
-    // };
-    // return bookToReturn;
   }
 
   public async delete(bookId: string) {
@@ -89,17 +65,5 @@ export class BooksService {
     foundBook.isDeleted = true;
 
     return await this.booksRepository.save(foundBook);
-
-    // const bookToReturn: BookDTO = {
-    //   id: foundBook.id,
-    //   title: foundBook.title,
-    //   author: foundBook.author,
-    //   year: foundBook.year,
-    //   freeToBorrow: foundBook.freeToBorrow,
-    //   isDeleted: foundBook.isDeleted,
-    //   reviews: await foundBook.reviews,
-    //   borrowedBy: null, // Just to get rid of the error for now
-    // };
-    // return bookToReturn;
   }
 }

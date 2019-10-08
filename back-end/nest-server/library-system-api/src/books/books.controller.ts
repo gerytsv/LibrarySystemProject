@@ -14,6 +14,8 @@ import {
   Delete,
   UseInterceptors,
   UseGuards,
+  Patch,
+  Request,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { BookDTO } from './models/book.dto';
@@ -30,6 +32,7 @@ export class BooksController {
   @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
   public async allBooks() {
+    // TODO: add searching by title/author
     return await this.booksService.allBooks();
   }
 
@@ -48,9 +51,7 @@ export class BooksController {
   @UseInterceptors(new TransformInterceptor(BookDTO))
   @HttpCode(HttpStatus.CREATED)
   public async addNewBook(@Body() body: CreateBookDTO) {
-    // : Promise<ResponseMessageDTO>
     return await this.booksService.createBook(body);
-    // Return { msg: 'Book Added!' };
   }
 
   @Put(':id') // Should be patch
@@ -58,10 +59,10 @@ export class BooksController {
   @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
   public async updateBookBorrowing(
+    @Request() request: any,
     @Param('id') bookId: string,
-    @Body() body: BorrowBookDTO,
   ) {
-    return await this.booksService.borrowBook(bookId, body);
+    return await this.booksService.borrowBook(request.user, bookId);
   }
 
   @Delete(':id')
