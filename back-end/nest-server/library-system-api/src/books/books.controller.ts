@@ -31,9 +31,22 @@ export class BooksController {
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
-  public async allBooks() {
-    // TODO: add searching by title/author
-    return await this.booksService.allBooks();
+  public async allBooks(
+    @Query('title') title: string,
+    @Query('author') author: string,
+  ) {
+    const books: BookDTO[] = await this.booksService.allBooks();
+    if (title) {
+      return books.filter(book =>
+        book.title.toLowerCase().includes(title.toLowerCase()),
+      );
+    }
+    if (author) {
+      return books.filter(book =>
+        book.author.toLowerCase().includes(author.toLowerCase()),
+      );
+    }
+    return books;
   }
 
   @Get(':id')
