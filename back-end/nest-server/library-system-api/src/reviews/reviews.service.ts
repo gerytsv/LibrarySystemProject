@@ -24,7 +24,7 @@ export class ReviewsService {
         if (!book) {
             throw new BadRequestException('Book not found');
         }
-        return await book.reviews;
+        return book.reviews;
     }
 
     public async getAllUserReviews(userId: string) {
