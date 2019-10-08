@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c36452c1-1fb2-4017-bfd5-75ae3b8004f8",
+		"_postman_id": "ee884947-4577-44a3-8e9f-cc888bbd6f68",
 		"name": "Library Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -135,7 +135,7 @@
 					"response": []
 				},
 				{
-					"name": "POST /api/users/userId/books/bookId/reviews",
+					"name": "POST /api/books/bookId/reviews",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -150,15 +150,12 @@
 							"raw": "{\r\n    \"content\" : \"LAGABUMPA\"\r\n}"
 						},
 						"url": {
-							"raw": "localhost:3000/api/users/63d7c167-58b0-45e1-9801-f3af644d5301/books/1/reviews",
+							"raw": "localhost:3000/books/1/reviews",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"api",
-								"users",
-								"63d7c167-58b0-45e1-9801-f3af644d5301",
 								"books",
 								"1",
 								"reviews"
@@ -169,7 +166,7 @@
 					"response": []
 				},
 				{
-					"name": "PUT /api/users/userId/reviews/reviewId",
+					"name": "PUT /api/reviews/reviewId",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -231,9 +228,19 @@
 					"response": []
 				},
 				{
-					"name": "PUT  /api/reviews/reviewId/like",
+					"name": "PUT  /api/books/reviews/:reviewId/:int",
 					"request": {
-						"method": "PUT",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEyMyIsImlhdCI6MTU3MDQ0NjM5MywiZXhwIjoxNTcwNTMyNzkzfQ.rrJUCelYKQ0RsFWfYUiLP3Ur20WoGuEP2ITMXknKCyM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -244,7 +251,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"likes\" : 20\r\n}",
+							"raw": "{\r\n    \"action\" : \"like\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -252,57 +259,20 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/reviews/cd9cfae6-2d4e-44a4-98be-a4d6529768fc/like",
+							"raw": "localhost:3000/api/books/reviews/2972540d-d659-4fa7-abfe-446791ea87fa/1",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"api",
+								"books",
 								"reviews",
-								"cd9cfae6-2d4e-44a4-98be-a4d6529768fc",
-								"like"
+								"2972540d-d659-4fa7-abfe-446791ea87fa",
+								"1"
 							]
 						},
 						"description": "Likes a review"
-					},
-					"response": []
-				},
-				{
-					"name": "PUT  /api/reviews/reviewId/flag",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"flags\" : 20\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:3000/api/reviews/cd9cfae6-2d4e-44a4-98be-a4d6529768fc/flag",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"reviews",
-								"cd9cfae6-2d4e-44a4-98be-a4d6529768fc",
-								"flag"
-							]
-						},
-						"description": "Flags a review"
 					},
 					"response": []
 				}
