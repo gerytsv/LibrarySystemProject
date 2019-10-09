@@ -87,7 +87,7 @@ export class UsersService {
     };
   }
 
-  private async validate(payload: JwtPayload): Promise<User> {
+  public async validate(payload: JwtPayload): Promise<User> {
     return await this.userRepository.findOne({username: payload.username});
   }
 }
