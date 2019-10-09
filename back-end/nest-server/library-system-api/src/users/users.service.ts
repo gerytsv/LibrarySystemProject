@@ -30,7 +30,7 @@ export class UsersService {
       throw new BadRequestException('No such user!');
     }
     // Password validation
-    if (bcrypt.compare(foundUser.password, user.password)) {
+    if (await bcrypt.compare(foundUser.password, user.password)) {
       return foundUser;
     } else {
       throw new BadRequestException('Invalid password!');
