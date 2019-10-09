@@ -589,6 +589,34 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "3. DELETE /session - Success",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiYXZhdGFyVXJsIjpudWxsLCJyb2xlcyI6WyJCYXNpYyJdLCJpYXQiOjE1Njk4NTM1MTIsImV4cCI6MTU2OTg1NzExMn0.YP90CbM6Ds2fnZ1ntv20Op949WPiQ5tvaHuRjVf9CEE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/session",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"session"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
