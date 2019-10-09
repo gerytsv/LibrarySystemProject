@@ -1,3 +1,4 @@
+import { AuthGuardWithBlacklisting } from './../common/guards/blacklist.guard';
 import { AuthService } from './auth.service';
 import {
   Controller,
@@ -5,8 +6,11 @@ import {
   Body,
   ValidationPipe,
   BadRequestException,
+  Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UserLoginDTO } from '../users/models/login-user.dto';
+import { Token } from '../common/decorators/token.decorator';
 
 @Controller('session')
 export class AuthController {
@@ -23,5 +27,15 @@ export class AuthController {
     }
 
     return { token };
+  }
+
+  @Delete()
+  @UseGuards(AuthGuardWithBlacklisting)
+  public async logoutUser(@Token() token: string) {
+    this.authService.blackListToken(token);
+
+    return {
+      msg: 'Logout successful!',
+    };
   }
 }

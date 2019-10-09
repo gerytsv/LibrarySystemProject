@@ -1,5 +1,5 @@
 import { config } from '../../common/auth.config';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { AuthService } from '../auth.service';
@@ -12,6 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: config.jwtSecret,
+      ignoreExpiration: false,
     });
   }
 
@@ -20,7 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       username: payload.username,
     });
     if (!user) {
-      throw new Error(`Not authorized!`);
+      throw new UnauthorizedException(); // Error("Not authorized!");
     }
 
     return user;

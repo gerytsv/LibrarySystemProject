@@ -11,6 +11,7 @@ import bcrypt from 'bcryptjs';
 import { UserLoginDTO } from './models/login-user.dto';
 import { JwtPayload } from '../common/types/jwt-payload';
 import { ReturnUserDTO } from './models/return-user.dto';
+import { SystemError } from '../common/exceptions/system.error';
 
 @Injectable()
 export class UsersService {
@@ -25,9 +26,11 @@ export class UsersService {
         username: user.username,
       },
     });
-
+    // Password validation
     if (bcrypt.compare(foundUser.password, user.password)) {
       return foundUser;
+    } else {
+      throw new SystemError('Invalid password!', 400);
     }
   }
 
@@ -59,10 +62,7 @@ export class UsersService {
     };
   }
 
-  public async updateUserRoles(
-    body: UpdateUserRoleDTO,
-    id: string,
-  ) {
+  public async updateUserRoles(body: UpdateUserRoleDTO, id: string) {
     // tslint:disable-next-line: prefer-const
     let validRoles: Role[] = [];
     let roleToPush: Role;
