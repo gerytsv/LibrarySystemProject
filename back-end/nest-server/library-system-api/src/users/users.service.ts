@@ -20,30 +20,36 @@ export class UsersService {
     @InjectRepository(Role) private readonly rolesRepository: Repository<Role>,
   ) {}
 
-  public async signIn(user: UserLoginDTO): Promise<User> {
+  public async signIn(user: UserLoginDTO) {
     const foundUser: User = await this.userRepository.findOne({
       where: {
         username: user.username,
       },
     });
     if (!foundUser) {
-      throw new BadRequestException('No such user!');
+      throw new SystemError('No such user!', 400);
     }
-    // Password validation
-    if (await bcrypt.compare(foundUser.password, user.password)) {
+    if (await bcrypt.compare(user.password, foundUser.password)) {
       return foundUser;
     } else {
-      throw new BadRequestException('Invalid password!');
+      throw new SystemError('Invalid password!', 400);
     }
   }
 
-  public async allUsers(): Promise<User[]> {
+  public async allUsers() {
     return await this.userRepository.find({where: { isDeleted: false}});
   }
 
   public async createUser(body: CreateUserDTO) {
     const username = body.username;
     const hashedPassword = await bcrypt.hash(body.password, 10);
+
+    const users = await this.userRepository.find({where: { username }});
+    const exist = (users.some(item => item.username === username));
+
+    if (exist) {
+      throw new SystemError('Username already exist', 400);
+    }
 
     const user = {
       username,
@@ -57,13 +63,9 @@ export class UsersService {
     };
 
     const userEntity = this.userRepository.create(user);
-    const savedUser = await this.userRepository.save(userEntity);
-    return {
-      id: savedUser.id,
-      username: savedUser.username,
-      roles: savedUser.roles.map(role => role.name),
-    };
-  }
+    return await this.userRepository.save(userEntity);
+
+    }
 
   public async updateUserRoles(body: UpdateUserRoleDTO, id: string) {
     // tslint:disable-next-line: prefer-const
@@ -83,11 +85,7 @@ export class UsersService {
     user.roles = validRoles;
     const savedUser = await this.userRepository.save(user);
 
-    return {
-      id: savedUser.id,
-      username: savedUser.username,
-      roles: savedUser.roles.map(role => role.name),
-    };
+    return savedUser;
   }
 
   public async validate(payload: JwtPayload): Promise<User> {

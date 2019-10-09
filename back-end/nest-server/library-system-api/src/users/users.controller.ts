@@ -8,6 +8,7 @@ import {
   HttpStatus,
   HttpCode,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './models/create-user.dto';
@@ -28,14 +29,14 @@ export class UsersController {
 
   @Post() // Register and Login are the only ones that are not private
   @HttpCode(HttpStatus.CREATED)
-  public async register(@Body() body: CreateUserDTO): Promise<ShowUserDTO> {
+  public async register(@Body(new ValidationPipe({ transform: true, whitelist: true })) body: CreateUserDTO): Promise<ShowUserDTO> {
     return this.userService.createUser(body);
   }
 
   @Post('/:id')
   @UseGuards(AuthGuard('jwt'))
   public async updateRole(
-    @Body() body: UpdateUserRoleDTO,
+    @Body(new ValidationPipe({ transform: true, whitelist: true })) body: UpdateUserRoleDTO,
     @Param('id') id: string,
   ): Promise<ShowUserDTO> {
     return await this.userService.updateUserRoles(body, id);

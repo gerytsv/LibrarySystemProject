@@ -1,9 +1,7 @@
-import { Controller, Get, Param, Body, Post, BadRequestException, Put, Delete, UseInterceptors, UseGuards, Request, Patch } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, BadRequestException, Put, Delete, UseInterceptors, UseGuards, Request, Patch, ValidationPipe } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDTO } from './models/create-review.dto';
 import { ShowReviewDTO } from './models/show-review..dto';
-import { UpdatedReviewDTO } from './models/updated-review.dto';
-import { ResponseMessegeDTO } from './models/messege.dto';
 import { UpdateReviewDTO } from './models/votes-review.dto';
 import { TransformInterceptor } from '../transformer/interceptors/transform.interceptor';
 import { AuthGuard } from '@nestjs/passport';
@@ -31,14 +29,16 @@ export class ReviewsController {
     @Post('/books/:bookId/reviews')
     @UseInterceptors(new TransformInterceptor(ShowReviewDTO))
     @UseGuards(AuthGuard())
-    public async createBookReview(@Request() request: any, @Param('bookId') bookId: string , @Body() body: CreateReviewDTO) {
+    public async createBookReview(@Request() request: any, @Param('bookId') bookId: string ,
+    @Body(new ValidationPipe({ transform: true, whitelist: true })) body: CreateReviewDTO) {
         return await this.reviewsService.create(request.user.id, bookId, body.content);
     }
 
     @Put('/books/reviews/:reviewId')
     @UseInterceptors(new TransformInterceptor(ShowReviewDTO))
     @UseGuards(AuthGuard())
-    public async editBookReview(@Request() request: any, @Param('reviewId') reviewId: string , @Body() body: CreateReviewDTO) {
+    public async editBookReview(@Request() request: any, @Param('reviewId') reviewId: string ,
+    @Body(new ValidationPipe({ transform: true, whitelist: true })) body: CreateReviewDTO) {
         return await this.reviewsService.editContent(request.user.id, reviewId, body.content);
     }
 

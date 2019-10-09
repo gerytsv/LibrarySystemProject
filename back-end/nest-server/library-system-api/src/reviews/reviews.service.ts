@@ -5,6 +5,7 @@ import { Repository, getManager } from 'typeorm';
 import { User } from '../database/entities/users.entity';
 import { Book } from '../database/entities/books.entity';
 import { ResponseMessegeDTO } from './models/messege.dto';
+import { SystemError } from '../common/exceptions/system.error';
 
 @Injectable()
 export class ReviewsService {
@@ -22,7 +23,7 @@ export class ReviewsService {
         .where('book.id = :id', { id: bookId })
         .getOne();
         if (!book) {
-            throw new BadRequestException('Book not found');
+            throw new SystemError('Book not found', 400);
         }
         return book.reviews;
     }
@@ -35,7 +36,7 @@ export class ReviewsService {
         .where('user.id = :id', { id: userId })
         .getOne();
         if (!user) {
-            throw new BadRequestException('User not found');
+            throw new SystemError('User not found', 400);
         }
         return user.reviews;
     }
@@ -43,14 +44,14 @@ export class ReviewsService {
     public async create(userID: string, bookID: string , content: string) {
         const user  = await this.usersRepository.findOne({where: { id: userID, isDeleted: false}});
         if (!user) {
-            return new BadRequestException('User not found');
+            throw new SystemError('User not found', 400);
         }
         const book =  await this.booksRepository.findOne({where: {id: bookID, isDeleted: false}});
         if (!book) {
-            return new BadRequestException('Book not found');
+            throw new SystemError('Book not found', 400);
         }
         if (!await this.isBookRead(user, book)) {
-            return new BadRequestException('The book has not been read by the user');
+            throw new SystemError('The book has not been read by the user', 400);
         }
         const review = {
             content ,
@@ -68,11 +69,11 @@ export class ReviewsService {
     public async editContent(userId: string , reviewId: string, newContent: string) {
         const review = await this.reviewsRepository.findOne({where: {id: reviewId, isDeleted: false}});
         if (!review) {
-            return new BadRequestException('No such review');
+            throw new SystemError('No such review', 400);
         }
         const reviewOwner = await review.user;
         if (reviewOwner.id !== userId) {
-            return new BadRequestException('This user can\'t edit the review');
+            throw new SystemError('This user can\'t edit the review', 400);
         }
 
         review.content = newContent;
@@ -85,11 +86,11 @@ export class ReviewsService {
         const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false},
         relations: ['user']});
         if ( !review ) {
-            throw new BadRequestException('Review doesnt exist');
+            throw new SystemError('Review doesnt exist', 400);
         }
         const user = await review.user;
         if ( !user || user.id !== userId  ) {
-            throw new BadRequestException('This user can\'t delete the review');
+            throw new SystemError('This user can\'t delete the review', 400);
         }
         console.log(review);
         review.isDeleted = true;
@@ -102,7 +103,7 @@ export class ReviewsService {
     public async like(reviewId: string , likes: number) {
         const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false}});
         if (!review) {
-            throw new BadRequestException('Review not found');
+            throw new SystemError('Review not found', 400);
         }
         ( likes > 0 ) ? review.likes++ : review.likes--;
         this.reviewsRepository.save(review);
@@ -112,7 +113,7 @@ export class ReviewsService {
     public async flag(reviewId: string , flags: number) {
         const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false}});
         if (!review) {
-            throw new BadRequestException('Review not found');
+            throw new SystemError('Review not found', 400);
         }
         ( flags > 0 ) ? review.flags++ : review.flags--;
         this.reviewsRepository.save(review);
