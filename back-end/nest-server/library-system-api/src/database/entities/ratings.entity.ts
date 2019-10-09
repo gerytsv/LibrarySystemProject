@@ -14,7 +14,7 @@ export class Rating {
   public id: string;
 
   @Column('int', { default: 0 })
-  public votes: number;
+  public vote: number;
 
   @Column({ type: 'boolean', default: false })
   public isDeleted: boolean;

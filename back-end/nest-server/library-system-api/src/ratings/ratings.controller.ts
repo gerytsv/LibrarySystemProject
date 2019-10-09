@@ -1,4 +1,13 @@
-import { Controller, Param, Body, Post, Request, UseGuards } from '@nestjs/common';
+import { AuthGuardWithBlacklisting } from './../common/guards/blacklist.guard';
+import {
+  Controller,
+  Param,
+  Body,
+  Post,
+  UseGuards,
+  Get,
+  Request,
+} from '@nestjs/common';
 import { RatingsService } from './ratings.service';
 import { CreateRatingDTO } from './models/CreateRatingDTO';
 import { AuthGuard } from '@nestjs/passport';
@@ -6,6 +15,13 @@ import { AuthGuard } from '@nestjs/passport';
 @Controller('api')
 export class RatingsController {
   public constructor(private readonly ratingsService: RatingsService) {}
+
+  @Get('/books/:bookId/rating')
+  @UseGuards(AuthGuard())
+  public async getBookRating(@Param('bookId') bookId: string) {
+    return await this.ratingsService.getBookRating(bookId);
+  }
+
   @Post('/books/:bookId/rating')
   @UseGuards(AuthGuard())
   public async createBookRating(
@@ -13,11 +29,11 @@ export class RatingsController {
     @Param('bookId') bookId: string,
     @Body() body: CreateRatingDTO,
   ) {
-    console.log(request);
-    return this.ratingsService.createRating(
+    return await this.ratingsService.createRating(
       request.user.id,
       bookId,
       +body.vote,
     );
+    // return { msg: 'Book Rated!' };
   }
 }
