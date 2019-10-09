@@ -1,11 +1,13 @@
-import { Controller, Param, Body, Post, Request } from '@nestjs/common';
+import { Controller, Param, Body, Post, Request, UseGuards } from '@nestjs/common';
 import { RatingsService } from './ratings.service';
 import { CreateRatingDTO } from './models/CreateRatingDTO';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api')
 export class RatingsController {
   public constructor(private readonly ratingsService: RatingsService) {}
   @Post('/books/:bookId/rating')
+  @UseGuards(AuthGuard())
   public async createBookRating(
     @Request() request: any,
     @Param('bookId') bookId: string,
