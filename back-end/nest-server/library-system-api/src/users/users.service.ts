@@ -6,7 +6,6 @@ import { CreateUserDTO } from './models/create-user.dto';
 import { Role } from '../database/entities/roles.entity';
 import { UserRole } from './enums/user-roles.enum';
 import { UpdateUserRoleDTO } from './models/update-user-role.dto';
-import { ShowUserDTO } from './models/show-user.dto';
 import bcrypt from 'bcryptjs';
 import { UserLoginDTO } from './models/login-user.dto';
 import { JwtPayload } from '../common/types/jwt-payload';
