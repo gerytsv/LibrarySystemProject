@@ -10,6 +10,7 @@ import { ShowUserDTO } from './models/show-user.dto';
 import bcrypt from 'bcryptjs';
 import { UserLoginDTO } from './models/login-user.dto';
 import { JwtPayload } from '../common/types/jwt-payload';
+import { ReturnUserDTO } from './models/return-user.dto';
 import { SystemError } from '../common/exceptions/system.error';
 
 @Injectable()
@@ -35,13 +36,9 @@ export class UsersService {
       throw new BadRequestException('Invalid password!');
     }
   }
-  // For sign-in
-  public async validate(payload: JwtPayload): Promise<User> {
-    return await this.userRepository.findOne({ username: payload.username });
-  }
 
   public async allUsers(): Promise<User[]> {
-    return await this.userRepository.find({});
+    return await this.userRepository.find({where: { isDeleted: false}});
   }
 
   public async createUser(body: CreateUserDTO) {
@@ -81,16 +78,19 @@ export class UsersService {
         validRoles.push(roleToPush);
       }
     });
-    // tslint:disable-next-line: object-literal-shorthand
-    const user = await this.userRepository.findOne({ where: { id: id } });
+
+    const user = await this.userRepository.findOne({ where: { id } });
     user.roles = validRoles;
-    const createdUser = this.userRepository.create(user);
-    const savedUser = await this.userRepository.save(createdUser);
+    const savedUser = await this.userRepository.save(user);
 
     return {
       id: savedUser.id,
       username: savedUser.username,
       roles: savedUser.roles.map(role => role.name),
     };
+  }
+
+  private async validate(payload: JwtPayload): Promise<User> {
+    return await this.userRepository.findOne({username: payload.username});
   }
 }
