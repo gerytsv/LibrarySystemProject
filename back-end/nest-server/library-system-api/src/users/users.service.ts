@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../database/entities/users.entity';
 import { Repository } from 'typeorm';
@@ -26,11 +26,14 @@ export class UsersService {
         username: user.username,
       },
     });
+    if (!foundUser) {
+      throw new BadRequestException('No such user!');
+    }
     // Password validation
     if (bcrypt.compare(foundUser.password, user.password)) {
       return foundUser;
     } else {
-      throw new SystemError('Invalid password!', 400);
+      throw new BadRequestException('Invalid password!');
     }
   }
 

@@ -1,10 +1,11 @@
+import { Rating } from './../database/entities/ratings.entity';
 import { CreateRatingDTO } from './models/CreateRatingDTO';
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { User } from '../database/entities/users.entity';
 import { Book } from '../database/entities/books.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Rating } from '../database/entities/ratings.entity';
+import { Repository, getManager } from 'typeorm';
+import { SystemError } from '../common/exceptions/system.error';
 
 @Injectable()
 export class RatingsService {
@@ -14,7 +15,27 @@ export class RatingsService {
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
     @InjectRepository(Book) private readonly booksRepository: Repository<Book>,
   ) {}
-  // getBookRating() -with queryBuilder
+
+  public async getBookRating(bookId: string) {
+    const book = await this.booksRepository.findOne({
+      where: { id: bookId, isDeleted: false, relations: ['rating'] },
+    });
+    if (!book) {
+      throw new BadRequestException('Book not found');
+    }
+    const rating: any = await book.rating;
+    const averageRate = rating.reduce(
+      (acc: { sum: number; len: number }, item: Rating) => {
+        acc.sum += item.vote;
+        acc.len += 1;
+        return acc;
+      },
+      { sum: 0, len: 0 },
+    );
+    const avg = averageRate.sum / averageRate.len;
+    return avg;
+    // return await this.ratingsRepository.findOne({ where: { book } });
+  }
 
   public async createRating(userId: string, bookId: string, vote: number) {
     const user = await this.usersRepository.findOne({
@@ -26,29 +47,28 @@ export class RatingsService {
     });
 
     if (!user) {
-      return new BadRequestException('User not found');
+      throw new BadRequestException('User not found');
     }
 
     if (!book) {
-      return new BadRequestException('Book not found');
+      throw new BadRequestException('Book not found');
     }
 
     if (!(await this.isBookRead(user, book))) {
-      return new BadRequestException(
-        'The book has not been read by this user.',
-      );
+      throw new BadRequestException('The book has not been read by this user.');
     }
-    const rating = {
-      votes: vote,
-    };
 
-    const oldRating = await this.ratingsRepository.findOne({
-      where: { user, book },
-    });
+    const rating = {
+      vote,
+    };
 
     const ratingEntity = this.ratingsRepository.create(rating);
     ratingEntity.user = Promise.resolve(user);
     ratingEntity.book = Promise.resolve(book);
+
+    const oldRating = await this.ratingsRepository.findOne({
+      where: { user, book },
+    });
 
     if (oldRating) {
       ratingEntity.id = oldRating.id;
