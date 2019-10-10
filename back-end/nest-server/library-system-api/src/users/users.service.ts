@@ -6,12 +6,9 @@ import { CreateUserDTO } from './models/create-user.dto';
 import { Role } from '../database/entities/roles.entity';
 import { UserRole } from './enums/user-roles.enum';
 import { UpdateUserRoleDTO } from './models/update-user-role.dto';
-import { ShowUserDTO } from './models/show-user.dto';
 import bcrypt from 'bcryptjs';
 import { UserLoginDTO } from './models/login-user.dto';
 import { JwtPayload } from '../common/types/jwt-payload';
-import { ReturnUserDTO } from './models/return-user.dto';
-import { SystemError } from '../common/exceptions/system.error';
 
 @Injectable()
 export class UsersService {
@@ -38,7 +35,7 @@ export class UsersService {
   }
 
   public async allUsers(): Promise<User[]> {
-    return await this.userRepository.find({where: { isDeleted: false}});
+    return await this.userRepository.find({ where: { isDeleted: false } });
   }
 
   public async createUser(body: CreateUserDTO) {
@@ -90,7 +87,7 @@ export class UsersService {
     };
   }
 
-  private async validate(payload: JwtPayload): Promise<User> {
-    return await this.userRepository.findOne({username: payload.username});
+  public async validate(payload: JwtPayload): Promise<User> {
+    return await this.userRepository.findOne({ username: payload.username });
   }
 }

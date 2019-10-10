@@ -15,7 +15,7 @@ export class AuthService {
     private readonly usersService: UsersService,
   ) {}
 
-  public async signIn(user: UserLoginDTO): Promise<string> {
+  public async signIn(user: UserLoginDTO) {
     const userFound = await this.usersService.signIn(user);
     if (userFound && !userFound.isDeleted) {
       // Returning the token

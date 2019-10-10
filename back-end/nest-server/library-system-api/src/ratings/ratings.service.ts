@@ -24,7 +24,7 @@ export class RatingsService {
       throw new BadRequestException('Book not found');
     }
     const rating: any = await book.rating;
-    const averageRate = rating.reduce(
+    const rate = rating.reduce(
       (acc: { sum: number; len: number }, item: Rating) => {
         acc.sum += item.vote;
         acc.len += 1;
@@ -32,9 +32,8 @@ export class RatingsService {
       },
       { sum: 0, len: 0 },
     );
-    const avg = averageRate.sum / averageRate.len;
+    const avg = rate.sum / rate.len;
     return avg;
-    // return await this.ratingsRepository.findOne({ where: { book } });
   }
 
   public async createRating(userId: string, bookId: string, vote: number) {
