@@ -6,6 +6,8 @@ import { User } from '../database/entities/users.entity';
 import { Book } from '../database/entities/books.entity';
 import { ResponseMessegeDTO } from './models/messege.dto';
 import { SystemError } from '../common/exceptions/system.error';
+import { isBookRead } from '../common/util-services/is-book-read';
+import { isAdmin } from '../common/util-services/is-admin';
 
 @Injectable()
 export class ReviewsService {
@@ -50,8 +52,10 @@ export class ReviewsService {
         if (!book) {
             throw new SystemError('Book not found', 400);
         }
-        if (!await this.isBookRead(user, book)) {
-            throw new SystemError('The book has not been read by the user', 400);
+        if (!isAdmin(user)) {
+            if (!await isBookRead(user, book)) {
+                throw new SystemError('The book has not been read by the user', 400);
+            }
         }
         const review = {
             content ,
@@ -72,8 +76,10 @@ export class ReviewsService {
             throw new SystemError('No such review', 400);
         }
         const reviewOwner = await review.user;
-        if (reviewOwner.id !== userId) {
-            throw new SystemError('This user can\'t edit the review', 400);
+        if (!isAdmin(reviewOwner)) {
+            if (reviewOwner.id !== userId) {
+                throw new SystemError('This user can\'t edit the review', 400);
+            }
         }
 
         review.content = newContent;
@@ -89,8 +95,10 @@ export class ReviewsService {
             throw new SystemError('Review doesnt exist', 400);
         }
         const user = await review.user;
-        if ( !user || user.id !== userId  ) {
-            throw new SystemError('This user can\'t delete the review', 400);
+        if (!isAdmin(user)) {
+            if ( !user || user.id !== userId  ) {
+                throw new SystemError('This user can\'t delete the review', 400);
+            }
         }
         console.log(review);
         review.isDeleted = true;
@@ -103,7 +111,10 @@ export class ReviewsService {
     public async like(reviewId: string , likes: number) {
         const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false}});
         if (!review) {
-            throw new SystemError('Review not found', 400);
+            throw new SystemError('Review not found', 404);
+        }
+        if (review.likes <= 0 && likes < 0)  {
+            throw new SystemError('Review cannot be unliked', 400);
         }
         ( likes > 0 ) ? review.likes++ : review.likes--;
         this.reviewsRepository.save(review);
@@ -113,15 +124,14 @@ export class ReviewsService {
     public async flag(reviewId: string , flags: number) {
         const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false}});
         if (!review) {
-            throw new SystemError('Review not found', 400);
+            throw new SystemError('Review not found', 404);
+        }
+        if (review.flags <= 0 && flags < 0)  {
+            throw new SystemError('Review cannot be unflagged', 404);
         }
         ( flags > 0 ) ? review.flags++ : review.flags--;
         this.reviewsRepository.save(review);
         return (flags > 0 ) ? { messege: 'Review flaged'} : {messege: 'Review unflaged'};
     }
 
-    private async isBookRead(user: User, book: Book) {
-        const books = await user.returnedBooks;
-        return books.some(item => item.id === book.id);
-    }
 }

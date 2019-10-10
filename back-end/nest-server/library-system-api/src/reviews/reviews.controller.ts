@@ -6,6 +6,7 @@ import { UpdateReviewDTO } from './models/votes-review.dto';
 import { TransformInterceptor } from '../transformer/interceptors/transform.interceptor';
 import { AuthGuard } from '@nestjs/passport';
 import { actionsToMethods } from '../common/enums/update-actions';
+import { AdminGuard } from '../common/guards/admin.guard';
 
 @Controller('api')
 export class ReviewsController {
@@ -21,7 +22,7 @@ export class ReviewsController {
 
     @Get('/users/:userId/reviews')
     @UseInterceptors(new TransformInterceptor(ShowReviewDTO))
-    @UseGuards(AuthGuard())
+    @UseGuards(AuthGuard(), AdminGuard)
     public async readAllUserReviews(@Param('userId') userId: string) {
         return await this.reviewsService.getAllUserReviews(userId);
     }
@@ -51,7 +52,7 @@ export class ReviewsController {
 
     // Body{ action: "like" / "flag" }
     @Patch('books/reviews/:reviewId/:int')
-    @UseGuards(AuthGuard())
+    @UseGuards(AuthGuard(), AdminGuard)
     public async updateReviewVotes(@Param('reviewId') reviewId: string, @Param('int') int: string, @Body() body: UpdateReviewDTO) {
         return await (this.reviewsService as any)[actionsToMethods[body.action]](reviewId, +int);
     }

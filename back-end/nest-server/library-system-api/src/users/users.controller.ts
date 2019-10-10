@@ -10,6 +10,7 @@ import {
   UseGuards,
   ValidationPipe,
   UseInterceptors,
+  Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './models/create-user.dto';
@@ -17,6 +18,7 @@ import { ShowUserDTO } from './models/show-user.dto';
 import { UpdateUserRoleDTO } from './models/update-user-role.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { TransformInterceptor } from '../transformer/interceptors/transform.interceptor';
+import { AdminGuard } from '../common/guards/admin.guard';
 
 @Controller('api/users')
 export class UsersController {
@@ -36,11 +38,17 @@ export class UsersController {
 
   @Post('/:id')
   @UseInterceptors(new TransformInterceptor(ShowUserDTO))
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
   public async updateRole(
     @Body(new ValidationPipe({ transform: true, whitelist: true })) body: UpdateUserRoleDTO,
     @Param('id') id: string,
   ) {
     return await this.userService.updateUserRoles(body, id);
+  }
+
+  @Delete('/:id')
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
+  public async deleteUser(@Param('id') userId: string) {
+    return await this.userService.delete(userId);
   }
 }

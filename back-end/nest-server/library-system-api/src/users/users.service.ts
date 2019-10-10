@@ -4,7 +4,7 @@ import { User } from '../database/entities/users.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDTO } from './models/create-user.dto';
 import { Role } from '../database/entities/roles.entity';
-import { UserRole } from './enums/user-roles.enum';
+import { UserRole } from '../common/enums/user-roles.enum';
 import { UpdateUserRoleDTO } from './models/update-user-role.dto';
 import bcrypt from 'bcryptjs';
 import { UserLoginDTO } from './models/login-user.dto';
@@ -26,7 +26,7 @@ export class UsersService {
       },
     });
     if (!foundUser) {
-      throw new SystemError('No such user!', 400);
+      throw new SystemError('No such user!', 404);
     }
     if (await bcrypt.compare(user.password, foundUser.password)) {
       return foundUser;
@@ -85,6 +85,17 @@ export class UsersService {
     const savedUser = await this.userRepository.save(user);
 
     return savedUser;
+  }
+
+  public async delete(userId: string) {
+    const user = await this.userRepository.findOne({where : { id: userId, isDeleted: false }});
+    if (!user) {
+      throw new SystemError('The user is not found' , 404);
+    }
+
+    user.isDeleted = true;
+    await this.userRepository.save(user);
+    return { messege: 'User deleted succesfully'};
   }
 
   public async validate(payload: JwtPayload): Promise<User> {
