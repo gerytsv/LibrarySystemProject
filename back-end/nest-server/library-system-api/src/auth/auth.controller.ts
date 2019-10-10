@@ -31,7 +31,7 @@ export class AuthController {
 
   @Delete()
   @UseGuards(AuthGuardWithBlacklisting)
-  public async logoutUser(@Token() token: string) {
+  public async logout(@Token() token: string) {
     this.authService.blackListToken(token);
 
     return {

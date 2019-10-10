@@ -9,7 +9,6 @@ import { UpdateUserRoleDTO } from './models/update-user-role.dto';
 import bcrypt from 'bcryptjs';
 import { UserLoginDTO } from './models/login-user.dto';
 import { JwtPayload } from '../common/types/jwt-payload';
-import { ReturnUserDTO } from './models/return-user.dto';
 import { SystemError } from '../common/exceptions/system.error';
 
 @Injectable()
@@ -36,15 +35,15 @@ export class UsersService {
   }
 
   public async allUsers() {
-    return await this.userRepository.find({where: { isDeleted: false}});
+    return await this.userRepository.find({ where: { isDeleted: false } });
   }
 
   public async createUser(body: CreateUserDTO) {
     const username = body.username;
     const hashedPassword = await bcrypt.hash(body.password, 10);
 
-    const users = await this.userRepository.find({where: { username }});
-    const exist = (users.some(item => item.username === username));
+    const users = await this.userRepository.find({ where: { username } });
+    const exist = users.some(item => item.username === username);
 
     if (exist) {
       throw new SystemError('Username already exist', 400);
@@ -63,8 +62,7 @@ export class UsersService {
 
     const userEntity = this.userRepository.create(user);
     return await this.userRepository.save(userEntity);
-
-    }
+  }
 
   public async updateUserRoles(body: UpdateUserRoleDTO, id: string) {
     // tslint:disable-next-line: prefer-const
@@ -99,6 +97,6 @@ export class UsersService {
   }
 
   public async validate(payload: JwtPayload): Promise<User> {
-    return await this.userRepository.findOne({username: payload.username});
+    return await this.userRepository.findOne({ username: payload.username });
   }
 }
