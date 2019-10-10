@@ -1,4 +1,4 @@
-import { UserRole } from '../enums/user-roles.enum';
+import { UserRole } from '../../common/enums/user-roles.enum';
 import { IsNotEmpty, IsArray } from 'class-validator';
 
 export class UpdateUserRoleDTO {

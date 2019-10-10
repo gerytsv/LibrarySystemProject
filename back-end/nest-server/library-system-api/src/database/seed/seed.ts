@@ -1,5 +1,5 @@
 import { createConnection } from 'typeorm';
-import { UserRole } from '../../users/enums/user-roles.enum';
+import { UserRole } from '../../common/enums/user-roles.enum';
 import { Role } from '../entities/roles.entity';
 import { User } from '../entities/users.entity';
 import { Book } from '../entities/books.entity';
