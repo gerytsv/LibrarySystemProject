@@ -6,11 +6,9 @@ import { SystemErrorFilter } from './common/filters/system-error.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
   app.enableCors();
   app.use(helmet());
-
-  // app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.useGlobalFilters(new SystemErrorFilter());
+  await app.listen(3000);
 }
 bootstrap();
