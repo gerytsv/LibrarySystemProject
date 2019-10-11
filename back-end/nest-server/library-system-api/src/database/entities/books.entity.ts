@@ -30,8 +30,8 @@ export class Book {
   @Column({ type: 'boolean', default: false })
   public isDeleted: boolean;
 
-  @OneToMany(type => Rating, review => review.book)
-  public rating: Promise<Rating>;
+  @OneToMany(type => Rating, rating => rating.book)
+  public rating: Promise<Rating[]>;
 
   @OneToMany(type => Review, review => review.book)
   public reviews: Promise<Review[]>;
