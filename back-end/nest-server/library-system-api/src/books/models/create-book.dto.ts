@@ -1,10 +1,11 @@
 import { Publish } from '../../transformer/decorators/publish';
+import { IsString } from 'class-validator';
 
 export class CreateBookDTO {
-    @Publish()
-    public title: string;
-    @Publish()
-    public author: string;
-    @Publish()
-    public year: string;
-  }
+  @IsString()
+  public title: string;
+  @IsString()
+  public author: string;
+  @IsString()
+  public year: string;
+}

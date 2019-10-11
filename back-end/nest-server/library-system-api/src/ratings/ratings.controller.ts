@@ -7,6 +7,7 @@ import {
   UseGuards,
   Get,
   Request,
+  ValidationPipe,
 } from '@nestjs/common';
 import { RatingsService } from './ratings.service';
 import { CreateRatingDTO } from './models/CreateRatingDTO';
@@ -27,7 +28,8 @@ export class RatingsController {
   public async createBookRating(
     @Request() request: any,
     @Param('bookId') bookId: string,
-    @Body() body: CreateRatingDTO,
+    @Body(new ValidationPipe({ transform: true, whitelist: true }))
+    body: CreateRatingDTO,
   ) {
     return await this.ratingsService.createRating(
       request.user.id,

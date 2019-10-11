@@ -1,6 +1,4 @@
 import { TransformInterceptor } from './../transformer/interceptors/transform.interceptor';
-import { BorrowBookDTO } from './models/borrow-book.dto';
-import { ResponseMessageDTO } from './models/response-message.dto';
 import {
   Controller,
   Get,
@@ -16,6 +14,7 @@ import {
   UseGuards,
   Patch,
   Request,
+  ValidationPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { BookDTO } from './models/book.dto';
@@ -44,7 +43,9 @@ export class BooksController {
       return books.filter(book =>
         book.author.toLowerCase().includes(author.toLowerCase()),
       );
-    } else { return books; }
+    } else {
+      return books;
+    }
   }
 
   @Get(':id')
@@ -61,7 +62,10 @@ export class BooksController {
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(new TransformInterceptor(BookDTO))
   @HttpCode(HttpStatus.CREATED)
-  public async addNewBook(@Body() body: CreateBookDTO) {
+  public async addNewBook(
+    @Body(new ValidationPipe({ transform: true, whitelist: true }))
+    body: CreateBookDTO,
+  ) {
     return await this.booksService.createBook(body);
   }
 

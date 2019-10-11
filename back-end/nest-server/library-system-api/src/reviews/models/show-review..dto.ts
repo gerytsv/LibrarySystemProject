@@ -6,18 +6,18 @@ import { ShowBookDTO } from '../../books/models/show-book.dto';
 import { CreateBookDTO } from '../../books/models/create-book.dto';
 
 export class ShowReviewDTO {
-    @Publish()
-    public id: string;
-    @Publish()
-    public content: string;
-    @Publish()
-    public likes: number;
-    @Publish()
-    public flags: number;
-    @Publish(CreateBookDTO)
-    public book: ShowBookDTO;
-    @Publish(ShowUserDTO)
-    public user: ShowUserDTO;
-    @Publish()
-    public createdOn: Date;
+  @Publish()
+  public id: string;
+  @Publish()
+  public content: string;
+  @Publish()
+  public likes: number;
+  @Publish()
+  public flags: number;
+  @Publish(ShowBookDTO)
+  public book: ShowBookDTO;
+  @Publish(ShowUserDTO)
+  public user: ShowUserDTO;
+  @Publish()
+  public createdOn: Date;
 }
