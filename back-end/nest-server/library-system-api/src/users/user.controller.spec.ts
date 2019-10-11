@@ -8,7 +8,8 @@ describe('User Controller', () => {
     const userService = {
       allUsers() { /* empty */ },
       createUser() { /* empty */ },
-      updateUserRoles() { /* empty */ }
+      updateUserRoles() { /* empty */ },
+      delete(){/* empty */}
     };
 
     beforeEach(async () => {
@@ -143,4 +144,41 @@ describe('User Controller', () => {
       expect(response).toBe('test');
 
     });
+
+    it('deleteUser call UserService delete method', async () => {
+
+      // Arrange
+      const spy = jest.spyOn(userService, 'delete');
+
+      // Act
+      await controller.deleteUser('123');
+      // Assert
+      expect(userService.delete).toHaveBeenCalledTimes(1);
+
+    });
+
+    it('deleteUser call UserService delete method with the correct parameters', async () => {
+
+      // Arrange
+      const spy = jest.spyOn(userService, 'delete');
+
+      // Act
+      await controller.deleteUser('123');
+      // Assert
+      expect(userService.delete).toHaveBeenCalledWith('123');
+
+    });
+
+    it('deleteUser should return the correct value', async () => {
+
+      // Arrange
+      const spy = jest.spyOn(userService, 'delete').mockImplementation(async () => 'test');
+
+      // Act
+      const response = await controller.deleteUser('123');
+      // Assert
+      expect(response).toBe('test');
+
+    });
+
 });
