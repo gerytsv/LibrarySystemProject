@@ -1,3 +1,4 @@
+import { AdminGuard } from './../common/guards/admin.guard';
 import { TransformInterceptor } from './../transformer/interceptors/transform.interceptor';
 import {
   Controller,
@@ -59,18 +60,19 @@ export class BooksController {
   }
 
   @Post()
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
   @UseInterceptors(new TransformInterceptor(BookDTO))
   @HttpCode(HttpStatus.CREATED)
   public async addNewBook(
+    @Request() request: any,
     @Body(new ValidationPipe({ transform: true, whitelist: true }))
     body: CreateBookDTO,
   ) {
-    return await this.booksService.createBook(body);
+    return await this.booksService.createBook(request.user, body);
   }
 
   @Put(':id') // Should be patch maybe
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
   @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
   public async updateBookBorrowing(
@@ -81,9 +83,9 @@ export class BooksController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
   @UseInterceptors(new TransformInterceptor(ShowBookDTO))
-  public async delete(@Param('id') id: string) {
-    return await this.booksService.delete(id);
+  public async delete(@Request() request: any, @Param('id') id: string) {
+    return await this.booksService.delete(request.user, id);
   }
 }

@@ -1,3 +1,4 @@
+import { SystemError } from './../common/exceptions/system.error';
 import { Book } from './../database/entities/books.entity';
 import { BorrowBookDTO } from './models/borrow-book.dto';
 import {
@@ -8,6 +9,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../database/entities/users.entity';
+import { isAdmin } from '../common/util-services/is-admin';
 
 @Injectable()
 export class BooksService {
@@ -25,9 +27,13 @@ export class BooksService {
     return books;
   }
 
-  public async createBook(book: Partial<Book>) {
-    const createdBook = await this.booksRepository.save(book);
-    return createdBook;
+  public async createBook(creator: User, book: Partial<Book>) {
+    if (isAdmin(creator)) {
+      const createdBook = await this.booksRepository.save(book);
+      return createdBook;
+    } else {
+      throw new SystemError('Only admins can create books.', 400);
+    }
   }
 
   public async borrowBook(user: User, bookId: string) {
@@ -56,14 +62,18 @@ export class BooksService {
     return foundBook;
   }
 
-  public async delete(bookId: string) {
-    const foundBook = await this.booksRepository.findOne({ id: bookId });
-    if (!foundBook) {
-      throw new BadRequestException(`There is no book with id ${bookId}!`);
+  public async delete(creator: User, bookId: string) {
+    if (isAdmin(creator)) {
+      const foundBook = await this.booksRepository.findOne({ id: bookId });
+      if (!foundBook) {
+        throw new BadRequestException(`There is no book with id ${bookId}!`);
+      }
+
+      foundBook.isDeleted = true;
+
+      return await this.booksRepository.save(foundBook);
+    } else {
+      throw new SystemError('Only admins are able to delete books.', 400);
     }
-
-    foundBook.isDeleted = true;
-
-    return await this.booksRepository.save(foundBook);
   }
 }
