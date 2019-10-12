@@ -1,8 +1,8 @@
-import { UsersService } from './users.service';
+import { UsersService } from '../../users/users.service';
 import { TestingModule, Test } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { User } from '../database/entities/users.entity';
-import { Role } from '../database/entities/roles.entity';
+import { User } from '../../database/entities/users.entity';
+import { Role } from '../../database/entities/roles.entity';
 import bcrypt from 'bcryptjs';
 
 

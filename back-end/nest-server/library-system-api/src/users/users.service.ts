@@ -18,7 +18,7 @@ export class UsersService {
     @InjectRepository(Role) private readonly rolesRepository: Repository<Role>,
   ) {}
 
-  public async signIn(user: UserLoginDTO) {
+  public async signIn(user: UserLoginDTO): Promise<User> {
     const foundUser: User = await this.userRepository.findOne({
       where: {
         username: user.username,
@@ -86,14 +86,16 @@ export class UsersService {
   }
 
   public async delete(userId: string) {
-    const user = await this.userRepository.findOne({where : { id: userId, isDeleted: false }});
+    const user = await this.userRepository.findOne({
+      where: { id: userId, isDeleted: false },
+    });
     if (!user) {
-      throw new SystemError('The user is not found' , 404);
+      throw new SystemError('The user is not found', 404);
     }
 
     user.isDeleted = true;
     await this.userRepository.save(user);
-    return { messege: 'User deleted succesfully'};
+    return { messege: 'User deleted succesfully' };
   }
 
   public async validate(payload: JwtPayload): Promise<User> {

@@ -23,7 +23,9 @@ export class AuthService {
         username: userFound.username,
       } as JwtPayload);
     }
-    return null;
+    if (!userFound) {
+      throw new SystemError('No such user exists!', 400);
+    }
   }
 
   // For the strategy
