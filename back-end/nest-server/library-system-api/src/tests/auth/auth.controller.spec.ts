@@ -69,7 +69,7 @@ describe('AuthController Tests', () => {
       spy.mockClear();
     });
   });
-  describe('logout()', async () => {
+  describe('logout()', () => {
     it('should call authService.blackListToken() with the passed token', async () => {
       // Arrange
       const token: string = 'fakeToken';

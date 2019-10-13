@@ -6,6 +6,7 @@ import { Book } from '../database/entities/books.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getManager } from 'typeorm';
 import { SystemError } from '../common/exceptions/system.error';
+import { isBookRead } from '../common/util-services/is-book-read';
 
 @Injectable()
 export class RatingsService {
@@ -53,7 +54,7 @@ export class RatingsService {
       throw new BadRequestException('Book not found');
     }
 
-    if (!(await this.isBookRead(user, book))) {
+    if (!(await isBookRead(user, book))) {
       throw new BadRequestException('The book has not been read by this user.');
     }
 
@@ -74,10 +75,5 @@ export class RatingsService {
     }
 
     return await this.ratingsRepository.save(ratingEntity);
-  }
-
-  private async isBookRead(user: User, book: Book) {
-    const books = await user.returnedBooks;
-    return books.some(item => item.id === book.id);
   }
 }

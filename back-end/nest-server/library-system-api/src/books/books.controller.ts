@@ -1,3 +1,4 @@
+import { SystemError } from './../common/exceptions/system.error';
 import { AdminGuard } from './../common/guards/admin.guard';
 import { TransformInterceptor } from './../transformer/interceptors/transform.interceptor';
 import {
@@ -56,7 +57,7 @@ export class BooksController {
   public async bookById(@Param('id') bookId: string) {
     if (bookId) {
       return await this.booksService.findBookById(bookId);
-    }
+    } else { throw new SystemError('Wrong book id!', 400); }
   }
 
   @Post()
