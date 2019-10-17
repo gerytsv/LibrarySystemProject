@@ -9,10 +9,7 @@ import { UsersModule } from './users/users.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { PassportModule } from '@nestjs/passport';
 import { RatingsModule } from './ratings/ratings.module';
-import { LikesController } from './likes/likes.controller';
-import { LikesService } from './likes/likes.service';
-import { LikesModule } from './likes/likes.module';
-import { FlagsModule } from './flags/flags.module';
+import { VotesModule } from './votes/votes.module';
 
 @Module({
   imports: [
@@ -24,10 +21,9 @@ import { FlagsModule } from './flags/flags.module';
     RatingsModule,
     AuthModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    LikesModule,
-    FlagsModule,
+    VotesModule,
   ],
-  controllers: [AppController, LikesController],
-  providers: [AppService, LikesService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
