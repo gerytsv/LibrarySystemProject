@@ -50,11 +50,4 @@ export class ReviewsController {
         return await this.reviewsService.remove(request.user.id, reviewId);
     }
 
-    // Body{ action: "like" / "flag" }
-    @Patch('books/reviews/:reviewId/:int')
-    @UseGuards(AuthGuard(), AdminGuard)
-    public async updateReviewVotes(@Param('reviewId') reviewId: string, @Param('int') int: string, @Body() body: UpdateReviewDTO) {
-        return await (this.reviewsService as any)[actionsToMethods[body.action]](reviewId, +int);
-    }
-
 }
