@@ -1,0 +1,94 @@
+.container{
+  height: 100%;
+}
+
+input{
+  padding-left: 1rem;
+  width: 40rem;
+  font-size: 2rem;
+  border: none;
+  border-bottom: 1px solid grey;
+}
+input:focus {
+  outline: 2px solid #156800;
+}
+
+button{
+    all: unset;
+
+}
+
+button {
+    border-radius: 5%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-transform: uppercase;
+    letter-spacing: .15rem;
+    padding: .75rem 1.25rem;
+    border: 1px solid #156800;
+    color:black;
+    font-size: 1.5rem;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    cursor: pointer;
+  }
+  button:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+ 
+    z-index: -2;
+  }
+  button:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: #1568006c;
+    transition: all .3s;
+
+    z-index: -1;
+  }
+  button:hover:before {
+    width: 100%;
+  }
+
+  .container {
+      display: flex;
+      justify-content: center;
+      
+  }
+
+  option, select{
+    text-transform: uppercase;
+    letter-spacing: .15rem;
+  }
+
+  select {
+    letter-spacing: .15rem;
+    border-left: none;
+    border-top: none;
+
+  }
+
+  select:hover{
+    cursor: pointer;
+  }
+
+
+  select:focus{
+    outline: none;
+  }
+
+  i{
+    margin-left: 1rem;
+}

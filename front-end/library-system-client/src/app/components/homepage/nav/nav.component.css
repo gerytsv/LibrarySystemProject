@@ -1,5 +1,141 @@
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css);
+
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+    background-color: rgb(255, 255, 255);
+  border-top: 2px solid #156800;
+  padding: 3rem 0;
+  position: relative;
 }
+.menu1 {
+  position: relative;
+}
+.dropdown > div {
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  bottom: -11.5rem;
+width: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: flex-start;
+ margin-right: 1rem;
+}
+
+.dropdown:hover {
+  display: flex;
+}
+
+.menu:hover + div {
+  display: flex;
+}
+
+.logged,
+.not-logged,
+.logout-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+button.logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.menu1 {
+  display: flex;
+  justify-content: stretch;
+}
+
+div.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img.login-icon,
+img.register-icon {
+  height: 3rem;
+}
+button,
+.menu {
+  all: unset;
+}
+
+button,
+.menu {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #156800;
+  color: black;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  letter-spacing: 0.15rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  border-radius: 5%;
+  cursor: pointer;
+  margin-right: 2rem;
+}
+button:after,
+.menu:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+
+  z-index: -2;
+}
+button:before,
+.menu:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #1568006c;
+  transition: all 0.3s;
+
+  z-index: -1;
+}
+button:hover:before,
+.menu:hover:before {
+  width: 100%;
+}
+
+i,
+img {
+  margin-left: 1rem;
+}
+
+.login,
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+object{
+    width:3rem;
+}
+
+.dropdown > button {
+    width: 72%;
+}
+
