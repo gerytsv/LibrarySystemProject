@@ -8,6 +8,8 @@ import { NavComponent } from './components/homepage/nav/nav.component';
 import { SearchComponent } from './components/homepage/search/search.component';
 import { MainPageBookComponent } from './components/homepage/main-page-book/main-page-book.component';
 import { FooterComponent } from './components/homepage/footer/footer.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { FooterComponent } from './components/homepage/footer/footer.component';
     NavComponent,
     SearchComponent,
     MainPageBookComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

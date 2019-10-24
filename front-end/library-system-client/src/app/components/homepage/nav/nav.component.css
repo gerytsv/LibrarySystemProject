@@ -18,7 +18,7 @@ nav {
 .dropdown {
   display: none;
   position: absolute;
-  bottom: -11.5rem;
+  bottom: -11.1rem;
 width: 100%;
   flex-direction: column;
   justify-content: space-evenly;
@@ -36,6 +36,10 @@ width: 100%;
 
 .menu:hover + div {
   display: flex;
+}
+
+.menu{
+  padding-left: 1rem;
 }
 
 .logged,
@@ -120,8 +124,8 @@ button:hover:before,
 }
 
 i,
-img {
-  margin-left: 1rem;
+object {
+  margin-right: 1rem;
 }
 
 .login,
@@ -136,6 +140,13 @@ object{
 }
 
 .dropdown > button {
+  border-top: none;
     width: 72%;
 }
 
+.logo{
+  position: absolute;
+  width: 150px;
+  top:0;
+  left:0;
+}
