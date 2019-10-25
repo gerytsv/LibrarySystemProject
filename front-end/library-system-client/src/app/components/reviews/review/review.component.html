@@ -1,0 +1,19 @@
+<div class="review-container">
+    <div class="user">{{ review.user }}</div>
+    <div class="content">
+        {{ review.content }}
+        </div>
+    <div class="footer">
+        <button class="edit-button">Edit</button>
+        <div class="votes">
+            <i class="material-icons">
+                star_border
+            </i>
+            <span class="likes-count">{{ review.votes.likes }}</span>
+            <i class="material-icons">
+                outlined_flag
+            </i>
+            <span class="flags-count">{{ review.votes.flags }}</span>
+        </div>
+    </div>
+</div>
