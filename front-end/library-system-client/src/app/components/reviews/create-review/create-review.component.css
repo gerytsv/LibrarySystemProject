@@ -1,8 +1,9 @@
 .create{
-    width: 100%;
+    
     display: flex;
     align-items: flex-end;
-    height: 2rem;
+    height: 2em;
+    margin: 0.1em 2em 0.1em 2em;
 }
 input {
     border: none;
@@ -16,7 +17,7 @@ input:focus{
 }
 
 button{
-    background-color: #FF4527;
+    background-color: #156800;
     border: medium none;
     border-spacing: 0;
     color: white;
@@ -32,6 +33,11 @@ button{
     transition: background 1s ease-out; 
 }
 
-button:hover {
+button:hover{
     cursor: pointer;
+    background-color: #092402;
+
+}
+button:active{
+background-color: #2ebe0a;
 }
