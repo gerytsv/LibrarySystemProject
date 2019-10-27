@@ -10,7 +10,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavComponent } from './components/nav/nav.component';
 import { SearchComponent } from './components/nav/search/search.component';
-
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { AllBooksPreviewComponent } from './components/books/all-books-preview/all-books-preview.component';
+import { SingleBookComponent } from './components/books/single-book/single-book.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +26,12 @@ import { SearchComponent } from './components/nav/search/search.component';
     SearchComponent,
     LoginComponent,
     RegisterComponent,
-    HomepageComponent
+    HomepageComponent,
+    AllBooksPreviewComponent,
+    SingleBookComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
