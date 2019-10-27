@@ -1,0 +1,5 @@
+<div class="container">
+    <app-create-review></app-create-review>
+    <app-review *ngFor="let review of this.reviews" [review]="review"></app-review>
+    <button class="more">See more...</button>
+</div>

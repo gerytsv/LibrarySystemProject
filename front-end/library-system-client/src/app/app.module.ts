@@ -4,26 +4,32 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
-import { NavComponent } from './components/homepage/nav/nav.component';
-import { SearchComponent } from './components/homepage/search/search.component';
-import { FooterComponent } from './shared/footer/footer.component';
-import { CommonModule } from '@angular/common';
-import { AllBooksPreviewComponent } from './components/books/all-books-preview/all-books-preview.component';
-import { SingleBookComponent } from './components/books/single-book/single-book.component';
-import { HttpClientModule } from '@angular/common/http';
+import { MainPageBookComponent } from './components/homepage/main-page-book/main-page-book.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { NavComponent } from './components/nav/nav.component';
+import { SearchComponent } from './components/nav/search/search.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomepageComponent,
+    MainPageBookComponent,
+    FooterComponent,
+    LoginComponent,
+    RegisterComponent,
     NavComponent,
     SearchComponent,
-    FooterComponent,
-    AllBooksPreviewComponent,
-    SingleBookComponent
+    LoginComponent,
+    RegisterComponent,
+    HomepageComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, CommonModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

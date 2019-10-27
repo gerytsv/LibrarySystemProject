@@ -1,0 +1,65 @@
+.review-container{
+    width: 100%;
+    border: solid grey;
+    border-width: 1px 0px 0 0;
+}
+
+.user {
+    border-bottom: 1px solid #156800;
+    margin: 1rem 2rem 1rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.content {
+    margin: 1rem 1.5rem 2rem 2rem;
+}
+
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 2em;
+}
+
+.edit-button {
+    padding: 0.3rem 1rem;
+}
+
+.votes {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.likes-count {
+    margin-right: 2rem;
+}
+
+button {
+    background-color: #156800;
+    border: medium none;
+    border-spacing: 0;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: normal;
+    list-style: none outside none;
+    text-align: center;
+    text-decoration: none;
+    text-indent: 0;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    transition: background 1s ease-out; 
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: #092402;
+
+}
+button:active{
+background-color: #2ebe0a;
+}
+.material-icons{
+    color: #156800;
+}
