@@ -1,0 +1,19 @@
+.books-container {
+  margin-left: 7%;
+  margin-right: 7%;
+  padding-top: 5%;
+  padding-right: 10px;
+  border-left: 0.1em solid #5d8554;
+  border-right: 0.1em solid #5d8554;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.book-item {
+  padding-bottom: 30px;
+  padding-left: 10px;
+  text-align: center;
+  width: 170px;
+  height: 230px;
+}
