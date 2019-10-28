@@ -1,106 +1,119 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
+  box-sizing: border-box;
+  margin: 0;
 }
 
-.login-form { font-family: 'Roboto' , "Helvetica Neue", sans-serif;
- }
+.login-form, .blocker {
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  background-color: rgba(255, 255, 255, 0.753);
+  position: relative;
+}
+
+.blocker{
+    pointer-events: none;
+}
 
 
-.login-form{
-    display: inline-flex;
-align-items: center;
-justify-content: center;
-flex-flow: column nowrap;
-padding: 4rem 3rem;
-border-radius: 3rem;
-box-shadow: 0.05rem 0.05rem 0.2rem  rgba(33, 46, 22, 0.637);
-padding-top: 0.5rem;
+.login-form {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column nowrap;
+  padding: 4rem 3rem;
+  border-radius: 3rem;
+  box-shadow: 0.05rem 0.05rem 0.2rem rgba(33, 46, 22, 0.637);
+  padding-top: 0.5rem;
 }
 
 img.logo {
-    width: 13rem;
+  width: 13rem;
 }
 
 .welcome {
-    color: #191919;
-    font-size: 1.5rem;
-    margin-bottom: 3rem;
-    margin-top: 3rem;
+  color: #191919;
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
 }
 input {
-    border: none;
-    font-size: 1.2rem
+  border: none;
+  font-size: 1.2rem;
+  background: none;
+  width: 90%;
 }
-input:focus{
-    outline: none;
+input:focus {
+  outline: none;
 }
 
-.username , .password {
-    border-bottom: 0.1rem solid grey;
-    display: flex;
-    justify-content: stretch;
-    align-items: center;
-    margin-bottom: 2rem;
+.username,
+.password {
+  border-bottom: 0.1rem solid grey;
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 button {
-    font-family: 'Roboto' , "Helvetica Neue", sans-serif;
-    width: 100%;
-    background: linear-gradient(90deg, #14C31A 0%, #008805 100%);
-    border: medium none;
-    border-spacing: 0;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: normal;
-    list-style: none outside none;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    text-decoration: none;
-    text-indent: 0;
-    padding: 0.5rem;
-    border-radius: 2rem;
-    margin-top: 1rem;
-    margin-bottom: 3rem;
-    transition: background 1s ease-out; 
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  width: 100%;
+  background: linear-gradient(90deg, #14c31a 0%, #008805 100%);
+  border: medium none;
+  border-spacing: 0;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: normal;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  text-indent: 0;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  transition: background 1s ease-out;
 }
 
-button:focus{
-    outline: none;
+button:focus {
+  outline: none;
 }
 
 button:hover {
-    cursor: pointer;
-    background-position:17rem;
+  cursor: pointer;
+  background-position: 17rem;
 }
 
 button:active {
-    box-shadow: inset -0.1rem 0.1rem 0.3rem  rgb(73, 8, 19);;
+  box-shadow: inset -0.1rem 0.1rem 0.3rem rgb(73, 8, 19);
 }
 
 form {
-    width: 17rem;
+  width: 17rem;
 }
 
 .login-footer {
-    display: flex;
-    font-size: 1.1rem;
-    justify-content: center;
-    align-items: center;
+    color: black;
+  display: flex;
+  font-size: 1.1rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .sent-to-register {
-    font-size: 1.1rem;
-    color: blue;
+  font-size: 1.1rem;
+  color: blue;
 }
 
 .sent-to-register:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .material-icons {
-    color: #0D8000;
-    font-size: 2rem
+  color: #0d8000;
+  font-size: 2rem;
 }
+
+
 
