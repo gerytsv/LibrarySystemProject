@@ -17,6 +17,8 @@ form {
   border-radius: 3rem;
   box-shadow: 0.05rem 0.05rem 0.2rem  rgba(33, 46, 22, 0.637);
   padding-top: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.753);
+  position: relative;
 }
 
 img.logo {
@@ -31,7 +33,8 @@ img.logo {
 }
 input {
   border: none;
-  font-size: 1.2rem
+  font-size: 1.2rem;
+  background-color: rgba(255, 255, 255, 0);
 }
 input:focus {
   outline: none;
@@ -88,9 +91,10 @@ button:active {
   font-size: 1.1rem;
   justify-content: center;
   align-items: center;
+  color: #000;
 }
 
-.sent-to-login {
+span.sent-to-login {
   font-size: 1.1rem;
   color: blue;
 }
