@@ -1,12 +1,11 @@
-
 nav {
   font-size: 8px;
   width: 100%;
-  font-family: 'Roboto' , "Helvetica Neue", sans-serif;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
   display: flex;
   align-items: center;
   justify-content: space-between;
-   background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
   border-top: 2px solid #156800;
   position: relative;
 }
@@ -23,6 +22,7 @@ div.dropdown {
   display: none;
   position: absolute;
   bottom: -8.4em;
+  left: 140px;
   flex-direction: column;
   justify-content: space-evenly;
   text-transform: uppercase;
@@ -30,8 +30,7 @@ div.dropdown {
   font-size: 1.5em;
   justify-content: center;
   align-items: flex-start;
- margin-right: 1em;
- 
+  margin-right: 1em;
 }
 
 .dropdown:hover {
@@ -42,7 +41,7 @@ div.dropdown {
   display: flex;
 }
 
-.menu{
+.menu {
   padding-left: 1em;
 }
 
@@ -71,7 +70,6 @@ div.menu {
   align-items: center;
 }
 
-
 button,
 .menu {
   all: unset;
@@ -96,7 +94,7 @@ button,
 }
 button:after,
 .menu:after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -108,7 +106,7 @@ button:after,
 }
 button:before,
 .menu:before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -124,7 +122,7 @@ button:hover:before,
   width: 100%;
 }
 
-i{
+i {
   margin-left: 0.3em;
 }
 
@@ -135,24 +133,22 @@ i{
   align-items: center;
 }
 
-object{
-    width:2em;
-    margin-right: 1em;
-    z-index: -1;
+object {
+  width: 2em;
+  margin-right: 1em;
+  z-index: -1;
 }
 
 div.dropdown > button {
   border: none;
   border-bottom: 1px solid black;
   width: 72%;
-  border-radius: 0 ;
+  border-radius: 0;
   font-size: 1em;
   letter-spacing: 0.15em;
- 
 }
 
-.logo{
+.logo {
   position: relative;
   width: 150px;
 }
-

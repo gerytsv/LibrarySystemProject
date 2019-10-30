@@ -1,9 +1,10 @@
 <nav>
-  <a [routerLink]="['home']"><img class="logo" src="../../../../assets/imgs/copy.png"  /></a>
+  <a [routerLink]="['home']"><img class="logo" src="../../../../assets/imgs/copy.png" /></a>
   <ng-template [ngIf]="loggedIn">
     <app-search></app-search>
     <div class="logged">
       <div class="menu1">
+        <button [routerLink]="['books']">All Books</button>
         <div class="menu">
           My books
           <i class="material-icons">
@@ -18,9 +19,7 @@
       </div>
       <div class="logout-container">
         <button class="logout" (click)="this.onLogout()">
-          Logout<i class="material-icons"
-            >exit_to_app</i
-          >
+          Logout<i class="material-icons">exit_to_app</i>
         </button>
       </div>
     </div>
@@ -28,20 +27,11 @@
   <ng-template [ngIf]="!loggedIn">
     <div class="not-logged">
       <button class="login" (click)="onLogin()">
-        <object
-          type="image/svg+xml"
-          data="../../../../assets/icons/user.svg"
-          class="login-icon"
-        ></object
-        >Login
+        <object type="image/svg+xml" data="../../../../assets/icons/user.svg" class="login-icon"></object>Login
       </button>
       <button class="register" (click)="onRegister()">
-        <object
-          type="image/svg+xml"
-          data="../../../../assets/icons/register.svg"
-          class="register-icon"
-        ></object
-        >Register
+        <object type="image/svg+xml" data="../../../../assets/icons/register.svg"
+          class="register-icon"></object>Register
       </button>
     </div>
   </ng-template>
