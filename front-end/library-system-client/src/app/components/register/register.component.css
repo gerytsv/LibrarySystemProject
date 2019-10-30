@@ -28,8 +28,8 @@ img.logo {
 .welcome {
   color: #191919;
   font-size: 1.5rem;
-  margin-bottom: 3rem;
-  margin-top: 3rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 input {
   border: none;
@@ -47,7 +47,8 @@ input:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  position: relative;
 }
 
 button {
@@ -57,7 +58,7 @@ button {
   border: medium none;
   border-spacing: 0;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: normal;
   list-style: none outside none;
   margin: 0;
@@ -67,8 +68,8 @@ button {
   text-indent: 0;
   padding: 0.5rem;
   border-radius: 2rem;
-  margin-top: 1.5rem;
-  margin-bottom: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
   transition: background 1s ease-out;
 }
 
@@ -79,6 +80,10 @@ button:focus {
 button:hover {
   cursor: pointer;
   background-position: 17rem;
+}
+
+button:disabled {
+  background: #2525259f;
 }
 
 button:active {
@@ -104,8 +109,21 @@ span.sent-to-login {
 }
 
 .material-icons {
-  color: #0D8000;
+  color: #191919;
   font-size: 2rem
+}
+
+.error{
+  z-index: 10;
+  position: absolute;
+  bottom: -1.5em;
+  font-size: 0.8em;
+}
+
+
+output.error{
+  position: absolute;
+  bottom: -3em;
 }
 
 @media only screen and (max-width: 600px) {
