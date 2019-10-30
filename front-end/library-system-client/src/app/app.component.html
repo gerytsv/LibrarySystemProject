@@ -1,4 +1,5 @@
 <div class="wrapper">
-  <app-nav></app-nav>
-  <app-all-books-preview></app-all-books-preview>
+  <app-nav [loggedIn]="loggedIn" [user]="user"></app-nav>
+  <div class="scene" ><router-outlet></router-outlet></div>
+  <app-footer></app-footer>
 </div>
