@@ -9,10 +9,10 @@
 .my-class .mat-dialog-container {
     border-radius: 3rem;
     background: rgba(255, 255, 255, 0);
-    color: #00000000;
+    color: red;
     box-shadow: none;
     border: none;
     padding: 0;
 
   }
-  
+
