@@ -58,6 +58,7 @@ export class UsersService {
       reviews: Promise.resolve([]),
       borrowedBooks: Promise.resolve([]),
       returnedBooks: Promise.resolve([]),
+      email: body.email
     };
 
     const userEntity = this.userRepository.create(user);
