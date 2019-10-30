@@ -13,8 +13,6 @@ import { RegisterComponent } from './components/register/register.component';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AllBooksPreviewComponent } from './components/books/all-books-preview/all-books-preview.component';
-import { SingleBookComponent } from './components/books/single-book/single-book.component';
 import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './users/users.module';
 import { CoreModule } from './core/core.module';
@@ -22,6 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { TokenInterceptorService } from './auth/token-interceptor.service';
+import { SingleBookPreviewComponent } from './components/books/single-book-preview/single-book-preview.component';
 
 @NgModule({
   declarations: [AppComponent, MainPageBookComponent, HomepageComponent],
@@ -53,6 +52,10 @@ import { TokenInterceptorService } from './auth/token-interceptor.service';
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent, RegisterComponent]
+  entryComponents: [
+    LoginComponent,
+    RegisterComponent,
+    SingleBookPreviewComponent
+  ]
 })
 export class AppModule {}

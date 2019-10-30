@@ -1,5 +1,6 @@
 import { BookDTO } from '../models/book.dto';
 import { Component, OnInit, Input } from '@angular/core';
+import { DialogService } from '../../../core/services/dialog.service';
 
 @Component({
   selector: 'app-single-book',
@@ -19,7 +20,7 @@ export class SingleBookComponent implements OnInit {
 
   public imagesForUse: string[] = this.imageUniques;
 
-  constructor() {}
+  constructor(private readonly dialogService: DialogService) {}
 
   public chooseRandomDesign() {
     // refilling the array if needed
@@ -33,6 +34,10 @@ export class SingleBookComponent implements OnInit {
     this.imagesForUse.splice(index, 1);
 
     this.book.cover = val;
+  }
+
+  public onBookClick() {
+    this.dialogService.openBookPreview();
   }
 
   ngOnInit(): void {
