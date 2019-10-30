@@ -1,19 +1,18 @@
-footer { 
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: #5D8660;
-    padding: 1rem;
-    text-transform: uppercase;
-    letter-spacing: .15rem;
-    
+footer {
+  bottom: 0;
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #5d8660;
+  padding: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
 }
 
 div {
-    font-size: 1rem;
-    color: white;
+  font-size: 1rem;
+  color: white;
 }

@@ -1,3 +1,4 @@
+import { BooksModule } from './components/books/books.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -23,13 +24,7 @@ import { MaterialModule } from './material/material.module';
 import { TokenInterceptorService } from './auth/token-interceptor.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainPageBookComponent,
-    HomepageComponent,
-    AllBooksPreviewComponent,
-    SingleBookComponent,
-  ],
+  declarations: [AppComponent, MainPageBookComponent, HomepageComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -40,19 +35,23 @@ import { TokenInterceptorService } from './auth/token-interceptor.service';
     SharedModule,
     BrowserAnimationsModule,
     UsersModule,
-    CoreModule, ToastrModule.forRoot({
+    CoreModule,
+    BooksModule,
+    ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
-      countDuplicates: true,
+      countDuplicates: true
     }),
     MaterialModule
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true,
-  }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent, RegisterComponent]
 })

@@ -1,6 +1,6 @@
-.scene{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+.scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
