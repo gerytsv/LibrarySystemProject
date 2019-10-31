@@ -1,6 +1,7 @@
 import { BooksDataService } from './../books-data.service';
 import { BookDTO } from '../models/book.dto';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-all-books-preview',
@@ -9,12 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllBooksPreviewComponent implements OnInit {
   public books: BookDTO[] = [];
-  constructor(private readonly booksDataService: BooksDataService) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.booksDataService.getAllBooks().subscribe((data: BookDTO[]) => {
-      this.books = data;
-      console.log(this.books);
-    });
+   this.route.data.subscribe(({books}) => this.books = books);
   }
 }

@@ -10,6 +10,6 @@ export class BooksDataService {
   constructor(private readonly http: HttpClient) {}
 
   public getAllBooks(): Observable<BookDTO[]> {
-    return this.http.get<BookDTO[]>(`http://localhost:3000/api/books`);
+    return this.http.get<BookDTO[]>(`http://localhost:3000/api/books?borrowed=true`);
   }
 }
