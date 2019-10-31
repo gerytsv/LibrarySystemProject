@@ -1,5 +1,6 @@
 html {
   height: 100%;
+  margin-top: -10%;
 }
 body {
   margin: 0;
@@ -188,7 +189,7 @@ a {
   display: flex;
   width: 57vw;
   margin-top: 8vw;
-  margin-bottom: 8vw;
+  margin-bottom: 8vw; 
   padding-right: 1%;
   padding-left: 1%;
   -webkit-box-pack: center;
