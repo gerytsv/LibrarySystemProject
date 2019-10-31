@@ -6,6 +6,7 @@ import { SingleBookComponent } from './single-book/single-book.component';
 import { BooksDataService } from './books-data.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BorrowedBooksResolver } from '../../core/resolvers/borrowed-books.service';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common';
     AllBooksPreviewComponent,
     SingleBookPreviewComponent
   ],
-  imports: [CommonModule, SharedModule, BooksRoutingModule],
-  providers: [BooksDataService]
+  imports: [SharedModule, BooksRoutingModule],
+  providers: [BooksDataService, BorrowedBooksResolver]
 })
 export class BooksModule {}
