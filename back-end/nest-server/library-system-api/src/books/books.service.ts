@@ -27,6 +27,17 @@ export class BooksService {
     return books;
   }
 
+  public async getBorrowedBooksByUser(userId: string) {
+    const books: Book[] = await this.booksRepository.find({
+      where: { borrowedBy: userId },
+    });
+    if (books) {
+    return books;
+    } else {
+      throw new SystemError('No books borrowed');
+    }
+  }
+
   public async createBook(creator: User, book: Partial<Book>) {
     if (isAdmin(creator)) {
       const createdBook = await this.booksRepository.save(book);

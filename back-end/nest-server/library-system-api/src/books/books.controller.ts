@@ -33,8 +33,10 @@ export class BooksController {
   @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
   public async allBooks(
+    @Request() request: any,
     @Query('title') title: string,
     @Query('author') author: string,
+    @Query('borrowed') borrowed: string,
   ) {
     const books: BookDTO[] = await this.booksService.allBooks();
     if (title) {
@@ -45,6 +47,9 @@ export class BooksController {
       return books.filter(book =>
         book.author.toLowerCase().includes(author.toLowerCase()),
       );
+    } else if (borrowed) {
+      console.log(request.user.id);
+      return await this.booksService.getBorrowedBooksByUser(request.user.id);
     } else {
       return books;
     }
