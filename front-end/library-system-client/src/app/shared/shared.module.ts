@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
     CommonModule, MatDialogModule, RouterModule
   ],
   exports: [
-    SearchComponent, NavComponent, FooterComponent, MatDialogModule, CloseButtonComponent]
+    SearchComponent, NavComponent, FooterComponent, MatDialogModule, CloseButtonComponent, CommonModule]
 
 })
 export class SharedModule { }

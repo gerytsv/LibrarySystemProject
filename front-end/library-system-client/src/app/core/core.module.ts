@@ -12,7 +12,7 @@ import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule, SharedModule
+     SharedModule
   ],
   providers: [DialogService, AuthService, NotificatorService, StorageService],
   exports: [
