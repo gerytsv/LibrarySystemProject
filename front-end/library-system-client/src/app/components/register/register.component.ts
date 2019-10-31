@@ -44,7 +44,6 @@ export class RegisterComponent implements OnInit {
 
 
   public register() {
-    console.log({...this.registerForm.value, password: this.passwordFormGroup.value.password});
     const user = {...this.registerForm.value, password: this.passwordFormGroup.value.password};
     this.authService.register(user)
       .subscribe(
