@@ -14,8 +14,6 @@ import { UserRegisterDTO } from '../../common/users/user-register-dto';
 @Injectable()
 export class AuthService {
 
-  private readonly helper = new JwtHelperService();
-
   private readonly isLoggedInSubject$ = new BehaviorSubject<boolean>(this.isUserLoggedIn());
   private readonly loggedUserSubject$ = new BehaviorSubject<User>(this.loggedUser());
 
@@ -23,6 +21,7 @@ export class AuthService {
     private readonly http: HttpClient,
     private readonly storage: StorageService,
     private readonly router: Router,
+    private readonly helper: JwtHelperService
   ) { }
 
   public get isLoggedIn$(): Observable<boolean> {
