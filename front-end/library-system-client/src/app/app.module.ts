@@ -21,6 +21,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { TokenInterceptorService } from './auth/token-interceptor.service';
 import { SingleBookPreviewComponent } from './components/books/single-book-preview/single-book-preview.component';
+import { JwtModule } from '@auth0/angular-jwt';
+
 
 @NgModule({
   declarations: [AppComponent, MainPageBookComponent, HomepageComponent],
@@ -42,7 +44,8 @@ import { SingleBookPreviewComponent } from './components/books/single-book-previ
       preventDuplicates: true,
       countDuplicates: true
     }),
-    MaterialModule
+    MaterialModule,
+    JwtModule.forRoot({config: {}})
   ],
   providers: [
     {
