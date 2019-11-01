@@ -9,7 +9,11 @@ import { BookDTO } from './models/book.dto';
 export class BooksDataService {
   constructor(private readonly http: HttpClient) {}
 
-  public getAllBooks(): Observable<BookDTO[]> {
+  public getBorrowedBooks(): Observable<BookDTO[]> {
     return this.http.get<BookDTO[]>(`http://localhost:3000/api/books?borrowed=true`);
+  }
+
+  public allBooks(): Observable<BookDTO[]> {
+    return this.http.get<BookDTO[]>(`http://localhost:3000/api/books`);
   }
 }
