@@ -6,6 +6,8 @@ import { NotificatorService } from './services/notificator.service';
 import { StorageService } from './services/storage.service';
 import { AuthService } from './services/auth.service';
 import { ToastrModule } from 'ngx-toastr';
+import { AllBooksResolver } from './resolvers/all-books.service';
+import { BorrowedBooksResolver } from './resolvers/borrowed-books.service';
 
 
 
@@ -14,7 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
   imports: [
      SharedModule
   ],
-  providers: [DialogService, AuthService, NotificatorService, StorageService],
+  providers: [DialogService, AuthService, NotificatorService, StorageService, AllBooksResolver, BorrowedBooksResolver],
   exports: [
   ]
 })

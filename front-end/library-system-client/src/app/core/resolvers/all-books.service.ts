@@ -5,11 +5,10 @@ import { Resolve } from '@angular/router';
 import { BooksDataService } from '../../components/books/books-data.service';
 
 @Injectable()
-export class BorrowedBooksResolver implements Resolve<any> {
+export class AllBooksResolver implements Resolve<any> {
   constructor(private readonly booksService: BooksDataService) {}
 
   resolve() {
-    return this.booksService.getBorrowedBooks();
+    return this.booksService.allBooks();
   }
 }
-
