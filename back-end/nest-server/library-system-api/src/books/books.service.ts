@@ -32,7 +32,8 @@ export class BooksService {
       where: { borrowedBy: userId },
     });
     if (books) {
-    return books;
+      console.log(books);
+      return books;
     } else {
       throw new SystemError('No books borrowed');
     }
