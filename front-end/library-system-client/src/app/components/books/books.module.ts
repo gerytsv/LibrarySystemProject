@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BorrowedBooksResolver } from '../../core/resolvers/borrowed-books.service';
 import { CoreModule } from '../../core/core.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { CoreModule } from '../../core/core.module';
     AllBooksPreviewComponent,
     SingleBookPreviewComponent
   ],
-  imports: [SharedModule, BooksRoutingModule, CoreModule],
+  imports: [SharedModule, BooksRoutingModule, CoreModule, ReactiveFormsModule],
   providers: [BooksDataService]
 })
 export class BooksModule {}

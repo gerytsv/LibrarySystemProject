@@ -5,8 +5,8 @@ import { AuthService } from '../../core/services/auth.service';
 import { NotificatorService } from '../../core/services/notificator.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { UserLoginDTO } from '../../common/users/user-login-dto';
-
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss'; // for customizing
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,6 @@ import { UserLoginDTO } from '../../common/users/user-login-dto';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   public loginForm: FormGroup;
 
   private readonly validator = new Validator();
@@ -24,35 +23,42 @@ export class LoginComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly notificator: NotificatorService,
     private readonly router: Router,
-    private readonly fb: FormBuilder,
+    private readonly fb: FormBuilder
   ) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+      username: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)])
+      ],
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(8)])
+      ]
     });
-   }
-
-  ngOnInit() {
   }
 
+  ngOnInit() {}
+
   public login() {
-    this.authService.login(
-      this.loginForm.value
-    )
-    .subscribe(
+    this.authService.login(this.loginForm.value).subscribe(
       () => {
-        this.notificator.success(`Login successful!`);
-        this.dialogService.closeAll();
+        // this.notificator.success(`Login successful!`);
+        Swal.fire({
+          title: 'Login successful!',
+          text: 'Welcome to our online library!',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        // this.dialogService.closeAll();
         this.router.navigate(['/home']);
         this.dialogService.closeAll();
       },
-      () => this.notificator.error(`Invalid email/password!`),
+      () => this.notificator.error(`Invalid email/password!`)
     );
-
   }
 
   public sentTo() {
     this.dialogService.sentToRegister();
   }
-
 }

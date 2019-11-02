@@ -1,4 +1,7 @@
+import { DialogService } from './../../../core/services/dialog.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-single-book-preview',
@@ -8,7 +11,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SingleBookPreviewComponent implements OnInit {
   @Input() book;
 
-  constructor() {}
+  constructor(
+    private readonly dialogService: DialogService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit() {}
 }

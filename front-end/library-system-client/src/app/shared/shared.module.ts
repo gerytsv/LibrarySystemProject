@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
@@ -8,15 +9,22 @@ import { CloseButtonComponent } from './close-button/close-button.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
-
-
 @NgModule({
-  declarations: [SearchComponent, NavComponent, FooterComponent, CloseButtonComponent],
-  imports: [
-    CommonModule, MatDialogModule, RouterModule
+  declarations: [
+    SearchComponent,
+    NavComponent,
+    FooterComponent,
+    CloseButtonComponent
   ],
+  imports: [CommonModule, MatDialogModule, RouterModule],
   exports: [
-    SearchComponent, NavComponent, FooterComponent, MatDialogModule, CloseButtonComponent, CommonModule]
-
+    SearchComponent,
+    NavComponent,
+    FooterComponent,
+    MatDialogModule,
+    CloseButtonComponent,
+    FormsModule,
+    CommonModule
+  ]
 })
-export class SharedModule { }
+export class SharedModule {}
