@@ -22,6 +22,7 @@ import { MaterialModule } from './material/material.module';
 import { TokenInterceptorService } from './auth/token-interceptor.service';
 import { SingleBookPreviewComponent } from './components/books/single-book-preview/single-book-preview.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { SearchService } from './core/services/search.service';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { JwtModule } from '@auth0/angular-jwt';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }
+    },
+    SearchService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
