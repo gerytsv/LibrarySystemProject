@@ -9,7 +9,6 @@ export class BorrowedBooksResolver implements Resolve<any> {
   constructor(private readonly booksService: BooksDataService) {}
 
   resolve() {
-    return this.booksService.getBorrowedBooks();
+    return { books: this.booksService.getBorrowedBooks(), title: 'borrowed books' };
   }
 }
-
