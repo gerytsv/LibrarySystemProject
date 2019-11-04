@@ -9,7 +9,8 @@ nav {
   border-top: 2px solid #156800;
   position: relative;
   white-space: nowrap;
-  flex-wrap: wrap
+  flex-wrap: wrap;
+  z-index: 10
 }
 .menu1 {
   position: relative;
