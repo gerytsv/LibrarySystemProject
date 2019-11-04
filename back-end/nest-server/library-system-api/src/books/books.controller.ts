@@ -48,7 +48,6 @@ export class BooksController {
         book.author.toLowerCase().includes(author.toLowerCase()),
       );
     } else if (borrowed) {
-      console.log(request.user.id);
       return await this.booksService.getBorrowedBooksByUser(request.user.id);
     } else {
       return books;
@@ -62,7 +61,9 @@ export class BooksController {
   public async bookById(@Param('id') bookId: string) {
     if (bookId) {
       return await this.booksService.findBookById(bookId);
-    } else { throw new SystemError('Wrong book id!', 400); }
+    } else {
+      throw new SystemError('Wrong book id!', 400);
+    }
   }
 
   @Post()

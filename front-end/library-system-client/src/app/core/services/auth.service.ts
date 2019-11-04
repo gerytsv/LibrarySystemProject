@@ -1,3 +1,6 @@
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
+
 import { Router } from '@angular/router';
 import { StorageService } from './storage.service';
 
@@ -10,19 +13,21 @@ import { User } from '../../common/users/user';
 import { UserLoginDTO } from '../../common/users/user-login-dto';
 import { UserRegisterDTO } from '../../common/users/user-register-dto';
 
-
 @Injectable()
 export class AuthService {
-
-  private readonly isLoggedInSubject$ = new BehaviorSubject<boolean>(this.isUserLoggedIn());
-  private readonly loggedUserSubject$ = new BehaviorSubject<User>(this.loggedUser());
+  private readonly isLoggedInSubject$ = new BehaviorSubject<boolean>(
+    this.isUserLoggedIn()
+  );
+  private readonly loggedUserSubject$ = new BehaviorSubject<User>(
+    this.loggedUser()
+  );
 
   constructor(
     private readonly http: HttpClient,
     private readonly storage: StorageService,
     private readonly router: Router,
     private readonly helper: JwtHelperService
-  ) { }
+  ) {}
 
   public get isLoggedIn$(): Observable<boolean> {
     return this.isLoggedInSubject$.asObservable();
@@ -33,7 +38,8 @@ export class AuthService {
   }
 
   public login(user: UserLoginDTO) {
-    return this.http.post<{ token: string }>(`http://localhost:3000/session/login`, user)
+    return this.http
+      .post<{ token: string }>(`http://localhost:3000/session/login`, user)
       .pipe(
         tap(({ token }) => {
           try {
@@ -45,7 +51,7 @@ export class AuthService {
           } catch (error) {
             // error handling on the consumer side
           }
-        }),
+        })
       );
   }
 
@@ -53,7 +59,15 @@ export class AuthService {
     this.storage.save('token', '');
     this.isLoggedInSubject$.next(false);
     this.loggedUserSubject$.next(null);
-
+    Swal.fire({
+      title: 'Logout successful!',
+      text: 'See you soon!',
+      type: 'success',
+      background: '#fff',
+      // make the bckg less transperent and black
+      showConfirmButton: false,
+      timer: 1500
+    });
     this.router.navigate(['home']);
   }
 
@@ -75,5 +89,4 @@ export class AuthService {
       return null;
     }
   }
-
 }
