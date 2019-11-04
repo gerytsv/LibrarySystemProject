@@ -7,16 +7,18 @@ import { MatDialogModule, MatDialogConfig } from '@angular/material/dialog';
 import { CloseButtonComponent } from './close-button/close-button.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { SearchService } from '../core/services/search.service';
+import { CoreModule } from '../core/core.module';
 
 
 
 @NgModule({
   declarations: [SearchComponent, NavComponent, FooterComponent, CloseButtonComponent],
   imports: [
-    CommonModule, MatDialogModule, RouterModule
+    CommonModule, MatDialogModule, RouterModule, FormsModule, CoreModule
   ],
   exports: [
-    SearchComponent, NavComponent, FooterComponent, MatDialogModule, CloseButtonComponent, CommonModule]
-
+    SearchComponent, NavComponent, FooterComponent, MatDialogModule, CloseButtonComponent, CommonModule],
 })
 export class SharedModule { }
