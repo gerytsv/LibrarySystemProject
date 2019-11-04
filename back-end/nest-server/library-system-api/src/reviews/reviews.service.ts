@@ -108,30 +108,15 @@ export class ReviewsService {
         };
     }
 
-    // public async like(reviewId: string , likes: number) {
-    //     const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false}});
-    //     if (!review) {
-    //         throw new SystemError('Review not found', 404);
-    //     }
-    //     if (review.likes <= 0 && likes < 0)  {
-    //         throw new SystemError('Review cannot be unliked', 400);
-    //     }
-    //     ( likes > 0 ) ? review.likes++ : review.likes--;
-    //     this.reviewsRepository.save(review);
-    //     return (likes > 0 ) ? { messege: 'Review liked'} : {messege: 'Review unliked'};
-    // }
+    public async getReviewedBooks(userId: string) {
+            const user = await this.usersRepository.findOne({
+              where: { id: userId, isDeleted: false },
+              
+            });
+            const reviews = await this.reviewsRepository.find({where: {user},
+              relations: ['book']});
+            const books = reviews.map(item => item.book);
+            return await Promise.all(books);
+          }
+        }
 
-    // public async flag(reviewId: string , flags: number) {
-    //     const review = await this.reviewsRepository.findOne({where: { id: reviewId, isDeleted: false}});
-    //     if (!review) {
-    //         throw new SystemError('Review not found', 404);
-    //     }
-    //     if (review.flags <= 0 && flags < 0)  {
-    //         throw new SystemError('Review cannot be unflagged', 404);
-    //     }
-    //     ( flags > 0 ) ? review.flags++ : review.flags--;
-    //     this.reviewsRepository.save(review);
-    //     return (flags > 0 ) ? { messege: 'Review flaged'} : {messege: 'Review unflaged'};
-    // }
-
-}

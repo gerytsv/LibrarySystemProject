@@ -2,10 +2,8 @@ import { Controller, Get, Param, Body, Post, BadRequestException, Put, Delete, U
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDTO } from './models/create-review.dto';
 import { ShowReviewDTO } from './models/show-review..dto';
-import { UpdateReviewDTO } from './models/votes-review.dto';
 import { TransformInterceptor } from '../transformer/interceptors/transform.interceptor';
 import { AuthGuard } from '@nestjs/passport';
-import { actionsToMethods } from '../common/enums/update-actions';
 import { AdminGuard } from '../common/guards/admin.guard';
 
 @Controller('api')
@@ -49,5 +47,11 @@ export class ReviewsController {
         console.log(request.user.id);
         return await this.reviewsService.remove(request.user.id, reviewId);
     }
+
+    @Get('user/books/reviewed')
+  @UseGuards(AuthGuard())
+  public async getUserAllReviewedBooks(@Request() request: any) {
+    return await this.reviewsService.getReviewedBooks(request.user.id);
+  }
 
 }
