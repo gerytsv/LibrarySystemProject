@@ -1,7 +1,12 @@
 <div class="container">
-  <select>Search by
-    <option>Title</option>
-    <option>Author</option>
+  <select [(ngModel)]="this.query"
+    >Search by
+    <option>title</option>
+    <option>author</option>
   </select>
-  <input type="text" placeholder="Search..."><button>Search <i class="material-icons">search</i></button>
+  <input type="text" placeholder="Search..." [(ngModel)]="this.input" />
+  <button (click)="this.sendSearchInfo()" >
+    Search <i class="material-icons">search</i>
+  </button>
 </div>
+<!-- [routerLink]="['books/search']" -->
