@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BorrowedBooksResolver } from '../../core/resolvers/borrowed-books.service';
 import { CoreModule } from '../../core/core.module';
+import { SearchService } from '../../core/services/search.service';
 
 @NgModule({
   declarations: [
