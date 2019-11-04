@@ -6,6 +6,18 @@
     box-sizing: border-box;
 }
 
+body{
+    min-height: 100vh;
+    padding-bottom: 90px;
+    position: relative;
+}
+
+app-footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%
+}
+
 .my-class .mat-dialog-container {
     border-radius: 3rem;
     background: rgba(255, 255, 255, 0);
