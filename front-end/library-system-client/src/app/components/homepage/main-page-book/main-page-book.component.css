@@ -189,7 +189,7 @@ a {
   display: flex;
   width: 57vw;
   margin-top: 8vw;
-  margin-bottom: 8vw; 
+  margin-bottom: 8vw;
   padding-right: 1%;
   padding-left: 1%;
   -webkit-box-pack: center;
@@ -475,23 +475,46 @@ a {
 
 .page-text p {
   margin-bottom: 0px;
-  font-size: 0.85vw;
+  font-size: 1.05vw;
   line-height: 1.5;
 }
 
-.page-text h3 {
-  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-  font-style: italic;
-}
-
-.page-text h6 {
-  font-family: 'PT Sans', sans-serif;
-  font-size: 9px;
+.welcome {
+  font-family: 'Kleymissky';
+  /* font-style: italic; */
   text-decoration: none;
+  font-size: 3.5rem;
+  color: #007024;
 }
 
-.page-text a {
-  color: #da5a13;
+.page-text h3 {
+  /* font-style: italic; */
+  text-decoration: none;
+  font-size: 1.5em;
+  color: #007024;
+}
+
+/* the subtitle + quote */
+.text-quote {
+  font-weight: normal;
+  font-family: 'Times New Roman', sans-serif;
+  font-style: italic;
+  text-decoration: none;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.8em;
+}
+
+.subtitle {
+  font-family: 'Times New Roman', sans-serif;
+  font-size: 4em;
+  font-style: italic;
+  text-decoration: none;
+  margin-top: 0px;
+  padding-top: 20px;
+  font-weight: normal;
+  font-size: 1.3rem;
 }
 
 .layer2 {
