@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
         this.dialogService.closeAll();
       },
-      () => this.notificator.error(`Invalid email/password!`)
+      () => this.notificator.error(`Invalid username/password!`)
     );
   }
 
