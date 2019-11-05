@@ -1,7 +1,6 @@
 import { BookDTO } from '../models/book.dto';
 import { Component, OnInit, Input } from '@angular/core';
 import { DialogService } from '../../../core/services/dialog.service';
-
 @Component({
   selector: 'app-single-book',
   templateUrl: './single-book.component.html',
@@ -39,7 +38,7 @@ export class SingleBookComponent implements OnInit {
   public chooseRandomDesign() {
     // refilling the array if needed
     if (!this.imagesForUse.length) {
-      this.imagesForUse = this.imageUniques; // something s wrong here on the 5/6th reload
+      this.imagesForUse = this.imageUniques;
     }
     const index = Math.floor(Math.random() * this.imagesForUse.length);
     const val = this.imagesForUse[index];
