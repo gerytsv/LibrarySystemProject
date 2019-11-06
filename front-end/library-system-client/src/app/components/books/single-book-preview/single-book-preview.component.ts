@@ -22,7 +22,6 @@ export class SingleBookPreviewComponent implements OnInit {
     const cover = this.data.data.cover;
     this.book = this.data.data.book;
 
-    console.log(cover);
     $(document).ready(function() {
       $('.book')
         .css('background', `url(${cover}) no-repeat center center`)

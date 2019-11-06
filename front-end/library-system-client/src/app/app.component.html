@@ -1,5 +1,11 @@
 <div class="wrapper">
   <app-nav [loggedIn]="loggedIn" [user]="user"></app-nav>
-  <div class="scene" ><router-outlet></router-outlet></div>
+  <div class="scene">
+    <router-outlet></router-outlet>
+  </div>
   <app-footer></app-footer>
+  <ngx-spinner bdOpacity=0.8 bdColor="rgba(62,63,78,0.72)" size="large" color="#74ff00" type="ball-atom"
+    [fullScreen]="true">
+    <p style="color: white"> </p>
+  </ngx-spinner>
 </div>

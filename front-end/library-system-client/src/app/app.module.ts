@@ -23,12 +23,14 @@ import { TokenInterceptorService } from './auth/token-interceptor.service';
 import { SingleBookPreviewComponent } from './components/books/single-book-preview/single-book-preview.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { SearchService } from './core/services/search.service';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SpinnerInterceptor } from './core/interceptors/spinner.interceptor';
 
 @NgModule({
   declarations: [AppComponent, MainPageBookComponent, HomepageComponent],
   imports: [
     FormsModule,
+    NgxSpinnerModule,
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
@@ -46,15 +48,20 @@ import { SearchService } from './core/services/search.service';
       countDuplicates: true
     }),
     MaterialModule,
-    JwtModule.forRoot({config: {}})
+    JwtModule.forRoot({ config: {} })
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
     },
-    SearchService,
+    SearchService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
