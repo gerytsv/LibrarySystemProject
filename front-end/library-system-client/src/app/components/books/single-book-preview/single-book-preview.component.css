@@ -1,3 +1,7 @@
+/* prettier-ignore */
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:700,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:500&display=swap');
+
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
@@ -46,6 +50,24 @@ body {
   /* background: #202020; */
   font-family: 'Roboto', sans-serif;
 }
+.info {
+  margin-left: 5%;
+}
+.mainTitle {
+  text-align: center;
+  font-size: 4rem;
+  text-align: center;
+  font-family: 'Playfair Display', bold;
+}
+
+.author {
+  margin-top: 5%;
+  text-align: center;
+  font-size: 2.3rem;
+  text-align: center;
+  font-family: 'Ubuntu';
+}
+
 .wrap {
   height: 100%;
   max-width: 1280px;

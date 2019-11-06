@@ -8,14 +8,13 @@ import { BorrowedBooksResolver } from './resolvers/borrowed-books.service';
 import { SearchService } from './services/search.service';
 import { RatedBooksResolver } from './resolvers/rated-books.service';
 import { ReviewedBooksResolver } from './resolvers/reviewed-books.service';
-
-
-
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 
 @NgModule({
   declarations: [],
   imports: [],
   providers: [
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
     DialogService,
     AuthService,
     NotificatorService,
