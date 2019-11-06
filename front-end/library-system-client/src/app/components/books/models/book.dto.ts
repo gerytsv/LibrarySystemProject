@@ -7,6 +7,8 @@ export class BookDTO {
 
   public year: string;
 
+  public description: string;
+
   public freeToBorrow: boolean;
 
   public borrowedBy: string;

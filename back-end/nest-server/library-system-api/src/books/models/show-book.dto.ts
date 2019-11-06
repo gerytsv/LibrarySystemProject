@@ -17,6 +17,9 @@ export class ShowBookDTO {
   public year: string;
 
   @Publish()
+  public description: string;
+
+  @Publish()
   public freeToBorrow: boolean;
 
   @Publish(UsernameDTO)
