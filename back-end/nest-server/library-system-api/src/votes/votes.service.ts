@@ -129,6 +129,9 @@ export class VotesService {
     if (!review) {
       throw new SystemError('No such review', 400);
     }
+    if (votes.length === 0) {
+      return { likes: 0, flags: 0 };
+    }
     const votesToReturn = votes.reduce(
       (acc, vote) => {
         if (vote.liked === true) {
@@ -183,6 +186,9 @@ export class VotesService {
       where: { id: userId, isDeleted: false },
     });
     const vote = await this.votesRepository.findOne({where: {user , review}});
+    if (!vote) {
+      return  {flagged: false, liked: false};
+    }
     return  {flagged: vote.flagged, liked: vote.liked};
   }
 }

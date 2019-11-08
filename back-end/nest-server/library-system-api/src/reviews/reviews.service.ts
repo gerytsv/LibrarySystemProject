@@ -64,6 +64,7 @@ export class ReviewsService {
         const reviewEntity = this.reviewsRepository.create(review);
         reviewEntity.user = Promise.resolve(user);
         reviewEntity.book = Promise.resolve(book);
+        reviewEntity.votes = Promise.resolve([]);
         if (oldReview) {
             reviewEntity.id = oldReview.id;
         }

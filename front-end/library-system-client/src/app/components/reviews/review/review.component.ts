@@ -27,12 +27,10 @@ export class ReviewComponent implements OnInit {
     this.ReviewOwner = res.username;
     this.review.user.username === this.ReviewOwner ? this.isReviewOwner = true : this.isReviewOwner = false ;
     });
-    if (this.review.id) {
     this.reviewsDataService.getVotesOfReview(this.review.id).subscribe(res => {
       this.votes = res.votes;
       this.myvotes = res.myVotes;
-      });
-    }
+    });
   }
 
   public toggleEditButton() {
