@@ -13,16 +13,25 @@ import { delay, finalize } from 'rxjs/operators';
 export class SpinnerInterceptor implements HttpInterceptor {
   public constructor(private spinner: NgxSpinnerService) {}
 
+  private timer;
+
   public intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.spinner.show();
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    // Setting timer on 500 miliseconds
+    this.timer = setTimeout(() => this.spinner.show(), 500);
 
-    // when the request finishes, wait for 500 milliseconds and hide the spinner
-    return next.handle(req).pipe(
-      delay(500),
-      finalize(() => this.spinner.hide())
-    );
+
+    return next.handle(req).pipe(finalize(() => {
+      this.spinner.hide();
+    // Hiding the spinner, if the spinner is not triggered after 500 ms the timeot is cancelled and the sipnner is not going to be presented
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
+    }));
   }
 }
