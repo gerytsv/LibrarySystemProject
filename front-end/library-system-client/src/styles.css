@@ -25,6 +25,13 @@ app-footer{
     box-shadow: none;
     border: none;
     padding: 0;
-
+    overflow: auto;
   }
 
+  .cdk-overlay-pane  {
+      overflow: auto;
+  }
+
+  .cdk-overlay-pane::-webkit-scrollbar { 
+    display: none; 
+    }
