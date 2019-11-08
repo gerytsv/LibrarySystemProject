@@ -37,11 +37,16 @@ export class VotesController {
   public async getAllVotes(
     @Param('reviewId') reviewId: string,
     @Body() body: UpdateReviewDTO,
+    @Request() request: any
   ) {
 
-    return await this.votesService.getVotes(reviewId);
+    return {
+      votes: await this.votesService.getVotes(reviewId),
+      myVotes: await this.votesService.myVotes(reviewId, request.user.id)
+    };
+
   }
-  
+
   @Get('books/reviews/:reviewId/votes/users')
   @UseGuards(AuthGuard())
   public async getAllLikedUsers(
@@ -52,4 +57,5 @@ export class VotesController {
 
     return await this.votesService.getAllUsersVoted(reviewId);
   }
+
 }

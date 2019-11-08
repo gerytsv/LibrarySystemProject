@@ -174,4 +174,15 @@ export class VotesService {
     }, []);
     return { usersLikedIds, usersFlaggedIds };
   }
+
+  public async myVotes(reviewId: string, userId: string) {
+    const review: Review = await this.reviewsRepository.findOne({
+      where: { id: reviewId, isDeleted: false },
+    });
+    const user = await this.usersRepository.findOne({
+      where: { id: userId, isDeleted: false },
+    });
+    const vote = await this.votesRepository.findOne({where: {user , review}});
+    return  {flagged: vote.flagged, liked: vote.liked};
+  }
 }
