@@ -23,6 +23,7 @@ import { TokenInterceptorService } from './auth/token-interceptor.service';
 import { SingleBookPreviewComponent } from './components/books/single-book-preview/single-book-preview.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { SearchService } from './core/services/search.service';
+import { ReviewModule } from './components/reviews/review.module';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { SearchService } from './core/services/search.service';
       countDuplicates: true
     }),
     MaterialModule,
-    JwtModule.forRoot({config: {}})
+    JwtModule.forRoot({config: {}}),
+    ReviewModule
   ],
   providers: [
     {
