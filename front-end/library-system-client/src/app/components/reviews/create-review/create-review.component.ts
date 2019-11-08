@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ReviewsDataService } from '../review-data.service';
+import { NotificatorService } from '../../../core/services/notificator.service';
+import { ReviewDTO } from '../models/review.dto';
 
 @Component({
   selector: 'app-create-review',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateReviewComponent implements OnInit {
 
-  constructor() { }
+  public content = '';
+  public bookId: string;
+  @Output() public sendBody: EventEmitter<{content: string}> = new EventEmitter();
+
+  constructor(
+  ) { }
 
   ngOnInit() {
   }
+
+  public onPostButtonClick() {
+    this.sendBody.emit({content: this.content});
+  }
+
+
 
 }
