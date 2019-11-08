@@ -25,11 +25,14 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { SearchService } from './core/services/search.service';
 import { ReviewModule } from './components/reviews/review.module';
 
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SpinnerInterceptor } from './core/interceptors/spinner.interceptor';
 
 @NgModule({
   declarations: [AppComponent, MainPageBookComponent, HomepageComponent],
   imports: [
     FormsModule,
+    NgxSpinnerModule,
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
@@ -49,14 +52,20 @@ import { ReviewModule } from './components/reviews/review.module';
     MaterialModule,
     JwtModule.forRoot({config: {}}),
     ReviewModule
+
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
     },
-    SearchService,
+    SearchService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

@@ -50,7 +50,9 @@ export class SingleBookComponent implements OnInit {
   }
 
   public onBookClick() {
-    this.dialogService.openBookPreview();
+    this.dialogService.openBookPreview({
+      data: { cover: this.book.cover, book: this.book }
+    });
   }
 
   ngOnInit(): void {

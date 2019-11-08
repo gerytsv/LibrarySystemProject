@@ -8,4 +8,6 @@ export class CreateBookDTO {
   public author: string;
   @IsString()
   public year: string;
+  @IsString()
+  public description: string;
 }

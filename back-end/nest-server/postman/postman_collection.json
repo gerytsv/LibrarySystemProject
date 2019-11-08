@@ -365,7 +365,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n    \"title\": \"The secret garden\",\r\n    \"author\": \"Frances Hodgson Burnett\",\r\n    \"year\": \"1911\"\r\n}"
+							"raw": " {\r\n    \"title\": \"The secret garden\",\r\n    \"author\": \"Frances Hodgson Burnett\",\r\n    \"year\": \"1911\"\r\n    \"description\": \"The secret garden is a book about a secret garden.\",\r\n}"
 						},
 						"url": {
 							"raw": "localhost:3000/api/books",
