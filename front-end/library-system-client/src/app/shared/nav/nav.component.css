@@ -157,7 +157,9 @@ div.dropdown > button {
 
 .logo {
   position: relative;
-  width: 150px;
+  margin: 15px;
+  width: 120px;
+  height: 80px;
 }
 
 @media only screen and (max-width: 600px) {
