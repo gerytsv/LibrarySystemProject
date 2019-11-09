@@ -2,6 +2,16 @@
   overflow-x: hidden;
 }
 
+.title {
+  /* margin: 0 auto; */
+  left: 50%;
+  right: 50%;
+  font-size: 1.3rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
 ::-webkit-scrollbar {
   width: 0px; /* Remove scrollbar space */
   background: transparent; /* Optional: just make scrollbar invisible */

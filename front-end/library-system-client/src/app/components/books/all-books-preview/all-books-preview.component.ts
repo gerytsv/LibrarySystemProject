@@ -34,26 +34,28 @@ export class AllBooksPreviewComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: no-string-literal
     if (this.route.snapshot['_routerState'].url !== '/books/search') {
       this.routeSubscription = this.route.data.subscribe(({ books }) => {
-        books.books.subscribe(booksArray => {
-          this.title = `My ${books.title}`;
+        books.books.subscribe((booksArray) => {
+          if (books.title !== 'books') {
+            this.title = `My ${books.title}:`;
+          }
           this.books = booksArray;
           if (this.books.length === 0) {
-            this.title = `No ${books.title} at the moment`;
+            this.title = `No ${books.title} at the moment.`;
           }
         });
       });
     } else {
       this.searchInfoInSubscription = this.searchInfo.SearchInfo$.subscribe(
-        object => {
+        (object) => {
           this.booksServive
             .searchBooks(object.query, object.input)
-            .subscribe(books => {
-             this.books = books ;
-             if (this.books.length === 0) {
-               this.title = `No results found for books with ${object.query} ${object.input}`;
-             } else {
-               this.title = `Showing results for books with ${object.query} ${object.input}`;
-             }
+            .subscribe((books) => {
+              this.books = books;
+              if (this.books.length === 0) {
+                this.title = `No results found for books with ${object.query} ${object.input}`;
+              } else {
+                this.title = `Showing results for books with ${object.query} ${object.input}`;
+              }
             });
         }
       );
