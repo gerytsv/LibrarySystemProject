@@ -1,20 +1,55 @@
 <app-close-button></app-close-button>
-<div class="wrap">
-  <div class="perspective">
-    <div class="book-wrap">
-      <div class="book book-1">
-        <div class="text-front">
-          <h1 class='mainTitle info'>{{this.book.title}}</h1>
-          <h4 class='author info'>{{this.book.author}}</h4>
+<div>
+  <div md-dialog-content class="content">
+    <div class="wrap">
+      <div class="perspective">
+        <div class="book-wrap">
+          <div class="book book-1">
+            <div class="text-front">
+              <h1 class='mainTitle info'>{{this.book.title}}</h1>
+              <h4 class='author info'>{{this.book.author}}</h4>
+            </div>
+          </div>
+          <div class="title book-1"></div>
+          <div class="book-back book-1">
+            <div class="text">
+              <!-- put the real book title here:  -->
+              <h3>{{this.book.title}}</h3>
+              <p><span>{{this.book.description}}</span></p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="title book-1"></div>
-      <div class="book-back book-1">
-        <div class="text">
-          <!-- put the real book title here:  -->
-          <h3>{{this.book.title}}</h3>
-          <p><span>{{this.book.description}}</span></p>
+    </div>
+
+    <div class="book-info">
+      <h5>
+        <p>Title: </p>{{this.book.title}}
+      </h5>
+      <h5>
+        <p>Author: </p>{{this.book.author}}
+      </h5>
+      <h5>
+        <p>Year: </p>{{this.book.year}}
+      </h5>
+      <h5>
+        <p>Free to borrow: </p>{{this.book.freeToBorrow}}
+      </h5>
+      <h5 *ngIf="!this.book.freeToBorrow">
+        <p>Borrowed by:</p>{{this.borrower}}
+      </h5>
+      <div class="buttons">
+        <div *ngIf="!this.book.freeToBorrow">
+          <button *ngIf="this.currentIsBorrower" type="button" (click)="borrow()">
+            Return Book
+          </button>
         </div>
+        <button *ngIf="this.book.freeToBorrow" type="button" (click)="borrow()">
+          Borrow
+        </button>
+        <button (click)="showReviews()">
+          View Reviews
+        </button>
       </div>
     </div>
   </div>
