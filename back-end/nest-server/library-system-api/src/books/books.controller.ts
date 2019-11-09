@@ -78,8 +78,8 @@ export class BooksController {
     return await this.booksService.createBook(request.user, body);
   }
 
-  @Put(':id') // Should be patch maybe
-  @UseGuards(AuthGuard('jwt'), AdminGuard)
+  @Put(':id')
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
   public async updateBookBorrowing(

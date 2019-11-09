@@ -65,8 +65,13 @@ export class BooksService {
   }
 
   public async findBookById(bookId: string) {
-    const foundBook: Book = await this.booksRepository.findOne({ id: bookId });
-
+    const foundBook: Book = await this.booksRepository.findOne({
+      where: {
+        id: bookId,
+      },
+      relations: ['borrowedBy'],
+    });
+    // console.log(foundBook);
     if (foundBook === undefined || foundBook.isDeleted) {
       throw new NotFoundException(`No book with id ${bookId} found.`);
     }

@@ -23,5 +23,5 @@ export class ShowBookDTO {
   public freeToBorrow: boolean;
 
   @Publish(UsernameDTO)
-  public borrowedBy: Promise<User>;
+  public borrowedBy: any;
 }

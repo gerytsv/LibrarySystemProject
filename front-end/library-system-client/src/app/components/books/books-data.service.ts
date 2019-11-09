@@ -10,22 +10,38 @@ export class BooksDataService {
   constructor(private readonly http: HttpClient) {}
 
   public getBorrowedBooks(): Observable<BookDTO[]> {
-    return this.http.get<BookDTO[]>(`http://localhost:3000/api/books?borrowed=true`);
+    return this.http.get<BookDTO[]>(
+      `http://localhost:3000/api/books?borrowed=true`
+    );
   }
 
   public allBooks(): Observable<BookDTO[]> {
     return this.http.get<BookDTO[]>(`http://localhost:3000/api/books`);
   }
 
+  public borrowBook(bookId: string): Observable<BookDTO> {
+    return this.http.put<any>(`http://localhost:3000/api/books/${bookId}`, {});
+  }
+
   public searchBooks(query: string, value: string): Observable<BookDTO[]> {
-    return this.http.get<BookDTO[]>(`http://localhost:3000/api/books?${query}=${value}`);
+    return this.http.get<BookDTO[]>(
+      `http://localhost:3000/api/books?${query}=${value}`
+    );
   }
 
   public ratedBooks(): Observable<BookDTO[]> {
-    return this.http.get<BookDTO[]>(`http://localhost:3000/api/user/books/rated`);
+    return this.http.get<BookDTO[]>(
+      `http://localhost:3000/api/user/books/rated`
+    );
   }
 
   public reviewedBooks(): Observable<BookDTO[]> {
-    return this.http.get<BookDTO[]>(`http://localhost:3000/api/user/books/reviewed`);
+    return this.http.get<BookDTO[]>(
+      `http://localhost:3000/api/user/books/reviewed`
+    );
+  }
+
+  public viewCurrentBook(id: string): Observable<BookDTO[]> {
+    return this.http.get<BookDTO[]>(`http://localhost:3000/api/books/${id}`);
   }
 }

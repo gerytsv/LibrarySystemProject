@@ -11,7 +11,7 @@ export class BookDTO {
 
   public freeToBorrow: boolean;
 
-  public borrowedBy: string;
+  public borrowedBy: any;
 
   public cover: string; // URL to random cover
 }
