@@ -64,9 +64,11 @@ export class ReviewsService {
         const reviewEntity = this.reviewsRepository.create(review);
         reviewEntity.user = Promise.resolve(user);
         reviewEntity.book = Promise.resolve(book);
+        reviewEntity.votes = Promise.resolve([]);
         if (oldReview) {
             reviewEntity.id = oldReview.id;
         }
+        reviewEntity.isDeleted = false;
         return await this.reviewsRepository.save(reviewEntity);
     }
 
@@ -81,8 +83,8 @@ export class ReviewsService {
                 throw new SystemError('This user can\'t edit the review', 400);
             }
         }
-
         review.content = newContent;
+        console.log(review)
 
         return await this.reviewsRepository.save(review);
 
@@ -100,7 +102,6 @@ export class ReviewsService {
                 throw new SystemError('This user can\'t delete the review', 400);
             }
         }
-        console.log(review);
         review.isDeleted = true;
         this.reviewsRepository.save(review);
         return {
@@ -111,12 +112,10 @@ export class ReviewsService {
     public async getReviewedBooks(userId: string) {
             const user = await this.usersRepository.findOne({
               where: { id: userId, isDeleted: false },
-              
             });
             const reviews = await this.reviewsRepository.find({where: {user},
               relations: ['book']});
             const books = reviews.map(item => item.book);
             return await Promise.all(books);
           }
-        }
-
+ }

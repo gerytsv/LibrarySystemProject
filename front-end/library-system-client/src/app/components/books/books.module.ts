@@ -10,6 +10,7 @@ import { BorrowedBooksResolver } from '../../core/resolvers/borrowed-books.servi
 import { CoreModule } from '../../core/core.module';
 import { SearchService } from '../../core/services/search.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ReviewModule } from '../reviews/review.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AllBooksPreviewComponent,
     SingleBookPreviewComponent
   ],
-  imports: [SharedModule, BooksRoutingModule, CoreModule, ReactiveFormsModule],
-  providers: [BooksDataService]
+  imports: [SharedModule, BooksRoutingModule, CoreModule, ReactiveFormsModule, ReviewModule],
+  providers: [BooksDataService],
 })
 export class BooksModule {}

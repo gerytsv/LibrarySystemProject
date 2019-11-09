@@ -56,6 +56,8 @@ export class SingleBookComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    setTimeout ( () => {
     this.chooseRandomDesign();
+  });
   }
 }

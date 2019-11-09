@@ -1,4 +1,4 @@
 <div class="create">
-    <input type="text" placeholder="Write a review..." >
-    <button type="submit">Post</button>
+    <textarea type="text" placeholder="Write a review..." [(ngModel)]= this.content ></textarea>
+    <button type="button" (click)=this.onPostButtonClick()>Post</button>
 </div>

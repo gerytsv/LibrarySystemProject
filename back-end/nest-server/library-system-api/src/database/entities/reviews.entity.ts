@@ -12,7 +12,6 @@ export class Review {
     public content: string;
 
     @OneToMany(type => Vote, votes => votes.review)
-    
     public votes: Promise<Vote[]>;
 
     @Column({ type: 'boolean', default: false })
