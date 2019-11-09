@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { AuthGuard } from './common/auth/auth.guard';
 
 
 const routes: Routes = [
@@ -8,9 +9,7 @@ const routes: Routes = [
 
   { path: 'home', component: HomepageComponent },
 
-  { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule)},
-
-  { path: 'books', loadChildren: () => import('./components/books/books.module').then(m => m.BooksModule)}
+  { path: 'books', canActivate: [AuthGuard], loadChildren: () => import('./components/books/books.module').then(m => m.BooksModule)}
 
   // { path: 'not-found', component: NotFoundComponent },
 
