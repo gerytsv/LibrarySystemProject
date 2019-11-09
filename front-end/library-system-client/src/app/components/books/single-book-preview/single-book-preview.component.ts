@@ -17,6 +17,7 @@ export class SingleBookPreviewComponent implements OnInit {
   public currentIsBorrower = false;
   public borrower: string; // the user that has borrowed the this.book
   public currentUser: string;
+  public showReviewsFlag = false;
 
   constructor(
     private readonly dialogService: DialogService,
@@ -110,5 +111,7 @@ export class SingleBookPreviewComponent implements OnInit {
     }
   }
 
-  public showReviews() {}
+  public showReviews() {
+    this.showReviewsFlag = !this.showReviewsFlag;
+  }
 }

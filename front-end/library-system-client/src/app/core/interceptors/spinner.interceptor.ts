@@ -25,13 +25,14 @@ export class SpinnerInterceptor implements HttpInterceptor {
     // Setting timer on 500 miliseconds
     this.timer = setTimeout(() => this.spinner.show(), 500);
 
-
-    return next.handle(req).pipe(finalize(() => {
-      this.spinner.hide();
-    // Hiding the spinner, if the spinner is not triggered after 500 ms the timeot is cancelled and the sipnner is not going to be presented
-      if (this.timer) {
-        clearTimeout(this.timer);
-      }
-    }));
+    return next.handle(req).pipe(
+      finalize(() => {
+        this.spinner.hide();
+        // Hiding the spinner, if the spinner is not triggered after 500 ms the timeot is cancelled and the spinner is not going to be presented
+        if (this.timer) {
+          clearTimeout(this.timer);
+        }
+      })
+    );
   }
 }

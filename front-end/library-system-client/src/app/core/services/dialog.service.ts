@@ -45,7 +45,9 @@ export class DialogService {
     dialogConfig.minWidth = 800;
     dialogConfig.position = {
       top: '0',
-      left: '0'
+      left: '0',
+      bottom: '0',
+      right: '0'
     };
 
     this.dialog.open(SingleBookPreviewComponent, dialogConfig);

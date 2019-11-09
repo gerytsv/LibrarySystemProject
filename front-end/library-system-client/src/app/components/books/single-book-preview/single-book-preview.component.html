@@ -1,6 +1,6 @@
 <app-close-button></app-close-button>
-<div>
-  <div md-dialog-content class="content">
+<div md-dialog-content class="main">
+  <div class="content">
     <div class="wrap">
       <div class="perspective">
         <div class="book-wrap">
@@ -32,26 +32,28 @@
       <h5>
         <p>Year: </p>{{this.book.year}}
       </h5>
-      <h5>
+      <h5 class="additional-info">
         <p>Free to borrow: </p>{{this.book.freeToBorrow}}
       </h5>
-      <h5 *ngIf="!this.book.freeToBorrow">
+      <h5 class="additional-info" *ngIf="!this.book.freeToBorrow">
         <p>Borrowed by:</p>{{this.borrower}}
       </h5>
       <div class="buttons">
         <div *ngIf="!this.book.freeToBorrow">
-          <button *ngIf="this.currentIsBorrower" type="button" (click)="borrow()">
+          <button class="returnBtn" *ngIf="this.currentIsBorrower" type="button" (click)="borrow()">
             Return Book
           </button>
         </div>
-        <button *ngIf="this.book.freeToBorrow" type="button" (click)="borrow()">
+        <button class="borrowBtn" *ngIf="this.book.freeToBorrow" type="button" (click)="borrow()">
           Borrow
         </button>
-        <button (click)="showReviews()">
+        <button class="reviewsBtn" (click)="showReviews()">
           View Reviews
         </button>
       </div>
     </div>
   </div>
+  <div>
+    <app-all-reviews *ngIf="this.showReviewsFlag" [bookId]="this.book.id"></app-all-reviews>
+  </div>
 </div>
-<app-all-reviews [bookId]="this.book.id"></app-all-reviews>
