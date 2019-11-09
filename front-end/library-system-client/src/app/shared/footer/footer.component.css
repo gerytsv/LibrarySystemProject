@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
 footer {
   width: 100%;
   display: flex;
@@ -5,29 +7,34 @@ footer {
   justify-content: space-between;
   background-color: none;
   text-transform: uppercase;
-  letter-spacing: 0.15rem;
+  border-top: 1px solid black;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  /* letter-spacing: 0.1rem; */
 
-  padding: 15px 0;
+  padding: 10px 0;
   margin-top: 65px;
 }
 
-div {
+.line {
+  font-family: 'Open Sans', sans-serif;
   padding-left: 1em;
+  margin-top: 3px;
   font-size: 1rem;
   color: black;
 }
-img{
+
+img {
   width: 7em;
   margin-right: 2em;
 }
-.angular{
+
+.angular {
   width: 4em;
 }
 
 @media only screen and (max-width: 600px) {
-
   img {
     display: none;
   }
-
 }

@@ -10,11 +10,13 @@ nav {
   position: relative;
   white-space: nowrap;
   flex-wrap: wrap;
-  z-index: 10
+  z-index: 10;
 }
+
 .menu1 {
   position: relative;
 }
+
 .dropdown > div {
   padding: 0.5em 0;
   cursor: pointer;
@@ -95,6 +97,7 @@ button,
   cursor: pointer;
   margin-right: 2em;
 }
+
 button:after,
 .menu:after {
   content: '';
@@ -107,6 +110,7 @@ button:after,
 
   z-index: -2;
 }
+
 button:before,
 .menu:before {
   content: '';
@@ -157,13 +161,9 @@ div.dropdown > button {
 }
 
 @media only screen and (max-width: 600px) {
-
   nav {
     flex-direction: column;
     align-self: center;
     justify-content: center;
-    
-
   }
-
 }
