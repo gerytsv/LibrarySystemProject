@@ -9,12 +9,14 @@ import { SearchService } from './services/search.service';
 import { RatedBooksResolver } from './resolvers/rated-books.service';
 import { ReviewedBooksResolver } from './resolvers/reviewed-books.service';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { AuthGuard } from '../common/auth/auth.guard';
 
 @NgModule({
   declarations: [],
   imports: [],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+    AuthGuard,
     DialogService,
     AuthService,
     NotificatorService,
