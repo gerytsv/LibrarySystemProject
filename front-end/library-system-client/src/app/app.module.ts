@@ -27,9 +27,11 @@ import { ReviewModule } from './components/reviews/review.module';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerInterceptor } from './core/interceptors/spinner.interceptor';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ServerErrorComponent } from './components/server-error/server-error.component';
 
 @NgModule({
-  declarations: [AppComponent, MainPageBookComponent, HomepageComponent],
+  declarations: [AppComponent, MainPageBookComponent, HomepageComponent, NotFoundComponent, ServerErrorComponent],
   imports: [
     FormsModule,
     NgxSpinnerModule,
