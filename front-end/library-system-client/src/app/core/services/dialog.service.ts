@@ -41,8 +41,6 @@ export class DialogService {
     dialogConfig.disableClose = false;
     dialogConfig.hasBackdrop = true;
     dialogConfig.panelClass = 'my-class';
-    dialogConfig.minHeight = 1000;
-    dialogConfig.minWidth = 800;
     dialogConfig.position = {
       top: '0',
       left: '0',

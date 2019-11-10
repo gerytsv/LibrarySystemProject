@@ -43,20 +43,23 @@
 */
 
 ::ng-deep .mat-dialog-container {
-  width: initial;
+  /* width: initial;
   position: initial;
-  overflow-y: scroll;
+  overflow-y: scroll; */
+  overflow: hidden;
+}
+
+::ng-deep .mat-dialog-content {
+  /* overflow: auto; */
 }
 
 /*
-::ng-deep .mat-dialog-content {
-
-}
-*/
-
 ::ng-deep .cdk-global-overlay-wrapper {
   overflow-x: hidden;
-}
+} */
+
+/* md-dialog-content {
+} */
 
 ::ng-deep .cdk-overlay-pane {
   margin: 0 auto !important;
@@ -66,8 +69,9 @@
 
 .main {
   height: 100%;
+  /* overflow-y: auto; */
   /* overflow-y: hidden !important; */
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .content {
