@@ -11,12 +11,14 @@ import { CoreModule } from '../../core/core.module';
 import { SearchService } from '../../core/services/search.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ReviewModule } from '../reviews/review.module';
+import { BookRatingComponent } from './book-rating/book-rating.component';
 
 @NgModule({
   declarations: [
     SingleBookComponent,
     AllBooksPreviewComponent,
-    SingleBookPreviewComponent
+    SingleBookPreviewComponent,
+    BookRatingComponent
   ],
   imports: [SharedModule, BooksRoutingModule, CoreModule, ReactiveFormsModule, ReviewModule],
   providers: [BooksDataService],

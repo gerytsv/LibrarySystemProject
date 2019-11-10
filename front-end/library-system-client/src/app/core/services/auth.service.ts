@@ -64,7 +64,6 @@ export class AuthService {
       text: 'See you soon!',
       type: 'success',
       background: '#fff',
-      // make the bckg less transperent and black
       showConfirmButton: false,
       timer: 1500
     });
