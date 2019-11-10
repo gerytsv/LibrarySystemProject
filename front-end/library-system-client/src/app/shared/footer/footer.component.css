@@ -16,6 +16,11 @@ footer {
   margin-top: 65px;
 }
 
+img {
+  max-width: 7%;
+  max-height: 7%;
+}
+
 .line {
   font-family: 'Open Sans', sans-serif;
   padding-left: 1em;
