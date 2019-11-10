@@ -6,7 +6,7 @@ import { NotificatorService } from '../../core/services/notificator.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
-import 'sweetalert2/src/sweetalert2.scss'; // for customizing
+// import 'sweetalert2/src/sweetalert2.scss'; // for customizing
 
 @Component({
   selector: 'app-login',
