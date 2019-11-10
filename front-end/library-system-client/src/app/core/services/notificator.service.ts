@@ -3,10 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class NotificatorService {
-
-  constructor(
-    private readonly toastrService: ToastrService,
-  ) { }
+  constructor(private readonly toastrService: ToastrService) {}
 
   public success(message: string) {
     this.toastrService.success(message);
@@ -19,5 +16,4 @@ export class NotificatorService {
   public error(message: string) {
     this.toastrService.error(message);
   }
-
 }

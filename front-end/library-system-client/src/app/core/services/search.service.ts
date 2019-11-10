@@ -17,16 +17,11 @@ export class SearchService {
   }
 
   public collectSearchInfo(query: string, input: string) {
-
-      this.SearchInfoSubject$.next({query, input}),
+    this.SearchInfoSubject$.next({ query, input }),
       this.router.navigate(['/books/search']);
   }
 
-  public getInfo(){
-    console.log(this.SearchInfoSubject$.value)
+  public getInfo() {
+    console.log(this.SearchInfoSubject$.value);
   }
-
-
-
 }
-

@@ -52,9 +52,9 @@ export class AllBooksPreviewComponent implements OnInit, OnDestroy {
             .subscribe((books) => {
               this.books = books;
               if (this.books.length === 0) {
-                this.title = `No results found for books with ${object.query} ${object.input}`;
+                this.title = `No results found for books with ${object.query}: ${object.input} `;
               } else {
-                this.title = `Showing results for books with ${object.query} ${object.input}`;
+                this.title = `Showing results for books with ${object.query}: ${object.input} `;
               }
             });
         }
