@@ -60,17 +60,14 @@ export class SingleBookPreviewComponent implements OnInit {
         .removeClass('flip');
     });
 
-    console.log(cover);
     this.authService.loggedUser$.subscribe((response) => {
       this.currentUser = response.username;
-      console.log(`Current User: ${response.username}`);
     });
 
     this.booksService
       .viewCurrentBook(this.data.data.book.id)
       .subscribe((response) => {
         this.book = response;
-        // console.log(this.book);
         if (this.book.borrowedBy.username === undefined) {
           this.borrower = '-';
         } else {
@@ -79,23 +76,17 @@ export class SingleBookPreviewComponent implements OnInit {
             this.currentIsBorrower = true;
           }
         }
-        console.log(`Borrower of book: ${this.borrower}`);
       });
 
-    console.log(`isBorrowed: ${this.book.freeToBorrow}`);
     this.book.freeToBorrow = this.book.freeToBorrow;
   }
 
   public borrow() {
-    // this.booksService.borrowBook(this.book.id).subscribe((r) => {
-    //   console.log(r);
-    // });
     if (!this.book.freeToBorrow) {
       // returning the book
       if (this.currentIsBorrower) {
         this.booksService.borrowBook(this.book.id).subscribe((r) => {
           // un-borrowing the book
-          console.log(`Un-borrowing the book: ${r.title}`);
           this.book.freeToBorrow = true;
           this.borrower = '-';
         });
@@ -104,7 +95,6 @@ export class SingleBookPreviewComponent implements OnInit {
       // is free to borrow
       this.booksService.borrowBook(this.book.id).subscribe((r) => {
         // borrowing the book
-        console.log(`Borrowing the book: ${r.title}`);
         this.book.freeToBorrow = false;
         this.borrower = this.currentUser;
       });

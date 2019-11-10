@@ -82,7 +82,6 @@ export class ReviewsController {
     @Request() request: any,
     @Param('reviewId') reviewId: string,
   ) {
-    console.log(request.user.id);
     return await this.reviewsService.remove(request.user.id, reviewId);
   }
 }

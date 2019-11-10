@@ -84,7 +84,6 @@ export class ReviewsService {
             }
         }
         review.content = newContent;
-        console.log(review)
 
         return await this.reviewsRepository.save(review);
 
