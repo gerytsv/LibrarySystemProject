@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrationValidator } from '../../core/validators/compare-password';
 import Swal from 'sweetalert2';
-import 'sweetalert2/src/sweetalert2.scss'; // for customizing
+// import 'sweetalert2/src/sweetalert2.scss'; // for customizing
 
 @Component({
   selector: 'app-register',
