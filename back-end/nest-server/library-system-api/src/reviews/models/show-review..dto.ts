@@ -10,12 +10,8 @@ export class ShowReviewDTO {
   public id: string;
   @Publish()
   public content: string;
-  @Publish()
-  public likes: number;
-  @Publish()
-  public flags: number;
-  @Publish(ShowBookDTO)
-  public book: ShowBookDTO;
+  // @Publish(ShowBookDTO)
+  // public book: ShowBookDTO;
   @Publish(ShowUserDTO)
   public user: ShowUserDTO;
   @Publish()

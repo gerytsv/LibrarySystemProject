@@ -16,7 +16,7 @@ import { ConfigService } from '../config/config.service';
         password: configService.dbPassword,
         database: configService.dbName,
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: false,
+        synchronize: true,
       }),
     }),
   ],

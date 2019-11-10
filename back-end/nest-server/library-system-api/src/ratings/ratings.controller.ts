@@ -8,10 +8,13 @@ import {
   Get,
   Request,
   ValidationPipe,
+  UseInterceptors,
 } from '@nestjs/common';
 import { RatingsService } from './ratings.service';
 import { CreateRatingDTO } from './models/CreateRatingDTO';
 import { AuthGuard } from '@nestjs/passport';
+import { TransformInterceptor } from '../transformer/interceptors/transform.interceptor';
+import { ShowRatingDTO } from './models/show-rating.dto';
 
 @Controller('api')
 export class RatingsController {
@@ -25,6 +28,7 @@ export class RatingsController {
 
   @Post('/books/:bookId/rating')
   @UseGuards(AuthGuard())
+  @UseInterceptors(new TransformInterceptor(ShowRatingDTO))
   public async createBookRating(
     @Request() request: any,
     @Param('bookId') bookId: string,
@@ -36,6 +40,11 @@ export class RatingsController {
       bookId,
       +body.vote,
     );
-    // return { msg: 'Book Rated!' };
+  }
+
+  @Get('user/books/rated')
+  @UseGuards(AuthGuard())
+  public async getUserAllRatedBooks(@Request() request: any) {
+    return await this.ratingsService.getUserRatedBooks(request.user.id);
   }
 }

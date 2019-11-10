@@ -1,0 +1,8 @@
+<div class="title">{{this.title}}</div>
+<div class="books-container">
+  <!-- We should find a way to use different font size, depending on the number of chars in the title/author.
+      might use this library -> https://github.com/rikschennink/fitty  -->
+  <app-single-book class="book-item" *ngFor="let book of this.books" [book]="book"></app-single-book>
+  <!-- Add two lines in the corners later -->
+
+</div>

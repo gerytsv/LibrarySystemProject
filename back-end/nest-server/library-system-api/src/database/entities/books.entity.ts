@@ -24,6 +24,9 @@ export class Book {
   @Column({ default: '' })
   public year: string;
 
+  @Column({ default: '' })
+  public description: string;
+
   @Column({ type: 'boolean', default: true })
   public freeToBorrow: boolean;
 

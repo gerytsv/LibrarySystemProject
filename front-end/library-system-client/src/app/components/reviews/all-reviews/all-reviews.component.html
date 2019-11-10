@@ -1,0 +1,6 @@
+<div class="container">
+  <app-create-review *ngIf=!this.haveReview (sendBody)="this.createReview($event)"></app-create-review>
+  <app-review *ngFor="let review of this.reviews" (deleteReviewId)="this.removeReview($event)" [review]="review">
+  </app-review>
+  <button class="more">See more...</button>
+</div>
