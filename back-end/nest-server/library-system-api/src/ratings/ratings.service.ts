@@ -76,15 +76,4 @@ export class RatingsService {
 
     return await this.ratingsRepository.save(ratingEntity);
   }
-
-  public async getUserRatedBooks(userId: string){
-    const user = await this.usersRepository.findOne({
-      where: { id: userId, isDeleted: false },
-      
-    });
-    const ratings = await this.ratingsRepository.find({where: {user},
-      relations: ['book']});
-    const books = ratings.map(item => item.book);
-    return await Promise.all(books);
-  }
 }

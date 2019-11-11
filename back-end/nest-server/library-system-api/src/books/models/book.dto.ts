@@ -15,9 +15,6 @@ export class BookDTO {
   public year: string;
 
   @Publish()
-  public description: string;
-
-  @Publish()
   public freeToBorrow: boolean;
 
   public borrowedBy: Promise<User>;

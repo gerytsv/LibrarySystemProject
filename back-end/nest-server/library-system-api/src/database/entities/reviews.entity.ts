@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, CreateDateColumn } from 'typeorm';
 import { User } from './users.entity';
 import { Book } from './books.entity';
-import { Vote } from './votes.entity';
 
 @Entity('reviews')
 export class Review {
@@ -11,8 +10,11 @@ export class Review {
     @Column('nvarchar', { default: '' } )
     public content: string;
 
-    @OneToMany(type => Vote, votes => votes.review)
-    public votes: Promise<Vote[]>;
+    @Column('int', { default: 0 })
+    public likes: number;
+
+    @Column('int', { default: 0 })
+    public flags: number;
 
     @Column({ type: 'boolean', default: false })
     public isDeleted: boolean;
