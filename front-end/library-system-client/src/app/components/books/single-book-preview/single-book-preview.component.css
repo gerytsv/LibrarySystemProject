@@ -176,7 +176,6 @@ p {
 
 .info {
   color: rgb(47, 47, 47);
-  margin-left: 5%;
 }
 
 .mainTitle {
@@ -233,7 +232,7 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
-  margin: auto;
+  margin-top: 11%;
   cursor: pointer;
   border-radius: 0;
 }
@@ -275,6 +274,12 @@ h3 {
   color: #fff;
 }
 
+.description {
+  font-family: 'Roboto', light;
+  font-size: 1.2em;
+  color: white;
+}
+
 .book-back .text {
   transform: rotateX(180deg);
   position: absolute;
@@ -307,11 +312,11 @@ h3 {
 }
 
 .text-front {
-  margin-top: 50px;
-  padding-top: 30px;
-  margin-left: 100px;
-  margin-right: 60px;
+  padding-top: 9%;
+  margin-left: 20%;
+  height: 100%;
+  margin-right: 5%;
+  padding-bottom: 43%;
   text-align: center;
-  font-size: 50px;
   font-family: 'Roboto', sans-serif;
 }

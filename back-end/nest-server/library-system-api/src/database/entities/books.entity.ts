@@ -24,7 +24,7 @@ export class Book {
   @Column({ default: '' })
   public year: string;
 
-  @Column({ default: '' })
+  @Column({ type: 'text' })
   public description: string;
 
   @Column({ type: 'boolean', default: true })

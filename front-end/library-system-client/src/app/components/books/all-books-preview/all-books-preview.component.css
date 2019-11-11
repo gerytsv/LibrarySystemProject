@@ -19,7 +19,7 @@
 }
 
 .books-container {
-  overflow: scroll; /* maybe useless */
+  width: 100%;
   margin-left: 7%;
   margin-right: 7%;
   padding-top: 5%;

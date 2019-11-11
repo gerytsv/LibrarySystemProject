@@ -24,7 +24,7 @@ export class User {
   @Column({ type: 'nvarchar' })
   public password: string;
 
-  @Column({ type: 'nvarchar'})
+  @Column({ type: 'nvarchar', default: '' })
   public email: string;
 
   @OneToMany(type => Rating, ratings => ratings.user)
