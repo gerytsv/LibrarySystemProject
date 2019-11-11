@@ -33,10 +33,8 @@ export class BooksController {
   @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
   public async allBooks(
-    @Request() request: any,
     @Query('title') title: string,
     @Query('author') author: string,
-    @Query('borrowed') borrowed: string,
   ) {
     const books: BookDTO[] = await this.booksService.allBooks();
     if (title) {
@@ -47,8 +45,6 @@ export class BooksController {
       return books.filter(book =>
         book.author.toLowerCase().includes(author.toLowerCase()),
       );
-    } else if (borrowed) {
-      return await this.booksService.getBorrowedBooksByUser(request.user.id);
     } else {
       return books;
     }
@@ -61,9 +57,7 @@ export class BooksController {
   public async bookById(@Param('id') bookId: string) {
     if (bookId) {
       return await this.booksService.findBookById(bookId);
-    } else {
-      throw new SystemError('Wrong book id!', 400);
-    }
+    } else { throw new SystemError('Wrong book id!', 400); }
   }
 
   @Post()
@@ -78,8 +72,8 @@ export class BooksController {
     return await this.booksService.createBook(request.user, body);
   }
 
-  @Put(':id')
-  @UseGuards(AuthGuard('jwt'))
+  @Put(':id') // Should be patch maybe
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
   @UseInterceptors(new TransformInterceptor(ShowBookDTO))
   @HttpCode(HttpStatus.OK)
   public async updateBookBorrowing(

@@ -27,17 +27,6 @@ export class BooksService {
     return books;
   }
 
-  public async getBorrowedBooksByUser(userId: string) {
-    const books: Book[] = await this.booksRepository.find({
-      where: { borrowedBy: userId },
-    });
-    if (books) {
-      return books;
-    } else {
-      throw new SystemError('No books borrowed');
-    }
-  }
-
   public async createBook(creator: User, book: Partial<Book>) {
     if (isAdmin(creator)) {
       const createdBook = await this.booksRepository.save(book);
@@ -65,13 +54,8 @@ export class BooksService {
   }
 
   public async findBookById(bookId: string) {
-    const foundBook: Book = await this.booksRepository.findOne({
-      where: {
-        id: bookId,
-      },
-      relations: ['borrowedBy'],
-    });
-    // console.log(foundBook);
+    const foundBook: Book = await this.booksRepository.findOne({ id: bookId });
+
     if (foundBook === undefined || foundBook.isDeleted) {
       throw new NotFoundException(`No book with id ${bookId} found.`);
     }

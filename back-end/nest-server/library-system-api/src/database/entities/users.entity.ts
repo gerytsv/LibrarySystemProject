@@ -11,7 +11,6 @@ import { Role } from './roles.entity';
 import { Review } from './reviews.entity';
 import { Book } from './books.entity';
 import { Rating } from './ratings.entity';
-import { Vote } from './votes.entity';
 
 @Entity('users')
 export class User {
@@ -24,14 +23,8 @@ export class User {
   @Column({ type: 'nvarchar' })
   public password: string;
 
-  @Column({ type: 'nvarchar'})
-  public email: string;
-
   @OneToMany(type => Rating, ratings => ratings.user)
   public ratings: Promise<Rating[]>;
-
-  @OneToMany(type => Vote, votes => votes.user)
-  public votes: Promise<Vote[]>;
 
   @OneToMany(type => Review, review => review.user)
   public reviews: Promise<Review[]>;
