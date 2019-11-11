@@ -34,7 +34,8 @@
         <p>Year: </p>{{this.book.year}}
       </h5>
       <h5 class="additional-info">
-        <p>Free to borrow: </p>{{this.book.freeToBorrow}}
+        <p>Free to borrow: </p><span *ngIf="this.book.freeToBorrow">yes</span><span
+          *ngIf="!this.book.freeToBorrow">no</span>
       </h5>
       <h5 class="additional-info" *ngIf="!this.book.freeToBorrow">
         <p>Borrowed by:</p>{{this.borrower}}
