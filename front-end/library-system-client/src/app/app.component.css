@@ -1,6 +1,7 @@
 .scene {
   margin-left: 5%;
   margin-right: 5%;
+  margin-top: 5%;
   border-left: 1px solid rgb(1, 62, 38);
   border-right: 1px solid rgb(1, 62, 38);
 }

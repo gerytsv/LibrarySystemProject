@@ -274,6 +274,7 @@ h3 {
 }
 
 .description {
+  line-height: 1.3;
   font-family: 'Roboto', light;
   font-size: 1.2em;
   color: white;
